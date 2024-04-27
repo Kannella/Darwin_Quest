@@ -1,6 +1,7 @@
 package gamecontrol.main;
 
 //Essa classe é responsavel por organizar a tela. Nela temos o ciclo em que as imagens são desenhadas
+import gamecontrol.entidade.Entity;
 import gamecontrol.entidade.Player;
 import gamecontrol.objeto.SuperObject;
 import gamecontrol.tile.TileManager;
@@ -44,7 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
     
     //Entidade e objeto
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10]; 
+    public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[]= new Entity[10];
 
     // Game State (estado do jogo)
     public int gameState;
@@ -52,8 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState = 2;
     
     public GamePanel() {
-
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //Dimensiona o tamanho da tela
         this.setBackground(Color.darkGray);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
 
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(0);
         gameState = playState;
     }
@@ -125,6 +127,12 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0; i < obj.length; i++){
             if(obj[i] != null){
                 obj[i].draw(g2, this);
+            }
+        }
+        //NPC
+        for(int i = 0; i< npc.length;i++){
+            if(npc[i] != null){
+                npc[i].draw(g2);
             }
         }
 
