@@ -20,10 +20,45 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public Rectangle solidArea = new Rectangle(0,0,48,48); //Esse o tamanho default para todas as entidades
     public boolean collisionOn = false;
+    public int actionLockCounter=0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
+    public void setAction(){    
+    }
+
+    public void update(){
+        setAction();
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        if(collisionOn == false){
+                
+            switch(direction){
+                case "up":
+                    worldY = worldY - speed;
+                    break;
+                case "down":
+                    worldY = worldY + speed;
+                    break;
+                case "left":
+                    worldX = worldX - speed;
+                    break;
+                case "right":
+                    worldX = worldX + speed;
+                    break;            
+            }
+        }
+
+        spriteCounter++;
+        if (spriteCounter > 10) {
+        spriteNumber = (spriteNumber % 4) + 1; // Ciclar entre 1 e 4
+        spriteCounter = 0;
+        }
+    }
+
     public void draw(Graphics2D g2){
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

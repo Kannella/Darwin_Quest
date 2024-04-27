@@ -1,16 +1,18 @@
 package gamecontrol.entidade;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import gamecontrol.main.GamePanel;
 
-public class NPC extends Entity {
-    public NPC(GamePanel gp){
+public class Partner extends Entity {
+    public Partner(GamePanel gp){
         super(gp);  
         direction = "down";
         speed = 4;
+        getNPCImage();
  
     }
     public void getNPCImage(){
@@ -34,6 +36,28 @@ public class NPC extends Entity {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+    public void setAction() {
+        Random random= new Random();
+        int i = random.nextInt(100)+1;
+        actionLockCounter ++;
+        if (actionLockCounter==50){
+            if(i <= 25){
+                direction = "up";
+            }
+            if(i > 25 && i <= 50){
+                direction = "down";
+            }
+            if(i > 50 && i <= 75){
+                direction = "left";
+            }
+            if(i > 75 && i <= 100){
+                direction = "right";
+            }
+
+            actionLockCounter = 0;
+        }
+        
     }
 }
 
