@@ -1,7 +1,5 @@
 package gamecontrol.main;
 
-import java.lang.annotation.Target;
-
 //Classe feita para verificar a colisão, ela checa alguns retangulos criados em volta de objetos e para saber se eles estão no mesmo lugar
 import gamecontrol.entidade.Entity;
 
