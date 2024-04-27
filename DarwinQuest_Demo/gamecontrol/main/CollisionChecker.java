@@ -1,5 +1,7 @@
 package gamecontrol.main;
 
+import java.lang.annotation.Target;
+
 //Classe feita para verificar a colisão, ela checa alguns retangulos criados em volta de objetos e para saber se eles estão no mesmo lugar
 import gamecontrol.entidade.Entity;
 
@@ -129,5 +131,60 @@ public class CollisionChecker {
             }
         }
          return index;
+    }
+    //Checar colisão de NPC
+    public int checkEntity(Entity entidade, Entity[] target){
+        int index = 999;
+
+        for(int i = 0; i < target.length; i++){
+
+            if(target[i] != null){
+
+                //Pegar da entidade solid area position
+                entidade.solidArea.x = entidade.worldX + entidade.solidArea.x;
+                entidade.solidArea.y = entidade.worldY + entidade.solidArea.y;
+                //Pegar dos objetos a solid area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+
+                switch(entidade.direction){
+                    case "up":
+                        entidade.solidArea.y -= entidade.speed;
+                        if(entidade.solidArea.intersects(target[i].solidArea)){
+                            entidade.collisionOn = true;
+                            index = i;
+                        }   
+                        break;
+                    case "down":
+                        entidade.solidArea.y += entidade.speed;
+                        if (entidade.solidArea.intersects(target[i].solidArea)) {
+                                entidade.collisionOn = true;
+                                index = i;
+                        }   
+                        break;
+                    case "left":
+                        entidade.solidArea.y -= entidade.speed;
+                        if (entidade.solidArea.intersects(target[i].solidArea)) {
+                            entidade.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        entidade.solidArea.y += entidade.speed;
+                        if (entidade.solidArea.intersects(target[i].solidArea)) {
+                            entidade.collisionOn = true;            
+                            index = i;
+                        }    
+                        break;                   
+                }
+                entidade.solidArea.x = entidade.solidAreaDefaultX;
+                entidade.solidArea.y = entidade.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+
+            }
+        }
+         return index;
+
     }
 }

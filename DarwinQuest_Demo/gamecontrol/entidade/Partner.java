@@ -11,7 +11,7 @@ public class Partner extends Entity {
     public Partner(GamePanel gp){
         super(gp);  
         direction = "down";
-        speed = 4;
+        speed = 3;
         getNPCImage();
  
     }
