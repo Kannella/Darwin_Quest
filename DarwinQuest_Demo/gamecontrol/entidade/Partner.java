@@ -8,10 +8,11 @@ import javax.imageio.ImageIO;
 import gamecontrol.main.GamePanel;
 
 public class Partner extends Entity {
+    Random random= new Random();
     public Partner(GamePanel gp){
         super(gp);  
         direction = "down";
-        speed = 3;
+        speed =random.nextInt(3,5);
         getNPCImage();
  
     }
@@ -38,7 +39,6 @@ public class Partner extends Entity {
         }
     }
     public void setAction() {
-        Random random= new Random();
         int i = random.nextInt(100)+1;
         actionLockCounter ++;
         if (actionLockCounter==50){

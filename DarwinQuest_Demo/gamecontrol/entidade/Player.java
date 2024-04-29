@@ -95,8 +95,12 @@ public class Player extends Entity{
             pickUpObject(objIndex);
 
             //checa colisão com npc
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
-            interactNPC(npcIndex);
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);             //Isso aqui checa qual foi a entidade que colidiu com o player
+            int speednpc = 999;
+            if(npcIndex !=999){                                             //Isso verifica se essa entidade não é tile (hitbox do mapa)
+                speednpc = gp.npc[npcIndex].speed;  //isso verifica a velocidade do npc baseado no index verificado acima
+            }
+            interactNPC(speednpc);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador
 
             //Se colisor for false, o player pode se mover
             if(collisionOn == false){
@@ -131,9 +135,8 @@ public class Player extends Entity{
         }
     }
     public void interactNPC(int i){
-        if (i != 999){
-            //interagir com o npc
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        if(i !=999 && i!=4){
+            System.out.println(i);
         }
     }
 
