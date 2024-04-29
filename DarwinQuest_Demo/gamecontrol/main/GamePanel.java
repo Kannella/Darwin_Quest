@@ -15,7 +15,7 @@ import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable{
     //Configurações de tela
-    final int originalTileSize = 16; //Tamanho dos tiles do jogo no caso 16x16
+    final int originalTileSize = 24; //Tamanho dos tiles do jogo no caso 16x16
     final int scale = 3; //Isso aqui faz um escalonamento dos tiles para que pareçam maiores no caso 3 x 16 = 48
    
     public final int tileSize = originalTileSize * scale;
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
-    public void setupGame(){
+    public void setupGame(){       //PREPARA O NIVEL, SPAWNA NPCS E OBJETOS, INICIA MUSICA 
 
         aSetter.setObject();
         aSetter.setNPC();

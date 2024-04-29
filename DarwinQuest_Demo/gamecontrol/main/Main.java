@@ -12,7 +12,7 @@ public class Main {
         window.setTitle("Darwin Quest V0.2");
 
         GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        window.add(gamePanel); 
         
 
         window.pack();
