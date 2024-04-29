@@ -17,8 +17,11 @@ public class AssetSetter {
 
     }
     public void setNPC(){
-        gp.npc[0]=new Partner(gp);
-        gp.npc[0].worldX = gp.tileSize*21;
-        gp.npc[0].worldY = gp.tileSize*21;
+        int num_npcs=1; //Essa variavel controla o numero de npcs, mais que 99 crasha o jogo, caso queira mudar isso por algum motivo mudar la no GamePanel
+       for(int i=0;i!=num_npcs;i++){
+           gp.npc[i]=new Partner(gp);
+           gp.npc[i].worldX = gp.tileSize*20;
+           gp.npc[i].worldY = gp.tileSize*20;
+       };
     }
 }
