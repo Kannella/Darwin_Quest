@@ -17,7 +17,6 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    //public int comeu = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
