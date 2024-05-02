@@ -1,27 +1,38 @@
 package gamecontrol.main;
 
-//Essa é a nossa classe main, responsavel pela tela aparecer e tudo(como por exemplo lidar com o movimento na tela, rezize, fullscreen e tal)
-import javax.swing.JFrame;
+import gamecontrol.login.TelaLogin;
 
+import javax.swing.*;
 
 public class Main {
-    public static void main(String [] args){
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fecha de forma certa o programa
-        window.setResizable(false);              //Permite a mudança de tamanho da janela, deixem em false se não da pra ver renderizando os tiles
-        window.setTitle("Darwin Quest V0.2");
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // Cria e exibe a tela de login
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+            telaLogin.setLocationRelativeTo(null);
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel); 
-        
+            // Configura um listener para detectar quando o login for bem-sucedido
+            telaLogin.setLoginSuccessListener(() -> {
+                // Fecha a tela de login
+                telaLogin.dispose();
+                
+                // Cria e exibe a janela do jogo
+                JFrame window = new JFrame();
+                window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                window.setResizable(false);
+                window.setTitle("Darwin Quest V0.2");
 
-        window.pack();
+                GamePanel gamePanel = new GamePanel();
+                window.add(gamePanel);
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+                window.pack();
+                window.setLocationRelativeTo(null);
+                window.setVisible(true);
 
-        gamePanel.setupGame();   //Chama o metodo na classe gamePanel que prepara o jogo
-        gamePanel.startGameThread(); //Chama o metodo na classe gamePanel que Inicia o jogo
-
+                gamePanel.setupGame();
+                gamePanel.startGameThread();
+            });
+        });
     }
 }
