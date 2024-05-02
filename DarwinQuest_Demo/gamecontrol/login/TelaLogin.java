@@ -17,8 +17,9 @@ public class TelaLogin extends JFrame implements ActionListener {
     public TelaLogin() {
         setTitle("Login"); // Define o título da janela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define o comportamento padrão ao fechar a janela
-        setSize(500, 150); // Define o tamanho da janela
+        setSize(500, 200); // Define o tamanho da janela
         setLocationRelativeTo(null); // Centraliza a janela na tela
+        
 
         setLayout(new GridLayout(3, 2)); // O GridLayout é um dos gerenciadores de layout fornecidos pelo Java Swing. Ele organiza os componentes em uma grade de células, onde cada componente é colocado em uma célula da grade. No caso, estamos usando um GridLayout com 3 linhas e 2 colunas. Portanto a janela terá 3 linhas e 2 colunas.
 
@@ -45,11 +46,11 @@ public class TelaLogin extends JFrame implements ActionListener {
         String senha = new String(campoSenha.getPassword()); // Obtém o texto digitado no campo de senha
         
         // Fazer a logica de autenticação aqui
-        
+
         // Usando um exemplo para testar: vamos supor que o usuário e a senha corretos sejam "admin"
         if (usuario.equals("admin") && senha.equals("admin")) {
             if (loginSuccessListener != null) {
-                loginSuccessListener.onLoginSuccess();
+                loginSuccessListener.onLoginSuccess(); // quando o login for bem-sucedido, chama o método onLoginSuccess() do ouvinte de sucesso de login
             }
             dispose();
         } else {
@@ -57,11 +58,15 @@ public class TelaLogin extends JFrame implements ActionListener {
         }
     }
 
+    //setLoginSuccessListener é um método que permite que outras partes do código (como a classe Main, por exemplo) definam um ouvinte (listener) para o evento de sucesso de login. O ouvinte nesse caso é uma interface chamada LoginSuccessListener que contém um método onLoginSuccess() que pode ser implementado por quem esta definindo um ouvinte. Quando o login for bem-sucedido na tela de login, a classe TelaLogin chamará esse método no objeto que foi definido como o ouvinte de sucesso de login.
+
     public void setLoginSuccessListener(LoginSuccessListener listener) {
-        this.loginSuccessListener = listener;
+        this.loginSuccessListener = listener; 
     }
 
+    //LoginSuccessListener é uma interface que especifica um contrato para qualquer classe que queira ser notificada quando o login for bem-sucedido. A interface contém apenas um método, onLoginSuccess(), que não retorna nenhum valor (void). Isso significa que, quando o login for bem-sucedido, qualquer classe que implemente essa interface precisará fornecer uma implementação para o método onLoginSuccess().
+
     public interface LoginSuccessListener {
-        void onLoginSuccess();
+        void onLoginSuccess(); //Este método quando implementado define o que deve acontecer quando o login for bem-sucedido. No caso desta interface, o método não recebe nenhum argumento e não retorna nenhum valor (void), apenas indica que o login foi bem-sucedido. As classes que implementam esta interface devem fornecer a implementação deste método. No caso eu só estou desclarando o método, mas não estou implementando.
     }
 }
