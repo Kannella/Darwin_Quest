@@ -44,7 +44,15 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.playState;
             }
         }if (code == KeyEvent.VK_M) {
-            gp.stopMusic();
+            if(Sound.isPlaying == true){
+                Sound.isPlaying = false;
+                gp.stopMusic();
+            }
+            else if(Sound.isPlaying == false){
+                Sound.isPlaying = true;
+                gp.playMusic(0);
+            }
+           
         }
     }
 

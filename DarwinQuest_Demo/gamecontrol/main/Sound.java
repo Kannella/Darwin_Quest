@@ -9,6 +9,11 @@ import javax.sound.sampled.Clip;
 
 public class Sound {
     
+
+    public static boolean isPlaying = false;
+
+
+
     Clip clip;
 
     URL soundURL[] = new URL[30];
