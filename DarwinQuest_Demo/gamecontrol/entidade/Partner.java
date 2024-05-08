@@ -39,7 +39,7 @@ public class Partner extends Entity {
         }
     }
     public void setAction() {
-        int i = random.nextInt(100)+1;
+        int i = random.nextInt(125)+1;
         actionLockCounter ++;
         if (actionLockCounter==50){
             if(i <= 25){
@@ -53,6 +53,7 @@ public class Partner extends Entity {
             }
             if(i > 75 && i <= 100){
                 direction = "right";
+            }if(i > 100 && i <= 125){
             }
 
             actionLockCounter = 0;

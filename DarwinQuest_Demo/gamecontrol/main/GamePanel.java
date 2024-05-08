@@ -15,7 +15,7 @@ import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable{
     //Configurações de tela
-    final int originalTileSize = 24; //Tamanho dos tiles do jogo no caso 16x16
+    final int originalTileSize = 16; //Tamanho dos tiles do jogo no caso 16x16
     final int scale = 3; //Isso aqui faz um escalonamento dos tiles para que pareçam maiores no caso 3 x 16 = 48
    
     public final int tileSize = originalTileSize * scale;
@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[]= new Entity[10];
+    public Entity enemy[] = new Entity[10];
 
     // Game State (estado do jogo)
     public int gameState;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setEnemy();
         playMusic(0);
         Sound.isPlaying = true;
         gameState = playState;
@@ -117,6 +119,11 @@ public class GamePanel extends JPanel implements Runnable{
                     npc[i].update();
                 }
             }
+            for (int i = 0;i<enemy.length;i++){
+                if(enemy[i] != null){
+                    enemy[i].update();
+                }
+            }
         }
         if (gameState == pauseState){
             //tá pausado e só isso mesmo por enquanto
@@ -141,6 +148,10 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0; i< npc.length;i++){
             if(npc[i] != null){
                 npc[i].draw(g2);
+            }
+        }for(int i = 0; i< enemy.length;i++){
+            if(enemy[i] != null){
+                enemy[i].draw(g2);
             }
         }
 

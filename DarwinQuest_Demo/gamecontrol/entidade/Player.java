@@ -96,13 +96,9 @@ public class Player extends Entity{
             //checa colisão com npc
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);             //Isso aqui checa qual foi a entidade que colidiu com o player
             // int speednpc = 999;
-            if(npcIndex !=999){                                             //Isso verifica se essa entidade não é tile (hitbox do mapa)
-                // speednpc=gp.npc[npcIndex].speed;  //isso verifica a velocidade do npc baseado no index verificado 
-                //gp.npc[npcIndex].speed=0; //Isso muda a velocidade da entidade 
-                // gp.player.speed=gp.player.speed+gp.npc[npcIndex].speed; //ADCIONA A VELOCIDADE DO NPC ao jogador
-                // gp.npc[npcIndex]=null;  //deleta npc que tocar
-            }
             interactNPC(npcIndex);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador, caso queira mecher com velocidade ou outra coisa só mudar a variavel
+
+            //colisão de inimigo
 
             //Se colisor for false, o player pode se mover
             if(collisionOn == false){
@@ -123,10 +119,19 @@ public class Player extends Entity{
                 }
             }
 
+
+
             spriteCounter++;
             if (spriteCounter > 10) {
             spriteNumber = (spriteNumber % 4) + 1; // Ciclar entre 1 e 4
             spriteCounter = 0;
+            }
+        }
+        if (invencible==true){
+            invencibleCounter++;
+            if(invencibleCounter>60){
+                invencible=true;
+                invencibleCounter=0;
             }
         }
     }
@@ -138,9 +143,9 @@ public class Player extends Entity{
     }
     public void interactNPC(int i){
         if(i !=999 && i!=4){
-            System.out.println(i);
         }
     }
+
 
     public void draw(Graphics2D g2){
         //g2.setColor(Color.white);

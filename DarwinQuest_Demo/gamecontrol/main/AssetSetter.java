@@ -18,18 +18,13 @@ public class AssetSetter {
 
     }
     public void setNPC(){
-        int num_npcs=6; //Essa variavel controla o numero de npcs, mais que 99 crasha o jogo, caso queira mudar isso por algum motivo mudar la no GamePanel
-        for(int i=0;i!=num_npcs;i++){
-            if (i%2==0) {
-                gp.npc[i]=new Partner(gp);
-                gp.npc[i].worldX = gp.tileSize*20;   //Controlam a posição X e Y de spawn da instancia da entidade
-                gp.npc[i].worldY = gp.tileSize*20;
-                
-            }else{
-                gp.npc[i]=new Enemy(gp);
-                gp.npc[i].worldX = gp.tileSize*25;   //Controlam a posição X e Y de spawn da instancia da entidade
-                gp.npc[i].worldY = gp.tileSize*20;
-            }
-        };
+            gp.npc[0]=new Partner(gp);
+            gp.npc[0].worldX = gp.tileSize*20;   //Controlam a posição X e Y de spawn da instancia da entidade
+            gp.npc[0].worldY = gp.tileSize*20;
+    }
+    public void setEnemy(){
+            gp.enemy[0]=new Enemy(gp);
+            gp.enemy[0].worldX = gp.tileSize*25;   //Controlam a posição X e Y de spawn da instancia da entidade
+            gp.enemy[0].worldY = gp.tileSize*20;
     }
 }

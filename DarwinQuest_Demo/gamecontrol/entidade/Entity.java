@@ -18,9 +18,12 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNumber = 1;
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public Rectangle solidArea = new Rectangle(0,0,48,48); //Esse o tamanho default para todas as entidades
+    public Rectangle solidArea = new Rectangle(0,0,30,30); //Esse o tamanho default para todas as entidades
     public boolean collisionOn = false;
     public int actionLockCounter=0;
+    public boolean invencible = false;
+    public int invencibleCounter = 0;
+    public int type;  // 0=player, 1=Partner, 2=Enemy
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -33,7 +36,14 @@ public class Entity {
         setAction();
         collisionOn = false;
         gp.cChecker.checkTile(this);
+        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.enemy);
+        boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
+        if(this.type == 2 && contactPlayer==true){
+            
+        }
         if(collisionOn == false){
                 
             switch(direction){
