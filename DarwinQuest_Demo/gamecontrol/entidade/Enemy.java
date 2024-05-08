@@ -18,7 +18,7 @@ public class Enemy extends Entity{
         getEnemyImage();
 
     }
-    @Override
+    
     public void update() {
 
         // Verifica se o inimigo deve seguir o jogador
@@ -36,7 +36,7 @@ public class Enemy extends Entity{
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
         if(this.type == 2 && contactPlayer==true){
-            
+            //codigo de interação com o jogador
         }
         if(collisionOn == false){
                 

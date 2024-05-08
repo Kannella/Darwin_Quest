@@ -99,6 +99,9 @@ public class Player extends Entity{
             interactNPC(npcIndex);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador, caso queira mecher com velocidade ou outra coisa só mudar a variavel
 
             //colisão de inimigo
+            int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
+            // // int speednpc = 999;
+            interactNPC(enemyIndex);  
 
             //Se colisor for false, o player pode se mover
             if(collisionOn == false){
@@ -143,6 +146,7 @@ public class Player extends Entity{
     }
     public void interactNPC(int i){
         if(i !=999 && i!=4){
+            System.out.println(i);
         }
     }
 

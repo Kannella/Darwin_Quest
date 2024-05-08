@@ -130,7 +130,7 @@ public class CollisionChecker {
         }
          return index;
     }
-    //Checar colisão de NPC
+    //Checar colisão de Entidade
     public int checkEntity(Entity entidade, Entity[] target){
         int index = 999;
 
