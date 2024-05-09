@@ -103,7 +103,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciarMouseClicked
-        main.abrirJanelaDoJogo();
+        PrimeiroDialogoDarwin primeiroDialogo = new PrimeiroDialogoDarwin();
+        primeiroDialogo.setVisible(true);
+        primeiroDialogo.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_iniciarMouseClicked
 

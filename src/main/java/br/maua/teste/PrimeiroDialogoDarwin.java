@@ -4,7 +4,12 @@
  */
 package br.maua.teste;
 
+import gamecontrol.main.Main;
 
+/**
+ *
+ * @author gican
+ */
 public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
 
     /**
@@ -72,6 +77,12 @@ public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
         nuvem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nuvemesquerda.png"))); // NOI18N
 
         primeiro_dialogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tela_dialogo_resized.png"))); // NOI18N
+        primeiro_dialogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        primeiro_dialogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                primeiro_dialogoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,6 +133,10 @@ public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>                        
+
+    private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {                                              
+        Main.abrirJanelaDoJogo();
+    }                                             
 
     /**
      * @param args the command line arguments
