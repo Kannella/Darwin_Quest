@@ -6,10 +6,6 @@ package br.maua.teste;
 
 import gamecontrol.main.Main;
 
-/**
- *
- * @author gican
- */
 public class TelaInicial extends javax.swing.JFrame {
 
     Main main = new Main();
