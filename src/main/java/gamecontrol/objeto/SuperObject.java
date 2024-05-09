@@ -9,8 +9,9 @@ import java.awt.image.BufferedImage;
 
 
 public class SuperObject {
-    
     public BufferedImage image;
+    public BufferedImage imagem;
+    public BufferedImage imagem2;
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
