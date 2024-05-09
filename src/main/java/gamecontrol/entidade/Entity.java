@@ -25,6 +25,12 @@ public class Entity {
     public int invencibleCounter = 0;
     public int type;  // 0=player, 1=Partner, 2=Enemy
 
+    //Status do Personagem
+    public int maxLife;
+    public int life;
+    
+
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }

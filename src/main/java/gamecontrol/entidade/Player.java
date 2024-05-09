@@ -2,6 +2,7 @@ package gamecontrol.entidade;
 
 import gamecontrol.main.GamePanel;
 import gamecontrol.main.KeyHandler;
+import gamecontrol.main.UtilityTool;
 
 //Essa classe é responsavel pelo jogador, ela puxa e funciona com as variaveis criadas na Entidade
 import java.awt.Graphics2D;
@@ -45,31 +46,45 @@ public class Player extends Entity{
         worldY = gp.tileSize * 15;
         speed = 5;
         direction = "down";
+
+        //Status do jogador
+        maxLife = 3;
+        life = maxLife;
     }
 
     public void getPlayerImage(){
 
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet1Cima.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet2Cima.png"));
-            up3 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet3Cima.png"));
-            up4 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet4Cima.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet1Baixo.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet2Baixo.png"));
-            down3 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet3Baixo.png"));
-            down4 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet4Baixo.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet1Esquerda.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet2Esquerda.png"));
-            left3 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet3Esquerda.png"));
-            left4 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet4Esquerda.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet1Direita.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet2Direita.png"));
-            right3 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet3Direita.png"));
-            right4 = ImageIO.read(getClass().getResourceAsStream("/res/individuos/Lancelet/Lancelet4Direita.png"));
+        up1 = setup("preguicaCimaBase");
+        up2 = setup("preguicaCima1");
+        up3 = setup("preguicaCimaBase");
+        up4 = setup("preguicaCima2");
+        down1 = setup("preguicaBaixoBase");
+        down2 = setup("preguicaBaixo1");
+        down3 = setup("preguicaBaixoBase");
+        down4 = setup("preguicaBaixo2");
+        left1 = setup("preguicaEsquerdaBase");
+        left2 = setup("preguicaEsquerda1");
+        left3 = setup("preguicaEsquerdaBase");
+        left4 = setup("preguicaEsquerda2");
+        right1 = setup("preguicaDireitaBase");
+        right2 = setup("preguicaDireita1");
+        right3 = setup("preguicaDireitaBase");
+        right4 = setup("preguicaDireita2");
+    }
 
-        }catch(IOException e){
+    public BufferedImage setup(String imageName){
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {   
+            image = ImageIO.read(getClass().getResourceAsStream("/res/individuos/preguica/" + imageName + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        return image;
     }
 
     public void update(){
@@ -218,6 +233,6 @@ public class Player extends Entity{
         //Houve uma mudança para adaptar a camera do jogo e poder ver o mundo todo, então esses parametros ficaram velhos
         //Mudando o x, y para screenX and screenY para manter o personagem no centro
         //g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }

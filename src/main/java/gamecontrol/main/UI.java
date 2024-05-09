@@ -6,13 +6,16 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import gamecontrol.objeto.ObjHeart;
+import gamecontrol.objeto.SuperObject;
+
 
 public class UI {
     
     GamePanel gp;
     Graphics2D g2;
     Font arial_40;
-    BufferedImage barraDeVida; //possivel barra de vida, tbm pode ser feita com Rect
+    BufferedImage fullHeart, emptyHeart;
     double playTime; //possivel contagem de tempo
 
 
@@ -21,6 +24,11 @@ public class UI {
 
         arial_40 = new Font("verdana", Font.PLAIN, 40);
         
+        //criando objeto HUD
+        SuperObject heart = new ObjHeart();
+        fullHeart = heart.image;
+        emptyHeart = heart.image2;
+
     }
 
     public void draw (Graphics2D g2){
@@ -31,12 +39,26 @@ public class UI {
         g2.setColor(Color.white);
 
         if(gp.gameState == gp.playState){
-
+            drawPlayerLife();
         }
         if(gp.gameState == gp.pauseState){
+            drawPlayerLife();
             drawPauseScreen();
         }
     }
+
+    public void drawPlayerLife(){
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        while(i < gp.player.maxLife/2){
+            g2.drawImage(emptyHeart, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+    }
+
     public void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         String text = "Pausado";
