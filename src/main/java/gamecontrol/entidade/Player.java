@@ -48,7 +48,7 @@ public class Player extends Entity{
         direction = "down";
 
         //Status do jogador
-        maxLife = 3;
+        maxLife = 6;
         life = maxLife;
     }
 

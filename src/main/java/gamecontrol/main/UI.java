@@ -15,7 +15,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40;
-    BufferedImage fullHeart, emptyHeart;
+    BufferedImage fullHeart, halfHeart, emptyHeart;
     double playTime; //possivel contagem de tempo
 
 
@@ -27,7 +27,8 @@ public class UI {
         //criando objeto HUD
         SuperObject heart = new ObjHeart();
         fullHeart = heart.image;
-        emptyHeart = heart.image2;
+        fullHeart = heart.image2;
+        emptyHeart = heart.image3;
 
     }
 

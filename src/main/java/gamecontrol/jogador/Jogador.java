@@ -1,5 +1,5 @@
 package gamecontrol.jogador;
-
+//Classe relacionada ao cadastro dos jogadores
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
