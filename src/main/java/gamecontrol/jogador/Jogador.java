@@ -20,8 +20,8 @@ public class Jogador {
     public void cadastrar() throws SQLException {
         Connection conexao = null;
         try {
-            conexao = ConexaoBD.obterConexao();
-            String sql = "INSERT INTO jogadores (nome, email, senha) VALUES (?, ?, ?)";
+            conexao = new ConexaoBD().obterConexao();
+            String sql = "INSERT INTO jogador (nome, email, senha) VALUES (?, ?, ?)";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, email);

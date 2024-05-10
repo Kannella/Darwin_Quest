@@ -24,20 +24,18 @@ public class Login extends JFrame implements ActionListener {
         String senha = new String(jPasswordField1.getPassword()); // Obtém o texto digitado no campo de senha
         
         // Realiza a lógica de autenticação
-        try {
-            boolean autenticado = ConexaoBD.autenticarUsuario(usuario, senha);
-            if (autenticado) {
-                if (loginSuccessListener != null) {
-                    System.out.println("Login bem-sucedido!");
-                    loginSuccessListener.onLoginSuccess(); // quando o login for bem-sucedido, chama o método onLoginSuccess() do ouvinte de sucesso de login
-                }
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        
+        boolean autenticado = new ConexaoBD().autenticarUsuario(usuario, senha); // Chama o método autenticarUsuario() da classe ConexaoBD
+        if (autenticado) {
+            if (loginSuccessListener != null) {
+                System.out.println("Login bem-sucedido!");
+                loginSuccessListener.onLoginSuccess(); // quando o login for bem-sucedido, chama o método onLoginSuccess() do ouvinte de sucesso de login
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao autenticar usuário: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        };
+        
     }
 
 

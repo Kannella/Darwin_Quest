@@ -13,21 +13,22 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        ConexaoBD conexaoBD = new ConexaoBD();
         
         Connection conexao = null;
-        try {
-            conexao = ConexaoBD.obterConexao();
+        
+            conexao = conexaoBD.obterConexao();
+            
             if (conexao != null) {
                 System.out.println("Conexão com o banco de dados estabelecida!");
                 // Faça operações com o banco de dados aqui...
             } else {
                 System.out.println("Não foi possível estabelecer a conexão com o banco de dados!");
             }
-        } catch (SQLException e) {
-            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
-        } finally {
+        
             ConexaoBD.fecharConexao(conexao);
-        }
+        
 
         SwingUtilities.invokeLater(() -> { 
 
