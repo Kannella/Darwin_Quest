@@ -20,17 +20,19 @@ public class TileManager {
     
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int mapTileNum[][][];
 
     public TileManager(GamePanel gp){
 
         this.gp = gp;
 
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/res/MapaPreHistorico1.txt");
+        loadMap("/res/mapas/MapaPreHistorico1.txt", 0);
+        loadMap("/res/mapas/mapaMundo.txt", 1);
+
     }
 
     public void getTileImage(){
@@ -68,7 +70,7 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String filePath){
+    public void loadMap(String filePath, int map){
 
         try{
             InputStream is = getClass().getResourceAsStream(filePath);
@@ -87,7 +89,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(numbers[col]);
                 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;                
                 }
                 if(col == gp.maxWorldCol){
@@ -114,7 +116,7 @@ public class TileManager {
 
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
 
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
             //essas variaveis worldX e worldY, fazem a conta de onde o personagem está, ou seja se ele está no x1 y0
             //ele vai fazer a conta e mostrar no mapa baseado na conta 1 * 48 e 0 * 48 (que é o tamanho do tileSize que é 3*16)

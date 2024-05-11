@@ -15,16 +15,25 @@ public class AssetSetter {
     }
 
     public void setObject(){
-
+        int mapNum = 0;
     }
     public void setNPC(){
-            gp.npc[0]=new Partner(gp);
-            gp.npc[0].worldX = gp.tileSize*20;   //Controlam a posição X e Y de spawn da instancia da entidade
-            gp.npc[0].worldY = gp.tileSize*20;
+        int mapNum = 0;
+        gp.npc[mapNum][0]=new Partner(gp);
+        gp.npc[mapNum][0].worldX = gp.tileSize*20;   //Controlam a posição X e Y de spawn da instancia da entidade
+        gp.npc[mapNum][0].worldY = gp.tileSize*20;
+
+        mapNum = 1;
+        //coloque aqui o novo npc desse mapa
+        mapNum = 2;
+        // coloque aqui o novo npc desse mapa
+        mapNum = 3;
+        // coloque aqui o novo npc desse mapa
     }
     public void setEnemy(){
-            gp.enemy[0]=new Enemy(gp);
-            gp.enemy[0].worldX = gp.tileSize*25;   //Controlam a posição X e Y de spawn da instancia da entidade
-            gp.enemy[0].worldY = gp.tileSize*20;
+        int mapNum = 0;
+        gp.enemy[mapNum][0]=new Enemy(gp);
+        gp.enemy[mapNum][0].worldX = gp.tileSize*25;   //Controlam a posição X e Y de spawn da instancia da entidade
+        gp.enemy[mapNum][0].worldY = gp.tileSize*20;
     }
 }
