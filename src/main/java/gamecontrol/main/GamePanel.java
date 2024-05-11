@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 31;
     public final int maxMap = 4; //quantidade de mapas presentes
-    public final int currentMap = 0; //variavel que recebe qual o mapa atual
+    public final int currentMap = 1; //variavel que recebe qual o mapa atual
     
     //setando FPS do jogo (a variável pelo menos)
     int FPS = 60;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Game State (estado do jogo)
     public int gameState;
-    public int estagio;
+    //public int estagio; //não usado por enquanto
     public final int playState = 1;
     public final int pauseState = 2;
     public final int gameOverState =3;
