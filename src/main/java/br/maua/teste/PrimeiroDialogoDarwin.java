@@ -134,8 +134,9 @@ public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {                                              
+    private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) { 
         Main.abrirJanelaDoJogo();
+        dispose();                                             
     }                                             
 
     /**
