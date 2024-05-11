@@ -35,7 +35,7 @@ public class UI {
         //criando objeto HUD
         SuperObject heart = new ObjHeart();
         fullHeart = heart.image;
-        fullHeart = heart.image2;
+        halfHeart = heart.image2;
         emptyHeart = heart.image3;
 
         //criando timer
@@ -66,13 +66,28 @@ public class UI {
         }
     }
 
-    public void drawPlayerLife(){
-        int x = gp.tileSize/2;
-        int y = gp.tileSize/2;
+    public void drawPlayerLife() {
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
         int i = 0;
 
-        while(i < gp.player.maxLife/2){
+        while (i < gp.player.maxLife / 2) {
             g2.drawImage(emptyHeart, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        // Reset
+        x = gp.tileSize / 2;
+        y = gp.tileSize / 2;
+        i = 0;
+
+        // Draw Current Life
+        while (i < gp.player.life) {
+            g2.drawImage(halfHeart, x, y, null);
+            i++;
+            if (i < gp.player.life) {
+                g2.drawImage(fullHeart, x, y, null);
+            }
             i++;
             x += gp.tileSize;
         }
