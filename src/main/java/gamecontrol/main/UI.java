@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import gamecontrol.objeto.ObjHeart;
 import gamecontrol.objeto.SuperObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class UI {
     
@@ -16,7 +19,12 @@ public class UI {
     Graphics2D g2;
     Font arial_40;
     BufferedImage fullHeart, halfHeart, emptyHeart;
-    double playTime; //possivel contagem de tempo
+    
+    private Timer timer; //esse objeto cria um "relogio" que fica de fundo
+    private TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
+    private boolean running;   //variavel que verifica se o timer esta ativo
+    private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
+
 
 
     public UI (GamePanel gp){
@@ -29,6 +37,13 @@ public class UI {
         fullHeart = heart.image;
         fullHeart = heart.image2;
         emptyHeart = heart.image3;
+
+        //criando timer
+        timer = new Timer();
+        running = false;
+        tempoDecorrido = 0;
+
+        iniciarTimer(gp);
 
     }
 
@@ -72,5 +87,43 @@ public class UI {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
         return x;
+    }
+
+    public void iniciarTimer(GamePanel gp) {
+        if (!running) {
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (gp.gameState == gp.pauseState){
+                        System.out.println("pausado");
+                    }else{
+                        tempoDecorrido += 1000; //A CADA MIL É 1 SEGUNDO
+                        System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
+                    }
+                    if (tempoDecorrido >= 60 * 1000) {
+                        System.out.println("possivel reproduzir");
+                    }
+                    if (tempoDecorrido >= 3 * 60 * 1000) {
+                        pararTimer();
+                        System.out.println("tempo esgotado");
+                    }
+                }
+            };
+
+            timer.scheduleAtFixedRate(timerTask, 0, 1000);
+            running = true;
+        } else {
+            System.out.println("O timer já está em execução.");
+        }
+    }
+
+    public void pararTimer() {
+        if (running) {
+            timerTask.cancel();
+            running = false;
+            System.out.println("Timer parado.");
+        } else {
+            System.out.println("O timer já está parado.");
+        }
     }
 }
