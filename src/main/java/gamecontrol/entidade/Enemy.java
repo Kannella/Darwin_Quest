@@ -36,7 +36,7 @@ public class Enemy extends Entity{
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
         if(this.type == 2 && contactPlayer==true){
-            //codigo de interação com o jogador
+            gp.gameState=gp.gameOverState;
         }
         if(collisionOn == false){
                 

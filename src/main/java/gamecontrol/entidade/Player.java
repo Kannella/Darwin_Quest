@@ -53,7 +53,6 @@ public class Player extends Entity{
     }
 
     public void getPlayerImage(){
-
         up1 = setup("preguicaCimaBase");
         up2 = setup("preguicaCima1");
         up3 = setup("preguicaCimaBase");

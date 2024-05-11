@@ -61,6 +61,9 @@ public class UI {
             drawPlayerLife();
             drawPauseScreen();
         }
+        if(gp.gameState == gp.gameOverState){
+            drawGameOverScreen();
+        }
     }
 
     public void drawPlayerLife(){
@@ -96,16 +99,21 @@ public class UI {
                 public void run() {
                     if (gp.gameState == gp.pauseState){
                         System.out.println("pausado");
-                    }else{
+                    }else if(gp.gameState == gp.gameOverState){
+                        pararTimer();
+                    }
+                    
+                    else{
                         tempoDecorrido += 1000; //A CADA MIL É 1 SEGUNDO
                         System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
                     }
                     if (tempoDecorrido >= 60 * 1000) {
-                        System.out.println("possivel reproduzir");
+                        System.out.println("Possivel reproduzir");
                     }
                     if (tempoDecorrido >= 3 * 60 * 1000) {
                         pararTimer();
                         System.out.println("tempo esgotado");
+                        gp.gameState = gp.gameOverState;
                     }
                 }
             };
@@ -125,5 +133,43 @@ public class UI {
         } else {
             System.out.println("O timer já está parado.");
         }
+    }
+
+    public void drawGameOverScreen(){
+
+
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 100F));
+
+        text = "Você Morreu";
+        g2.setColor(Color.black);
+        x = getXforCenteredText(text);
+        y = gp.tileSize*4;
+        g2.drawString(text, x, y);
+
+        g2.setColor(Color.white);
+        g2.drawString(text, x-4, y-4);
+
+        //Tentar novamente
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        text = "Tentar novamente";
+        x = getXforCenteredText(text);
+        y += gp.tileSize*4;
+        g2.drawString(text, x, y);
+
+        //Voltar para a tela de titulo
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        text = "Menu";
+        x = getXforCenteredText(text);
+        y += 55;
+        g2.drawString(text, x, y);
+        
     }
 }

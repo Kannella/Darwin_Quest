@@ -51,8 +51,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Game State (estado do jogo)
     public int gameState;
+    public int estagio;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int gameOverState =3;
+
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); //Dimensiona o tamanho da tela
