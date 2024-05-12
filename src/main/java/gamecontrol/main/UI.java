@@ -167,6 +167,7 @@ public class UI {
         //  disposeGamePanel();
 
         if (!gameOverDisplayed) {
+            gp.music.stop();
             TelaMortePersonagem telaMorte = new TelaMortePersonagem();
             telaMorte.setVisible(true);
             telaMorte.setLocationRelativeTo(null);
