@@ -66,6 +66,10 @@ public class TelaMortePersonagem extends javax.swing.JFrame {
         // Método para abrir a janela de login
         telaInicial.setVisible(true);
         telaInicial.setLocationRelativeTo(null);
+
+        // Método para fechar a janela de game over
+
+        this.dispose();
         
     }                                       
 

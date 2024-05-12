@@ -4,6 +4,7 @@ package gamecontrol.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 
 import gamecontrol.objeto.ObjHeart;
@@ -26,6 +27,7 @@ public class UI {
     private TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
     private boolean running;   //variavel que verifica se o timer esta ativo
     private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
+    private boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
 
 
@@ -64,7 +66,11 @@ public class UI {
             drawPauseScreen();
         }
         if(gp.gameState == gp.gameOverState){
+            // Fechando a janela atual para abrir a tela de game over
+            Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);  
+            w.dispose();          
             drawGameOverScreen();
+
         }
     }
 
@@ -151,12 +157,20 @@ public class UI {
             System.out.println("O timer já está parado.");
         }
     }
-
+/* 
+    public void disposeGamePanel(){
+        gp.dispose();
+    }
+*/
     public void drawGameOverScreen(){
- 
-        TelaMortePersonagem telaMorte = new TelaMortePersonagem();
-        telaMorte.setVisible(true);
-        telaMorte.setLocationRelativeTo(null);
         
+        //  disposeGamePanel();
+
+        if (!gameOverDisplayed) {
+            TelaMortePersonagem telaMorte = new TelaMortePersonagem();
+            telaMorte.setVisible(true);
+            telaMorte.setLocationRelativeTo(null);
+            gameOverDisplayed = true; // marcar que a tela de jogo já foi exibida
+        }
     }
 }
