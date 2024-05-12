@@ -36,7 +36,10 @@ public class Enemy extends Entity{
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
         if(this.type == 2 && contactPlayer==true){
-            gp.gameState=gp.gameOverState;
+            if(gp.player.invencible == false){
+                gp.player.life -= 1;
+                gp.player.invencible = true;
+            }
         }
         if(collisionOn == false){
                 

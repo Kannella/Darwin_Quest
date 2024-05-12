@@ -37,7 +37,7 @@ public class UI {
         arial_40 = new Font("verdana", Font.PLAIN, 40);
         
         //criando objeto HUD
-        SuperObject heart = new ObjHeart();
+        SuperObject heart = new ObjHeart(gp);
         fullHeart = heart.image;
         halfHeart = heart.image2;
         emptyHeart = heart.image3;

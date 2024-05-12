@@ -167,8 +167,11 @@ public class Player extends Entity{
         if (invencible==true){
             invencibleCounter++;
             if(invencibleCounter>60){
-                invencible=true;
+                invencible=false;
                 invencibleCounter=0;
+            }
+            if(life == 0){
+                gp.gameState = gp.gameOverState;
             }
         }
     }
