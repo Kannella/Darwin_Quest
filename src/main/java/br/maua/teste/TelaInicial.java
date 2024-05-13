@@ -35,7 +35,7 @@ public class TelaInicial extends javax.swing.JFrame {
         fundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        setResizable(false);
         creditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botão_créditos.png"))); // NOI18N
         creditos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         creditos.addMouseListener(new java.awt.event.MouseAdapter() {

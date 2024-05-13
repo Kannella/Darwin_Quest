@@ -22,7 +22,6 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String usuario = jTextField1.getText(); // Obtém o texto digitado no campo de usuário
         String senha = new String(jPasswordField1.getPassword()); // Obtém o texto digitado no campo de senha
-        
         // Realiza a lógica de autenticação
         
         boolean autenticado = new ConexaoBD().autenticarUsuario(usuario, senha); // Chama o método autenticarUsuario() da classe ConexaoBD
@@ -68,6 +67,7 @@ public class Login extends JFrame implements ActionListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
         setPreferredSize(new java.awt.Dimension(800, 500));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);

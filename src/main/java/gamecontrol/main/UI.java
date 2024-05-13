@@ -167,7 +167,12 @@ public class UI {
         //  disposeGamePanel();
 
         if (!gameOverDisplayed) {
-            gp.music.stop();
+            try{
+                gp.music.stop();
+            }catch(Exception e) {
+                System.out.println("Sistema de som não detectado");
+                System.out.println(e);
+            }
             TelaMortePersonagem telaMorte = new TelaMortePersonagem();
             telaMorte.setVisible(true);
             telaMorte.setLocationRelativeTo(null);

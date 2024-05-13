@@ -53,7 +53,7 @@ public class KeyHandler implements KeyListener {
                 gp.playMusic(0);
             }
            
-        }if (code == KeyEvent.VK_K) {
+        }if (code == KeyEvent.VK_K) {   //TIRAR ISSO NA VERSÃO FINAL
             if(gp.gameState == gp.playState){
                 gp.gameState = gp.gameOverState;
             }

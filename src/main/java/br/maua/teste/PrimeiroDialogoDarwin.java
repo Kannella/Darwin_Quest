@@ -60,7 +60,8 @@ public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(768, 576));
-
+        setResizable(false);
+        
         abelinha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/abelhinha.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
