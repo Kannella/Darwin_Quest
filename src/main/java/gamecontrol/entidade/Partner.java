@@ -6,6 +6,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import gamecontrol.main.GamePanel;
 import gamecontrol.main.UtilityTool;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 public class Partner extends Entity {
     Random random= new Random();
@@ -16,58 +18,80 @@ public class Partner extends Entity {
         getNPCImage();
  
     }
-    public void getNPCImage(){
-         if (gp.currentMap == 0) {
+
+    public void getNPCImage() {
+        if (gp.currentMap == 0) {
             up1 = setup("preguica/preguicaCimaBase");
             up2 = setup("preguica/preguicaCima1");
             up3 = setup("preguica/preguicaCimaBase");
             up4 = setup("preguica/preguicaCima2");
-            down1 = setup("preguica/preguicaBaixoBase");
-            down2 = setup("preguica/preguicaBaixo1");
-            down3 = setup("preguica/preguicaBaixoBase");
-            down4 = setup("preguica/preguicaBaixo2");
-            left1 = setup("preguica/preguicaEsquerdaBase");
-            left2 = setup("preguica/preguicaEsquerda1");
-            left3 = setup("preguica/preguicaEsquerdaBase");
-            left4 = setup("preguica/preguicaEsquerda2");
-            right1 = setup("preguica/preguicaDireitaBase");
-            right2 = setup("preguica/preguicaDireita1");
-            right3 = setup("preguica/preguicaDireitaBase");
-            right4 = setup("preguica/preguicaDireita2");
+
+            left1 = rotateSprite(up1, -90);
+            left2 = rotateSprite(up2, -90);
+            left3 = rotateSprite(up3, -90);
+            left4 = rotateSprite(up4, -90);
+
+            down1 = rotateSprite(up1, 180);
+            down2 = rotateSprite(up2, 180);
+            down3 = rotateSprite(up3, 180);
+            down4 = rotateSprite(up4, 180);
+
+            right1 = rotateSprite(up1, 90);
+            right2 = rotateSprite(up2, 90);
+            right3 = rotateSprite(up3, 90);
+            right4 = rotateSprite(up4, 90);
 
         } else if (gp.currentMap == 1) {
             up1 = setup("besouro/besouroCimaBase");
             up2 = setup("besouro/besouroCima1");
             up3 = setup("besouro/besouroCimaBase");
             up4 = setup("besouro/besouroCima2");
-            down1 = setup("besouro/besouroBaixoBase");
-            down2 = setup("besouro/besouroBaixo1");
-            down3 = setup("besouro/besouroBaixoBase");
-            down4 = setup("besouro/besouroBaixo2");
-            left1 = setup("besouro/besouroEsquerdaBase");
-            left2 = setup("besouro/besouroEsquerda1");
-            left3 = setup("besouro/besouroEsquerdaBase");
-            left4 = setup("besouro/besouroEsquerda2");
-            right1 = setup("besouro/besouroDireitaBase");
-            right2 = setup("besouro/besouroDireita1");
-            right3 = setup("besouro/besouroDireitaBase");
-            right4 = setup("besouro/besouroDireita2");
+
+            left1 = rotateSprite(up1, -90);
+            left2 = rotateSprite(up2, -90);
+            left3 = rotateSprite(up3, -90);
+            left4 = rotateSprite(up4, -90);
+
+            down1 = rotateSprite(up1, 180);
+            down2 = rotateSprite(up2, 180);
+            down3 = rotateSprite(up3, 180);
+            down4 = rotateSprite(up4, 180);
+
+            right1 = rotateSprite(up1, 90);
+            right2 = rotateSprite(up2, 90);
+            right3 = rotateSprite(up3, 90);
+            right4 = rotateSprite(up4, 90);
         }
     }
 
-   public BufferedImage setup(String imageName){
+    public BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
-        try {   
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/individuos/" + imageName + ".png"));
             image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return image;
+    }
+
+    public BufferedImage rotateSprite(BufferedImage sprite, double angle) {
+        int width = sprite.getWidth();
+        int height = sprite.getHeight();
+
+        BufferedImage rotatedImage = new BufferedImage(width, height, sprite.getType());
+
+        // Rotaciona a imagem
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(Math.toRadians(angle), width / 2, height / 2);
+        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+        rotatedImage = op.filter(sprite, rotatedImage);
+
+        return rotatedImage;
     }
 
     public void setAction() {
