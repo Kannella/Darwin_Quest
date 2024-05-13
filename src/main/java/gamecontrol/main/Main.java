@@ -4,7 +4,6 @@ import br.maua.teste.TelaInicial;
 import gamecontrol.assets.ConexaoBD;
 import gamecontrol.login.Login;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 

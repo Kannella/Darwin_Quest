@@ -20,8 +20,8 @@ public class Sound {
 
     public Sound (){
 
-        soundURL[0] = getClass().getResource("/res/sound/SeaMusic.wav");
-
+        soundURL[0] = getClass().getResource("/res/sound/Surpresa.wav");
+        soundURL[1] = getClass().getResource("/res/sound/Brinqs.wav");
     }
     
     public void setFile(int i) {

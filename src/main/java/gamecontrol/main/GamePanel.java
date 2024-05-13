@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 31;
     public final int maxMap = 4; //quantidade de mapas presentes
-    public final int currentMap = 0; //variavel que recebe qual o mapa atual
+    public final int currentMap = 1; //variavel que recebe qual o mapa atual
     
     //setando FPS do jogo (a variável pelo menos)
     int FPS = 60;
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     //public int estagio; //não usado por enquanto
     public final int playState = 1;
     public final int pauseState = 2;
-    public final int gameOverState =3;
+    public final int gameOverState = 3;
 
     
     public GamePanel() {
@@ -116,15 +116,22 @@ public class GamePanel extends JPanel implements Runnable{
         if (gameState == playState){
             //player
             player.update();
-            //npc
-            for(int i=0; i<npc[1].length;i++){
+            //npc mapa 1
+            for(int i=0; i<npc[0].length;i++){
                 if(npc[currentMap][i] != null){
                     npc[currentMap][i].update();
-                }
+                }    
             }
-            for (int i = 0;i<enemy[1].length;i++){
+            //inimigo mapa 1
+            for (int i = 0;i<enemy[0].length;i++){
                 if(enemy[currentMap][i] != null){
                     enemy[currentMap][i].update();
+                }
+            }
+            //npc mapa 2
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    npc[currentMap][i].update();
                 }
             }
         }
@@ -142,19 +149,24 @@ public class GamePanel extends JPanel implements Runnable{
         tileM.draw(g2);
 
         //Objetc
-        for(int i = 0; i < obj[1].length; i++){
+        for(int i = 0; i < obj[0].length; i++){
             if(obj[currentMap][i] != null){
                 obj[currentMap][i].draw(g2, this);
             }
         }
         //NPC
-        for(int i = 0; i< npc[1].length;i++){
+        for(int i = 0; i< npc[0].length;i++){
             if(npc[currentMap][i] != null){
                 npc[currentMap][i].draw(g2);
             }
-        }for(int i = 0; i< enemy[1].length;i++){
+        }for(int i = 0; i< enemy[0].length;i++){
             if(enemy[currentMap][i] != null){
                 enemy[currentMap][i].draw(g2);
+            }
+        }
+        for (int i = 0; i < npc[1].length; i++) {
+            if (npc[currentMap][i] != null) {
+                npc[currentMap][i].update();
             }
         }
 
