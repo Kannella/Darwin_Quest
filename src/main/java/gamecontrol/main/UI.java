@@ -29,6 +29,7 @@ public class UI {
     private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
     private boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
+    public static boolean canReproduce = false;  //Variavel que diz se vai ser possivel reproduzir
 
 
     public UI (GamePanel gp){
@@ -130,8 +131,9 @@ public class UI {
                         tempoDecorrido += 1000; //A CADA MIL É 1 SEGUNDO
                         System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
                     }
-                    if (tempoDecorrido >= 60 * 1000) {
+                    if (tempoDecorrido >= 10 * 1000 && canReproduce == false){
                         System.out.println("Possivel reproduzir");
+                        canReproduce = true;
                     }
                     if (tempoDecorrido >= 3 * 60 * 1000) {
                         pararTimer();
@@ -143,7 +145,7 @@ public class UI {
 
             timer.scheduleAtFixedRate(timerTask, 0, 1000);
             running = true;
-        } else {
+        }else {
             System.out.println("O timer já está em execução.");
         }
     }

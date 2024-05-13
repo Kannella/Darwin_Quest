@@ -1,5 +1,7 @@
 package br.maua.teste;
 
+import gamecontrol.main.Main;
+
 public class TelaMortePersonagem extends javax.swing.JFrame {
 
 
@@ -56,7 +58,8 @@ public class TelaMortePersonagem extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jogar_novamenteMouseClicked(java.awt.event.MouseEvent evt) {                                             
-        System.out.println("Clicou em jogar novamente");
+       Main.abrirJanelaDoJogo();
+        dispose();
     }                                            
 
     private void menu_morteMouseClicked(java.awt.event.MouseEvent evt) {   

@@ -61,12 +61,23 @@ public class Main {
         });
     }
 
+    private static int GameStage;   //Estagio inicial
+    
+    public static int getGameStage() {
+        return GameStage;
+    }
+    public static void setGameStage(int gameStage) {
+        GameStage = gameStage;
+    }
+
+    
+
     // Método para abrir a janela do jogo
     public static void abrirJanelaDoJogo() {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Darwin Quest V0.3");
+        window.setTitle("Darwin Quest V0.4");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -81,4 +92,5 @@ public class Main {
 
         
     }
+
 }

@@ -12,7 +12,7 @@ public class Partner extends Entity {
     public Partner(GamePanel gp){
         super(gp);  
         direction = "down";
-        speed = random.nextInt(3,5);
+        speed = 1;
         getNPCImage();
  
     }

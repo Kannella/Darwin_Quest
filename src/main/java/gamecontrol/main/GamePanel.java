@@ -5,12 +5,15 @@ import gamecontrol.entidade.Entity;
 import gamecontrol.entidade.Player;
 import gamecontrol.objeto.SuperObject;
 import gamecontrol.tile.TileManager;
+import gamecontrol.main.Main;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Window;
+
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -28,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 31;
     public final int maxMap = 4; //quantidade de mapas presentes
-    public final int currentMap = 0; //variavel que recebe qual o mapa atual
+    public final int currentMap = Main.getGameStage(); //variavel que recebe qual o mapa atual
     
     //setando FPS do jogo (a variável pelo menos)
     int FPS = 60;
@@ -199,6 +202,14 @@ public class GamePanel extends JPanel implements Runnable{
 
         se.setFile(i);
         se.play();
+    }
+
+    public void nextStage(){
+        Window w = javax.swing.SwingUtilities.getWindowAncestor(this);  
+        w.dispose();
+        Main.setGameStage(+1);
+        try{stopMusic();} catch(Exception e){System.out.println(e);}
+        Main.abrirJanelaDoJogo();
     }
 
 }

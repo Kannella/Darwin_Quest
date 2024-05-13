@@ -3,6 +3,8 @@ package gamecontrol.entidade;
 import gamecontrol.main.GamePanel;
 import gamecontrol.main.KeyHandler;
 import gamecontrol.main.UtilityTool;
+import gamecontrol.main.UI;
+
 
 //Essa classe é responsavel pelo jogador, ela puxa e funciona com as variaveis criadas na Entidade
 import java.awt.Graphics2D;
@@ -133,9 +135,9 @@ public class Player extends Entity{
             interactNPC(npcIndex);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador, caso queira mecher com velocidade ou outra coisa só mudar a variavel
 
             //colisão de inimigo
-            int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
+            // int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
             // // int speednpc = 999;
-            interactNPC(enemyIndex);  
+            
 
             //Se colisor for false, o player pode se mover
             if(collisionOn == false){
@@ -183,7 +185,11 @@ public class Player extends Entity{
     }
     public void interactNPC(int i){
         if(i !=999 && i!=4){
-            System.out.println(i);
+            if(UI.canReproduce == true){
+                gp.nextStage();
+                gp.enemy[i] = null;
+                UI.canReproduce = false;
+            }
         }
     }
 
@@ -257,4 +263,5 @@ public class Player extends Entity{
         //g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
         g2.drawImage(image, screenX, screenY, null);
     }
+    
 }
