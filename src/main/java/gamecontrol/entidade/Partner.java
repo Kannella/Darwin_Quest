@@ -13,10 +13,11 @@ public class Partner extends Entity {
     Random random= new Random();
     public Partner(GamePanel gp){
         super(gp);  
+        type = 1;
         direction = "down";
-        speed = 1;
+        speed =random.nextInt(2,3);
         getNPCImage();
- 
+
     }
 
     public void getNPCImage() {
@@ -40,6 +41,7 @@ public class Partner extends Entity {
             right2 = rotateSprite(up2, 90);
             right3 = rotateSprite(up3, 90);
             right4 = rotateSprite(up4, 90);
+
 
         } else if (gp.currentMap == 1) {
             up1 = setup("besouro/besouroCimaBase");

@@ -100,6 +100,7 @@ public class Player extends Entity{
         }
     }
 
+
     public BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();

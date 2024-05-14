@@ -115,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
+    
     public void update(){
         if (gameState == playState){
             //player
@@ -165,11 +166,6 @@ public class GamePanel extends JPanel implements Runnable{
         }for(int i = 0; i< enemy[0].length;i++){
             if(enemy[currentMap][i] != null){
                 enemy[currentMap][i].draw(g2);
-            }
-        }
-        for (int i = 0; i < npc[1].length; i++) {
-            if (npc[currentMap][i] != null) {
-                npc[currentMap][i].update();
             }
         }
 
