@@ -159,7 +159,7 @@ public class Player extends Entity{
             
             //colisão de inimigo
             int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
-            // // int speednpc = 999;
+            // // int speednpc = 999;                                                       //LEO: NÃO COMENTA ISSO, A COLISÃO COM O INIMIGO SÓ NÃO FUNCIONA SE ISSO NÃO EXISTIR E EU NÃO SEI PQ
             
             
             //Se colisor for false, o player pode se mover
