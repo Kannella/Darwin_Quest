@@ -22,10 +22,10 @@ public class Partner extends Entity {
 
     public void getNPCImage() {
         if (gp.currentMap == 0) {
-            up1 = setup("preguica/preguicaCimaBase");
-            up2 = setup("preguica/preguicaCima1");
-            up3 = setup("preguica/preguicaCimaBase");
-            up4 = setup("preguica/preguicaCima2");
+            up1 = setup("besouro/besouroCimaBase");
+            up2 = setup("besouro/besouroCima1");
+            up3 = setup("besouro/besouroCimaBase");
+            up4 = setup("besouro/besouroCima2");
 
             left1 = rotateSprite(up1, -90);
             left2 = rotateSprite(up2, -90);

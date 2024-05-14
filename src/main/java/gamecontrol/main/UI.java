@@ -6,7 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
-
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import gamecontrol.objeto.ObjHeart;
 import gamecontrol.objeto.SuperObject;
 
@@ -21,13 +22,14 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40;
-    BufferedImage fullHeart, halfHeart, emptyHeart;
+    BufferedImage fullHeart, halfHeart, emptyHeart, imagemFundo;
+    public int commandNum = 0;
     
     private Timer timer; //esse objeto cria um "relogio" que fica de fundo
     private static TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
     private static boolean running;   //variavel que verifica se o timer esta ativo
     private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
-    private boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
+    private static boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
     public static boolean canReproduce = false;  //Variavel que diz se vai ser possivel reproduzir
 
@@ -71,7 +73,9 @@ public class UI {
             Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);  
             w.dispose();          
             drawGameOverScreen();
-
+        }
+        if (gp.gameState == gp.chooseState) {
+            drawChooseScreen();
         }
     }
 
@@ -99,6 +103,53 @@ public class UI {
             }
             i++;
             x += gp.tileSize;
+        }
+    }
+    
+    public void drawChooseScreen() {
+        // desenha fundo da tela (pega imagem e faz o tamanho que a gente quer)
+        g2.drawImage(imagemFundo, 0, 0, gp.tileSize * 16, gp.tileSize * 12, null);
+        // cria texto principal
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        String text = "Escolha um da prole";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+
+        g2.setColor(Color.black);
+        g2.drawString(text, x + 5, y + 5);
+
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        x = gp.screenWidth / 2;
+        y += gp.screenHeight / 2;
+        // pega imagens dos animais e coloca na tela
+        g2.drawImage(gp.player.down1, 0, 0, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(fullHeart, gp.tileSize, 0, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(gp.partner.down1, gp.tileSize * 2, 0, gp.tileSize, gp.tileSize, null);
+
+        // menu de escolha
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+
+        text = "Opção1";
+        x = gp.tileSize * 2;
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "Opção2";
+        x = gp.tileSize * 10;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        try {
+            imagemFundo = ImageIO.read(getClass().getResourceAsStream("/res/mapas/background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
