@@ -2,6 +2,7 @@ package gamecontrol.main;
 
 //Essa classe é responsavel por organizar a tela. Nela temos o ciclo em que as imagens são desenhadas
 import gamecontrol.entidade.Entity;
+import gamecontrol.entidade.Partner;
 import gamecontrol.entidade.Player;
 import gamecontrol.objeto.SuperObject;
 import gamecontrol.tile.TileManager;
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     //Entidade e objeto
     public Player player = new Player(this, keyH);
+    public Partner partner = new Partner(this);
     public SuperObject obj[][] = new SuperObject[maxMap][10]; 
     public Entity npc[][]= new Entity[maxMap][10];
     public Entity enemy[][] = new Entity[maxMap][10];
@@ -55,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Game State (estado do jogo)
     public int gameState;
     //public int estagio; //não usado por enquanto
+    public final int chooseState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int gameOverState = 3;
@@ -149,31 +152,37 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-        //Tile
-        tileM.draw(g2);
-
-        //Objetc
-        for(int i = 0; i < obj[0].length; i++){
-            if(obj[currentMap][i] != null){
-                obj[currentMap][i].draw(g2, this);
-            }
+        if (gameState == chooseState){
+            ui.draw(g2);
         }
-        //NPC
-        for(int i = 0; i< npc[0].length;i++){
-            if(npc[currentMap][i] != null){
-                npc[currentMap][i].draw(g2);
+        else{
+            // Tile
+            tileM.draw(g2);
+
+            // Objetc
+            for (int i = 0; i < obj[0].length; i++) {
+                if (obj[currentMap][i] != null) {
+                    obj[currentMap][i].draw(g2, this);
+                }
             }
-        }for(int i = 0; i< enemy[0].length;i++){
-            if(enemy[currentMap][i] != null){
-                enemy[currentMap][i].draw(g2);
+            // NPC
+            for (int i = 0; i < npc[0].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    npc[currentMap][i].draw(g2);
+                }
             }
+            for (int i = 0; i < enemy[0].length; i++) {
+                if (enemy[currentMap][i] != null) {
+                    enemy[currentMap][i].draw(g2);
+                }
+            }
+
+            // Player
+            player.draw(g2);
+
+            // UI
+            ui.draw(g2);
         }
-
-        //Player
-        player.draw(g2);
-
-        //UI
-        ui.draw(g2);
 
         g2.dispose();
     }
