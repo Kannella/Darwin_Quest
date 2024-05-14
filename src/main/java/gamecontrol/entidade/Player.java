@@ -158,7 +158,7 @@ public class Player extends Entity{
             interactNPC(npcIndex);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador, caso queira mecher com velocidade ou outra coisa só mudar a variavel
             
             //colisão de inimigo
-            // int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
+            int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
             // // int speednpc = 999;
             
             
@@ -211,7 +211,7 @@ public class Player extends Entity{
             if(UI.canReproduce==true){
                 gp.npc[i] = null;
                 UI.canReproduce = false;
-                // UI.pararTimer();
+                UI.pararTimer();
                 gp.nextStage();
             }
         }
