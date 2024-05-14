@@ -24,8 +24,8 @@ public class UI {
     BufferedImage fullHeart, halfHeart, emptyHeart;
     
     private Timer timer; //esse objeto cria um "relogio" que fica de fundo
-    private TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
-    private boolean running;   //variavel que verifica se o timer esta ativo
+    private static TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
+    private static boolean running;   //variavel que verifica se o timer esta ativo
     private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
     private boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
@@ -150,7 +150,7 @@ public class UI {
         }
     }
 
-    public void pararTimer() {
+    public static void pararTimer() {
         if (running) {
             timerTask.cancel();
             running = false;
