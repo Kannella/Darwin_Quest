@@ -28,10 +28,7 @@ public class AssetSetter {
         gp.npc[mapNum][0] = new Partner(gp);
         gp.npc[mapNum][0].worldX = gp.tileSize * 20; // Controlam a posição X e Y de spawn da instancia da entidade
         gp.npc[mapNum][0].worldY = gp.tileSize * 20;
-        mapNum = 2;
-        // coloque aqui o novo npc desse mapa
-        mapNum = 3;
-        // coloque aqui o novo npc desse mapa
+        
     }
     public void setEnemy(){
         int mapNum = 0;

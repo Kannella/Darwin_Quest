@@ -21,6 +21,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
+    public int trocaAnimal = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -56,22 +57,27 @@ public class Player extends Entity{
     }
     
     public void getPlayerImage() {
+
         if (gp.currentMap == 0) {
-            up1 = setup("preguica/preguicaCimaBase");
-            up2 = setup("preguica/preguicaCima1");
-            up3 = setup("preguica/preguicaCimaBase");
-            up4 = setup("preguica/preguicaCima2");
+
+            Sprite s = new Sprite();
+            BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
+
+            down1 = sprites[0];
+            down2 = sprites[1];
+            down3 = sprites[0];
+            down4 = sprites[2];
+
+            up1 = rotateSprite(down1, 180);
+            up2 = rotateSprite(down2, 180);
+            up3 = rotateSprite(down1, 180);
+            up4 = rotateSprite(down4, 180);
             
             left1 = rotateSprite(up1, -90);
             left2 = rotateSprite(up2, -90);
             left3 = rotateSprite(up3, -90);
             left4 = rotateSprite(up4, -90);
-            
-            down1 = rotateSprite(up1, 180);
-            down2 = rotateSprite(up2, 180);
-            down3 = rotateSprite(up3, 180);
-            down4 = rotateSprite(up4, 180);
-            
+                        
             right1 = rotateSprite(up1, 90);
             right2 = rotateSprite(up2, 90);
             right3 = rotateSprite(up3, 90);
@@ -209,10 +215,10 @@ public class Player extends Entity{
     public void interactNPC(int i){
         if(i !=999 && i!=4){
             if(UI.canReproduce==true){
-                gp.npc[i] = null;
+                //gp.npc[i] = null;
                 UI.canReproduce = false;
                 UI.pararTimer();
-                gp.nextStage();
+                gp.gameState = gp.chooseState;
             }
         }
     }

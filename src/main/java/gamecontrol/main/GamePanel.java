@@ -136,10 +136,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             //npc mapa 2
-            for (int i = 0; i < npc[1].length; i++) {
-                if (npc[currentMap][i] != null) {
-                    npc[currentMap][i].update();
-                }
+             for (int i = 0; i < npc[1].length; i++) {
+                 if (npc[currentMap][i] != null) {
+                     npc[currentMap][i].update();
+                 }
             }
         }
         if (gameState == pauseState){

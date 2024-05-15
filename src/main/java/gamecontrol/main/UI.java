@@ -4,13 +4,17 @@ package gamecontrol.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import gamecontrol.entidade.Sprite;
 import gamecontrol.objeto.ObjHeart;
 import gamecontrol.objeto.SuperObject;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +28,7 @@ public class UI {
     Font arial_40;
     BufferedImage fullHeart, halfHeart, emptyHeart, imagemFundo;
     public int commandNum = 0;
+    public int cruzamento = 0;
     
     private Timer timer; //esse objeto cria um "relogio" que fica de fundo
     private static TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
@@ -128,9 +133,15 @@ public class UI {
         g2.drawImage(fullHeart, gp.tileSize, 0, gp.tileSize, gp.tileSize, null);
         g2.drawImage(gp.partner.down1, gp.tileSize * 2, 0, gp.tileSize, gp.tileSize, null);
 
+        // mostra sprites sorteadas
+        
+
         // menu de escolha
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
 
+        BufferedImage spriteSorteado = sortearSprite();
+
+        g2.drawImage(spriteSorteado, x, y, gp.tileSize, gp.tileSize, null);
         text = "Opção1";
         x = gp.tileSize * 2;
         y += gp.tileSize;
@@ -138,6 +149,8 @@ public class UI {
         if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
+        
+        g2.drawImage(spriteSorteado, x, y, gp.tileSize, gp.tileSize,null);
 
         text = "Opção2";
         x = gp.tileSize * 10;
@@ -153,6 +166,13 @@ public class UI {
         }
     }
 
+    // Método para selecionar aleatoriamente uma imagem de um array de sprites
+    public BufferedImage selectRandomSprite(BufferedImage[] sprites) {
+        Random rand = new Random();
+        int index = rand.nextInt(sprites.length); // Gera um índice aleatório dentro do intervalo do array
+        return sprites[index]; // Retorna a sprite selecionada aleatoriamente
+    }
+
     public void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         String text = "Pausado";
@@ -165,6 +185,21 @@ public class UI {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
         return x;
+    }
+    
+
+    Sprite s = new Sprite();
+    BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
+
+    BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6] };
+  
+    public BufferedImage sortearSprite() {
+
+        Random random = new Random();
+
+        int indice = random.nextInt(spritesSorteadas.length);
+
+        return spritesSorteadas[indice];
     }
 
     public void iniciarTimer(GamePanel gp) {

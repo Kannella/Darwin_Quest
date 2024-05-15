@@ -135,7 +135,6 @@ public class CollisionChecker {
         int index = 999;
 
         for(int i = 0; i < target[1].length; i++){
-
             if(target[gp.currentMap][i] != null){
 
                 //Pegar da entidade solid area position

@@ -41,11 +41,13 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) { // selecionando opção 1
                     // código que mude para skin mostrada
+                    
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
                     // códico que mude para skin mostrada
+                    
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
                 }

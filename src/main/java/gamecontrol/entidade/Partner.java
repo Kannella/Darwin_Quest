@@ -21,6 +21,8 @@ public class Partner extends Entity {
     }
 
     public void getNPCImage() {
+
+        
         if (gp.currentMap == 0) {
             up1 = setup("besouro/besouroCimaBase");
             up2 = setup("besouro/besouroCima1");
