@@ -26,22 +26,29 @@ public class SpriteManager {
     }
     
     public BufferedImage[] lerSpritesheet(String nomeArquivo, int larguraSprite, int alturaSprite) {
+
         BufferedImage spritesheet = null;
         try {
             spritesheet = ImageIO.read(getClass().getResourceAsStream("/res/Animais/spriteSheet" + nomeArquivo));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        // Calcula o número de sprites horizontalmente
-        int numSpritesHorizontal = spritesheet.getWidth() / larguraSprite;
+        // Número de colunas e linhas no spritesheet
+        int numColunas = 7;
+        int numLinhas = 8;
+
+        // Calcula o número total de sprites
+        int numSprites = numColunas * numLinhas;
 
         // Cria um array para armazenar as sprites individuais
-        BufferedImage[] sprites = new BufferedImage[numSpritesHorizontal];
+        BufferedImage[] sprites = new BufferedImage[numSprites];
 
         // Divide o spritesheet em sprites individuais
-        for (int i = 0; i < numSpritesHorizontal; i++) {
-            sprites[i] = spritesheet.getSubimage(i * larguraSprite, 0, larguraSprite, alturaSprite);
+        for (int linha = 0; linha < numLinhas; linha++) {
+            for (int coluna = 0; coluna < numColunas; coluna++) {
+                int index = linha * numColunas + coluna;
+                sprites[index] = spritesheet.getSubimage(coluna * larguraSprite, linha * alturaSprite, larguraSprite, alturaSprite);
+            }
         }
 
         return sprites;

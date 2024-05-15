@@ -62,7 +62,7 @@ public class UI {
     
         SpriteManager s = new SpriteManager();
         BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-        BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6] };
+        BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6], sprites[9], sprites[12], sprites[15], sprites[18], sprites[21], sprites[24], sprites[27], sprites[30], sprites[33], sprites[36], sprites[39], sprites[42], sprites[45]};
    
         // Sorteia os sprites uma vez na inicialização
         spriteSorteado1 = sortearSprite(spritesSorteadas);
