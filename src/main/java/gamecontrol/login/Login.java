@@ -22,19 +22,26 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String usuario = jTextField1.getText(); // Obtém o texto digitado no campo de usuário
         String senha = new String(jPasswordField1.getPassword()); // Obtém o texto digitado no campo de senha
-        // Realiza a lógica de autenticação
         
-        boolean autenticado = new ConexaoBD().autenticarUsuario(usuario, senha); // Chama o método autenticarUsuario() da classe ConexaoBD
-        if (autenticado) {
-            if (loginSuccessListener != null) {
-                System.out.println("Login bem-sucedido!");
-                loginSuccessListener.onLoginSuccess(); // quando o login for bem-sucedido, chama o método onLoginSuccess() do ouvinte de sucesso de login
-            }
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-        };
-        
+        String resultado = new ConexaoBD().autenticarUsuario(usuario, senha); // Chama o método autenticarUsuario() da classe ConexaoBD
+        switch (resultado) {
+            case "Autenticado com sucesso!":
+                if (loginSuccessListener != null) {
+                    System.out.println("Login bem-sucedido!");
+                    loginSuccessListener.onLoginSuccess(); // quando o login for bem-sucedido, chama o método onLoginSuccess() do ouvinte de sucesso de login
+                }
+                dispose();
+                break;
+            case "Email não existe!":
+                JOptionPane.showMessageDialog(this, "Email não encontrado!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                break;
+            case "Senha incorreta!":
+                JOptionPane.showMessageDialog(this, "Senha incorreta!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao autenticar usuário!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 
 

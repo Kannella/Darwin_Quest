@@ -2,6 +2,8 @@ package gamecontrol.assets;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -37,19 +39,38 @@ public class ConexaoBD {
         }
     }
 
-    public boolean autenticarUsuario(String email, String senha) {
-    try (Connection conexao = obterConexao()) {
-        if (conexao != null) {
-            // Implemente a lógica de autenticação aqui
-            return true; // Exemplo de retorno
-        } else {
-            return false;
+    public String autenticarUsuario(String email, String senha) {
+        String queryEmail = "SELECT email FROM jogador WHERE email = ?";
+        String querySenha = "SELECT * FROM jogador WHERE email = ? AND senha = ?";
+        
+        try (Connection conexao = obterConexao();
+             PreparedStatement stmtEmail = conexao.prepareStatement(queryEmail);
+             PreparedStatement stmtSenha = conexao.prepareStatement(querySenha)) {
+            
+            // Verifica se o email existe
+            stmtEmail.setString(1, email);
+            try (ResultSet rsEmail = stmtEmail.executeQuery()) {
+                if (!rsEmail.next()) {
+                    return "Email não existe!";
+                }
+            }
+            
+            // Verifica se a senha está correta
+            stmtSenha.setString(1, email);
+            stmtSenha.setString(2, senha);
+            try (ResultSet rsSenha = stmtSenha.executeQuery()) {
+                if (rsSenha.next()) {
+                    return "Autenticado com sucesso!"; // Usuário autenticado com sucesso
+                } else {
+                    return "Senha incorreta!";
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao autenticar usuário: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return "Erro de autenticação";
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Erro ao autenticar usuário: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-        return false;
     }
 }
 
-}
+
