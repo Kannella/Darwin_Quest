@@ -4,13 +4,12 @@ package gamecontrol.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import gamecontrol.entidade.Sprite;
+import gamecontrol.entidade.SpriteManager;
 import gamecontrol.objeto.ObjHeart;
 import gamecontrol.objeto.SuperObject;
 
@@ -19,7 +18,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import br.maua.teste.TelaMortePersonagem;
-
 
 public class UI {
     
@@ -30,14 +28,16 @@ public class UI {
     public int commandNum = 0;
     public int cruzamento = 0;
     
-    private Timer timer; //esse objeto cria um "relogio" que fica de fundo
+    private static Timer timer; //esse objeto cria um "relogio" que fica de fundo
     private static TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
     private static boolean running;   //variavel que verifica se o timer esta ativo
-    private long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
-    private static boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
+    public static long tempoDecorrido; //variavel que vai segurar o tempo que o jogador jogou o nivel
+    //private static boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
     public static boolean canReproduce = false;  //Variavel que diz se vai ser possivel reproduzir
 
+    private BufferedImage spriteSorteado1; // variável para armazenar o primeiro sprite sorteado
+    private BufferedImage spriteSorteado2; // variável para armazenar o segundo sprite sorteado
 
     public UI (GamePanel gp){
         this.gp = gp;
@@ -57,6 +57,18 @@ public class UI {
 
         iniciarTimer(gp);
 
+
+        //Faça com que o SpriteManager sorteie as sprites
+    
+        SpriteManager s = new SpriteManager();
+        BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
+        BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6] };
+   
+        // Sorteia os sprites uma vez na inicialização
+        spriteSorteado1 = sortearSprite(spritesSorteadas);
+        do {
+            spriteSorteado2 = sortearSprite(spritesSorteadas);
+        } while (spriteSorteado2 == spriteSorteado1); // Garante que spriteSorteado2 seja diferente de spriteSorteado1
     }
 
     public void draw (Graphics2D g2){
@@ -113,6 +125,12 @@ public class UI {
     
     public void drawChooseScreen() {
         // desenha fundo da tela (pega imagem e faz o tamanho que a gente quer)
+        try {
+            imagemFundo = ImageIO.read(getClass().getResourceAsStream("/res/mapas/background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         g2.drawImage(imagemFundo, 0, 0, gp.tileSize * 16, gp.tileSize * 12, null);
         // cria texto principal
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
@@ -139,9 +157,7 @@ public class UI {
         // menu de escolha
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
 
-        BufferedImage spriteSorteado = sortearSprite();
-
-        g2.drawImage(spriteSorteado, x, y, gp.tileSize, gp.tileSize, null);
+        // Usa os sprites sorteados armazenados
         text = "Opção1";
         x = gp.tileSize * 2;
         y += gp.tileSize;
@@ -149,8 +165,8 @@ public class UI {
         if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-        
-        g2.drawImage(spriteSorteado, x, y, gp.tileSize, gp.tileSize,null);
+        g2.drawImage(spriteSorteado1, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
+
 
         text = "Opção2";
         x = gp.tileSize * 10;
@@ -158,12 +174,7 @@ public class UI {
         if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-
-        try {
-            imagemFundo = ImageIO.read(getClass().getResourceAsStream("/res/mapas/background.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        g2.drawImage(spriteSorteado2, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
     }
 
     // Método para selecionar aleatoriamente uma imagem de um array de sprites
@@ -171,6 +182,11 @@ public class UI {
         Random rand = new Random();
         int index = rand.nextInt(sprites.length); // Gera um índice aleatório dentro do intervalo do array
         return sprites[index]; // Retorna a sprite selecionada aleatoriamente
+    }
+    public BufferedImage sortearSprite(BufferedImage[] spritesSorteadas) {
+        Random random = new Random();
+        int indice = random.nextInt(spritesSorteadas.length);
+        return spritesSorteadas[indice];
     }
 
     public void drawPauseScreen(){
@@ -186,23 +202,9 @@ public class UI {
         int x = gp.screenWidth / 2 - length / 2;
         return x;
     }
-    
-
-    Sprite s = new Sprite();
-    BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-
-    BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6] };
   
-    public BufferedImage sortearSprite() {
 
-        Random random = new Random();
-
-        int indice = random.nextInt(spritesSorteadas.length);
-
-        return spritesSorteadas[indice];
-    }
-
-    public void iniciarTimer(GamePanel gp) {
+    public static void iniciarTimer(GamePanel gp) {
         if (!running) {
             timerTask = new TimerTask() {
                 @Override
@@ -245,26 +247,15 @@ public class UI {
             System.out.println("O timer já está parado.");
         }
     }
-/* 
-    public void disposeGamePanel(){
-        gp.dispose();
-    }
-*/
-    public void drawGameOverScreen(){
-        
-        //  disposeGamePanel();
 
-        if (!gameOverDisplayed) {
-            try{
-                gp.music.stop();
-            }catch(Exception e) {
-                System.out.println("Sistema de som não detectado");
-                System.out.println(e);
-            }
-            TelaMortePersonagem telaMorte = new TelaMortePersonagem();
-            telaMorte.setVisible(true);
-            telaMorte.setLocationRelativeTo(null);
-            gameOverDisplayed = true; // marcar que a tela de jogo já foi exibida
+    public void drawGameOverScreen() {
+        try {
+            gp.music.stop();
+        } catch (Exception e) {
+            System.out.println("Sistema de som não detectado");
+            e.printStackTrace();
         }
+         new TelaMortePersonagem().setVisible(true); 
     }
+
 }

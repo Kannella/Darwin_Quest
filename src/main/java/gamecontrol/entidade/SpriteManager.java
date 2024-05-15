@@ -1,19 +1,24 @@
 package gamecontrol.entidade;
 
 import java.io.IOException;
-
+import java.util.Random;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import gamecontrol.main.GamePanel;
 
-public class Sprite {
+public class SpriteManager {
+   
+    
 
     GamePanel gp;
 
     //método que define qual pool de sprites usar em cada mapa
     public void currentAnimal(){
         if (gp.currentMap == 0){
-
+            //gp.player.sprite = gp.aSetter.playerSprites;
+            //gp.partner.sprite = gp.aSetter.partnerSprites;
+            //gp.npc[0][0].sprite = gp.aSetter.npcSprites;
+            //gp.enemy[0][0].sprite = gp.aSetter.enemySprites;
         }
         if(gp.currentMap == 1){
 

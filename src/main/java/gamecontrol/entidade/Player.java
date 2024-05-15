@@ -60,13 +60,13 @@ public class Player extends Entity{
 
         if (gp.currentMap == 0) {
 
-            Sprite s = new Sprite();
-            BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
+            SpriteManager s = new SpriteManager();
+            BufferedImage[] sprite = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
 
-            down1 = sprites[0];
-            down2 = sprites[1];
-            down3 = sprites[0];
-            down4 = sprites[2];
+            down1 = sprite[0];
+            down2 = sprite[1];
+            down3 = sprite[0];
+            down4 = sprite[2];
 
             up1 = rotateSprite(down1, 180);
             up2 = rotateSprite(down2, 180);

@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxMap = 4; //quantidade de mapas presentes
     public final int currentMap = Main.getGameStage(); //variavel que recebe qual o mapa atual
     
+    
     //setando FPS do jogo (a variável pelo menos)
     int FPS = 60;
 
@@ -78,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setEnemy();
         playMusic(0);
         Sound.isPlaying = true;
-        gameState = playState;
+        gameState = chooseState;
     }
 
     public void startGameThread(){
@@ -204,8 +205,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void stopMusic(){
-
-        music.stop();
+        try {
+            music.stop();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void playSE(int i){

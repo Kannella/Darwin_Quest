@@ -3,6 +3,7 @@ package gamecontrol.main;
 //Classe feita para detectar a input do jogador, no caso, somente o teclado
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import gamecontrol.main.UI;
 
 
 public class KeyHandler implements KeyListener {
@@ -44,12 +45,16 @@ public class KeyHandler implements KeyListener {
                     
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
+                    UI.tempoDecorrido = 0;
+                    UI.iniciarTimer(gp);
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
                     // códico que mude para skin mostrada
                     
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
+                    UI.tempoDecorrido = 0;
+                    UI.iniciarTimer(gp);
                 }
             }
         }

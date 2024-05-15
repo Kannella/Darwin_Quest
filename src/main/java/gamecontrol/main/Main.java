@@ -48,29 +48,33 @@ public class Main {
                     public void onLoginSuccess() {
                         // Quando o login for bem-sucedido, esta parte do código será executada
                         System.out.println("Login bem-sucedido! Abrindo a janela do jogo...");
+
+                        abrirTelaInical();
                         
-                        // Método para abrir a janela do jogo
-                        TelaInicial telaInicial = new TelaInicial();
-                        // Método para abrir a janela de login
-                        telaInicial.setVisible(true);
-                        telaInicial.setLocationRelativeTo(null);
                     }
                 }
-            );
+                );
+                
+            });
+        }
+        
+        private static int GameStage;   //Estagio inicial
+        
+        public static int getGameStage() {
+            return GameStage;
+        }
+        public static void setGameStage(int gameStage) {
+            GameStage = gameStage;
+        }
+        
+        public static void abrirTelaInical(){
+        // Método para abrir a janela do jogo
+        TelaInicial telaInicial = new TelaInicial();
+        // Método para abrir a janela de login
+        telaInicial.setVisible(true);
+        telaInicial.setLocationRelativeTo(null);
 
-        });
     }
-
-    private static int GameStage;   //Estagio inicial
-    
-    public static int getGameStage() {
-        return GameStage;
-    }
-    public static void setGameStage(int gameStage) {
-        GameStage = gameStage;
-    }
-
-    
 
     // Método para abrir a janela do jogo
     public static void abrirJanelaDoJogo() {
