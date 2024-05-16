@@ -1,6 +1,6 @@
 package gamecontrol.main;
 
-import gamecontrol.entidade.CurrentSprite;
+// import gamecontrol.entidade.CurrentSprite;
 //Essa classe é responsavel por organizar a tela. Nela temos o ciclo em que as imagens são desenhadas
 import gamecontrol.entidade.Entity;
 import gamecontrol.entidade.Partner;
@@ -11,11 +11,18 @@ import gamecontrol.tile.TileManager;
 
 
 import javax.swing.JPanel;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Window;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 
@@ -61,9 +68,10 @@ public class GamePanel extends JPanel implements Runnable{
     public SuperObject obj[][] = new SuperObject[maxMap][10]; 
     public Entity npc[][]= new Entity[maxMap][10];
     public Entity enemy[][] = new Entity[maxMap][10];
+    ArrayList<Entity> entityList = new ArrayList<Entity>();
 
     //só pra chamar player antes de currentSprite
-    public CurrentSprite currentSprite = new CurrentSprite(this);
+    // public CurrentSprite currentSprite = new CurrentSprite(this);
 
     // Game State (estado do jogo)
     // private CurrentState currentState;
@@ -154,6 +162,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             //novo sorteio de sprite
             sManager.sortearSprites();
+            
         }
         if (currentState.getGameState() == currentState.pauseState){
             //tá pausado e só isso mesmo por enquanto
@@ -164,7 +173,6 @@ public class GamePanel extends JPanel implements Runnable{
             //cria novos objetos do jogo ao entrar no estado de escolha
             aSetter.setNPC();
             aSetter.setEnemy();
-
             stopMusic();
         }
     }
@@ -180,6 +188,25 @@ public class GamePanel extends JPanel implements Runnable{
         else{
             // Tile
             tileM.draw(g2);
+
+            // Player
+            entityList.add(player);
+            Collections.sort(entityList, new Comparator<Entity>() {
+
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.worldY, e2.worldY);
+                    return result;
+                }
+            });
+
+            //Desenha as entidades (no caso só o player por enquanto)
+            for(int i = 0; i < entityList.size(); i++){
+                entityList.get(i).draw(g2);
+            }
+
+            //Esvaziar a lista de entidades
+            entityList.clear();
 
             // Objetc
             for (int i = 0; i < obj[0].length; i++) {
@@ -199,10 +226,7 @@ public class GamePanel extends JPanel implements Runnable{
                     enemy[currentMap][i].draw(g2);
                 }
             }
-
-            // Player
-            player.draw(g2);
-
+      
             // UI
             ui.draw(g2);
         }
@@ -252,4 +276,8 @@ public class GamePanel extends JPanel implements Runnable{
         // Preencher npc com novas instâncias de NPCs, se necessário
     }
 
+    //metodo que limpa o player
+    public void clearPlayer(){
+        player = new Player(this, keyH);
+    }
 }

@@ -3,7 +3,6 @@ package gamecontrol.main;
 //Classe feita para detectar a input do jogador, no caso, somente o teclado
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 
 public class KeyHandler implements KeyListener {
     
@@ -40,26 +39,22 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) { // selecionando opção 1
-                    // códico que mude para skin mostrada
-                    gp.currentSprite.getSpriteEscolhida1(0);
-                    gp.currentSprite.setCurrentSprite(gp.player);
 
-                    gp.currentState.setPlayState();
+                    gp.player.contador = 1;
                     gp.playMusic(0);
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    gp.currentState.setPlayState();
                     gp.sManager.spriteSorteado1 = null;
                     gp.sManager.spriteSorteado2 = null;
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
-                    // códico que mude para skin mostrada
-                    gp.currentSprite.getSpriteEscolhida2(0);
-                    gp.currentSprite.setCurrentSprite(gp.player);
 
-                    gp.currentState.setPlayState();
+                    gp.player.contador = 2;
                     gp.playMusic(0);
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    gp.currentState.setPlayState();
                     gp.sManager.spriteSorteado1 = null;
                     gp.sManager.spriteSorteado2 = null;
                 }

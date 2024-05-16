@@ -7,7 +7,6 @@ import gamecontrol.main.UI;
 //Essa classe é responsavel pelo jogador, ela puxa e funciona com as variaveis criadas na Entidade
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.awt.Rectangle;
 
 
@@ -17,12 +16,11 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int trocaAnimal = 0;
+    public int contador = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         
         super(gp);
-        gp.currentSprite = new CurrentSprite(gp);
         this.keyH = keyH;
         BufferedImage[] sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
         
@@ -55,61 +53,56 @@ public class Player extends Entity{
     }
     
     public void getPlayerImage() {
+        BufferedImage[] sprites;
+        int spriteIndex;
 
-
-        if(gp.aManager.cruzamentos == 0){
-            // Obtenha a sprite atual do jogador
-            BufferedImage[] sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-
-            // Configure as sprites com base na sprite atual
-            down1 = gp.sManager.setup(sprites[0]);
-            down2 = gp.sManager.setup(sprites[1]); // Use a mesma sprite para down2
-            down3 = gp.sManager.setup(sprites[0]);
-            down4 = gp.sManager.setup(sprites[2]); // Use a mesma sprite para down4
-
-            // Faça as rotações apropriadas para as outras direções
-            up1 = gp.sManager.rotateSprite(down1, 180);
-            up2 = gp.sManager.rotateSprite(down2, 180);
-            up3 = gp.sManager.rotateSprite(down3, 180);
-            up4 = gp.sManager.rotateSprite(down4, 180);
-
-            left1 = gp.sManager.rotateSprite(up1, -90);
-            left2 = gp.sManager.rotateSprite(up2, -90);
-            left3 = gp.sManager.rotateSprite(up3, -90);
-            left4 = gp.sManager.rotateSprite(up4, -90);
-
-            right1 = gp.sManager.rotateSprite(up1, 90);
-            right2 = gp.sManager.rotateSprite(up2, 90);
-            right3 = gp.sManager.rotateSprite(up3, 90);
-            right4 = gp.sManager.rotateSprite(up4, 90);
+        while (gp.aManager.cruzamentos == 0) {
+            spriteIndex = 0; // Defina o índice da sprite conforme necessário
+            // Obtenha a sprite atual do jogador com base na escolha
+            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
+            // Defina o índice da sprite conforme necessário
+            setPlayerSprites(sprites, spriteIndex);
+            // Sai do loop
+            break;
         }
-        else if(gp.aManager.cruzamentos > 0){
-            // Obtenha a sprite atual do jogador
-            BufferedImage currentSprite = gp.currentSprite.getCurrentSprite();
-
+        if (gp.aManager.cruzamentos != 0) {
+            spriteIndex = 0;
+            // Se cruzamentos não for zero, verifique o contador
+            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48); // ou qualquer lógica para obter
+                                                                                  // sprites
+            if (contador == 1) {
+                spriteIndex = gp.sManager.spriteSorteado1Index;
+            } else if (contador == 2) {
+                spriteIndex = gp.sManager.spriteSorteado2Index;
+            }
             // Configure as sprites com base na sprite atual
-            down1 = gp.sManager.setup(currentSprite);
-            down2 = gp.sManager.setup(currentSprite); // Use a mesma sprite para down2
-            down3 = gp.sManager.setup(currentSprite);
-            down4 = gp.sManager.setup(currentSprite); // Use a mesma sprite para down4
-
-            // Faça as rotações apropriadas para as outras direções
-            up1 = gp.sManager.rotateSprite(down1, 180);
-            up2 = gp.sManager.rotateSprite(down2, 180);
-            up3 = gp.sManager.rotateSprite(down3, 180);
-            up4 = gp.sManager.rotateSprite(down4, 180);
-
-            left1 = gp.sManager.rotateSprite(up1, -90);
-            left2 = gp.sManager.rotateSprite(up2, -90);
-            left3 = gp.sManager.rotateSprite(up3, -90);
-            left4 = gp.sManager.rotateSprite(up4, -90);
-
-            right1 = gp.sManager.rotateSprite(up1, 90);
-            right2 = gp.sManager.rotateSprite(up2, 90);
-            right3 = gp.sManager.rotateSprite(up3, 90);
-            right4 = gp.sManager.rotateSprite(up4, 90);
+            setPlayerSprites(sprites, spriteIndex);
         }
+        }
+
+    private void setPlayerSprites(BufferedImage[] sprites, int spriteIndex) {
+        down1 = gp.sManager.setup(sprites[spriteIndex]);
+        down2 = gp.sManager.setup(sprites[spriteIndex + 1]);
+        down3 = gp.sManager.setup(sprites[spriteIndex]);
+        down4 = gp.sManager.setup(sprites[spriteIndex + 2]);
+
+        // Faça as rotações apropriadas para as outras direções
+        up1 = gp.sManager.rotateSprite(down1, 180);
+        up2 = gp.sManager.rotateSprite(down2, 180);
+        up3 = gp.sManager.rotateSprite(down3, 180);
+        up4 = gp.sManager.rotateSprite(down4, 180);
+
+        left1 = gp.sManager.rotateSprite(up1, -90);
+        left2 = gp.sManager.rotateSprite(up2, -90);
+        left3 = gp.sManager.rotateSprite(up3, -90);
+        left4 = gp.sManager.rotateSprite(up4, -90);
+
+        right1 = gp.sManager.rotateSprite(up1, 90);
+        right2 = gp.sManager.rotateSprite(up2, 90);
+        right3 = gp.sManager.rotateSprite(up3, 90);
+        right4 = gp.sManager.rotateSprite(up4, 90);
     }
+
         
     public void update(){
         //esse if true com varios "ou -> ||" é o que segura a sprite de não ficar sendo atualizada o tempo todo 
@@ -140,7 +133,7 @@ public class Player extends Entity{
             //colisão de inimigo
             int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
             // // int speednpc = 999;                                                       //LEO: NÃO COMENTA ISSO, A COLISÃO COM O INIMIGO SÓ NÃO FUNCIONA SE ISSO NÃO EXISTIR E EU NÃO SEI PQ
-            
+
             
             //Se colisor for false, o player pode se mover
             if(collisionOn == false){
@@ -194,6 +187,7 @@ public class Player extends Entity{
                 UI.pararTimer();
                 gp.currentState.setChooseState();
                 gp.aManager.cruzamentos++;
+                System.err.println("Cruzamentos: " + gp.aManager.cruzamentos);
             }
         }
     }
@@ -268,17 +262,20 @@ public class Player extends Entity{
         //g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
         g2.drawImage(image, screenX, screenY, null);
     }
-
-    public void setDown4(BufferedImage bufferedImage) {
+    // Métodos para definir as sprites de movimento do jogador
+    public void setDown1(BufferedImage sprite) {
+        this.down1 = sprite;
     }
 
-    public void setDown3(BufferedImage bufferedImage) {
+    public void setDown2(BufferedImage sprite) {
+        this.down2 = sprite;
     }
 
-    public void setDown2(BufferedImage bufferedImage) {
+    public void setDown3(BufferedImage sprite) {
+        this.down3 = sprite;
     }
 
-    public void setDown1(BufferedImage bufferedImage) {
+    public void setDown4(BufferedImage sprite) {
+        this.down4 = sprite;
     }
-    
 }

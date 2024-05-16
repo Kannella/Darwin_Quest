@@ -13,6 +13,9 @@ public class SpriteManager {
 
     public BufferedImage spriteSorteado1; // variável para armazenar o primeiro sprite sorteado
     public BufferedImage spriteSorteado2; // variável para armazenar o segundo sprite sorteado
+    public int spriteSorteado1Index; // índice do primeiro sprite sorteado
+    public int spriteSorteado2Index; // índice do segundo sprite sorteado
+
     BufferedImage[] sprites;
 
     GamePanel gp;
@@ -75,9 +78,21 @@ public class SpriteManager {
 
         // Sorteia os sprites uma vez na inicialização
         spriteSorteado1 = gachaSprite(spritesSorteadas);
+        spriteSorteado1Index = getSpriteIndex(spriteSorteado1, sprites);
+
         do {
             spriteSorteado2 = gachaSprite(spritesSorteadas);
+            spriteSorteado2Index = getSpriteIndex(spriteSorteado2, sprites);
         } while (spriteSorteado2 == spriteSorteado1); // Garante que spriteSorteado2 seja diferente de spriteSorteado1
+    }
+
+    public int getSpriteIndex(BufferedImage sprite, BufferedImage[] sprites) {
+        for (int i = 0; i < sprites.length; i++) {
+            if (sprites[i] == sprite) {
+                return i;
+            }
+        }
+        return -1; // Retorna -1 se a sprite não for encontrada no array
     }
 
     // Método para sortear uma sprite
