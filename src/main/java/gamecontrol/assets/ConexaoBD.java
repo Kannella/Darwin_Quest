@@ -71,6 +71,26 @@ public class ConexaoBD {
             return "Erro de autenticação";
         }
     }
+    public PerguntaERespostas getPerguntaERespostas(int perguntaId) {
+        PerguntaERespostas perguntaERespostas = null;
+        String query = "SELECT pergunta, resposta1, resposta2, resposta3 FROM texto WHERE id = ?";
+
+        try (Connection conn = obterConexao();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, perguntaId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String pergunta = rs.getString("pergunta");
+                String resposta1 = rs.getString("resposta1");
+                String resposta2 = rs.getString("resposta2");
+                String resposta3 = rs.getString("resposta3");
+                perguntaERespostas = new PerguntaERespostas(pergunta, resposta1, resposta2, resposta3);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return perguntaERespostas;
+    }
 }
 
 

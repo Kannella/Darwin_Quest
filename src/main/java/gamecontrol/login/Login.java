@@ -4,9 +4,9 @@ import javax.swing.*;
 
 import gamecontrol.assets.ConexaoBD;
     
-import java.awt.*;
+
 import java.awt.event.*;
-import java.sql.SQLException;
+
 
 public class Login extends JFrame implements ActionListener {
     

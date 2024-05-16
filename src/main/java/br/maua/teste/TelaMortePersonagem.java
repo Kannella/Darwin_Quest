@@ -10,7 +10,6 @@ public class TelaMortePersonagem extends javax.swing.JFrame {
     }
 
 
-    @SuppressWarnings("unchecked")
     
     private void initComponents() {
 

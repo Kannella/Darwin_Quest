@@ -90,6 +90,8 @@ public class UI {
             Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);  
             w.dispose();          
             drawGameOverScreen();
+            
+
         }
         if (gp.gameState == gp.chooseState) {
             drawChooseScreen();
@@ -255,7 +257,10 @@ public class UI {
             System.out.println("Sistema de som não detectado");
             e.printStackTrace();
         }
-         new TelaMortePersonagem().setVisible(true); 
+        TelaMortePersonagem telaMorte = new TelaMortePersonagem();
+        telaMorte.setVisible(true);
+        telaMorte.setLocationRelativeTo(null);
+
     }
 
 }
