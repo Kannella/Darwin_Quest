@@ -3,8 +3,7 @@ package gamecontrol.main;
 //Classe feita para detectar a input do jogador, no caso, somente o teclado
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import gamecontrol.main.UI;
-
+import java.awt.image.BufferedImage;
 
 public class KeyHandler implements KeyListener {
     
@@ -26,7 +25,7 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         // chooseState
-        if (gp.gameState == gp.chooseState) {
+        if (gp.currentState.getGameState() == gp.currentState.chooseState) {
             if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {
@@ -41,25 +40,34 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) { // selecionando opção 1
-                    // código que mude para skin mostrada
-                    
-                    gp.gameState = gp.playState;
+                    // códico que mude para skin mostrada
+                    gp.currentSprite.getSpriteEscolhida1(0);
+                    gp.currentSprite.setCurrentSprite(gp.player);
+
+                    gp.currentState.setPlayState();
                     gp.playMusic(0);
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    gp.sManager.spriteSorteado1 = null;
+                    gp.sManager.spriteSorteado2 = null;
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
                     // códico que mude para skin mostrada
-                    
-                    gp.gameState = gp.playState;
+                    gp.currentSprite.getSpriteEscolhida2(0);
+                    gp.currentSprite.setCurrentSprite(gp.player);
+
+                    gp.currentState.setPlayState();
                     gp.playMusic(0);
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    gp.sManager.spriteSorteado1 = null;
+                    gp.sManager.spriteSorteado2 = null;
                 }
             }
         }
          //playState
-         if (gp.gameState == gp.playState || gp.gameState == gp.pauseState) {
+         if (gp.currentState.getGameState() == gp.currentState.playState || gp.currentState
+                 .getGameState() == gp.currentState.pauseState) {
             if (code == KeyEvent.VK_W || code ==KeyEvent.VK_UP){
                 upPressed = true;
             }
@@ -73,11 +81,11 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
             }
             if (code == KeyEvent.VK_P) {
-                if(gp.gameState == gp.playState){
-                    gp.gameState = gp.pauseState;
+                if(gp.currentState.getGameState() == gp.currentState.playState){
+                    gp.currentState.setPauseState();
                 }
-                else if(gp.gameState == gp.pauseState){
-                    gp.gameState = gp.playState;
+                else if(gp.currentState.getGameState() == gp.currentState.pauseState){
+                    gp.currentState.setPlayState();
                 }
             }if (code == KeyEvent.VK_M) {
                 if(Sound.isPlaying == true){
@@ -90,8 +98,8 @@ public class KeyHandler implements KeyListener {
                 }
            
             }if (code == KeyEvent.VK_K) {   //TIRAR ISSO NA VERSÃO FINAL
-                if(gp.gameState == gp.playState){
-                    gp.gameState = gp.gameOverState;
+                if(gp.currentState.getGameState() == gp.currentState.playState){
+                    gp.currentState.setGameOverState();
                 }
             }
         }

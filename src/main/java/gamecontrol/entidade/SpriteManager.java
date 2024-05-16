@@ -2,31 +2,27 @@ package gamecontrol.entidade;
 
 import java.io.IOException;
 import java.util.Random;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import gamecontrol.main.GamePanel;
+import gamecontrol.main.UtilityTool;
 
 public class SpriteManager {
-   
-    
+
+    public BufferedImage spriteSorteado1; // variável para armazenar o primeiro sprite sorteado
+    public BufferedImage spriteSorteado2; // variável para armazenar o segundo sprite sorteado
+    BufferedImage[] sprites;
 
     GamePanel gp;
 
-    //método que define qual pool de sprites usar em cada mapa
-    public void currentAnimal(){
-        if (gp.currentMap == 0){
-            //gp.player.sprite = gp.aSetter.playerSprites;
-            //gp.partner.sprite = gp.aSetter.partnerSprites;
-            //gp.npc[0][0].sprite = gp.aSetter.npcSprites;
-            //gp.enemy[0][0].sprite = gp.aSetter.enemySprites;
-        }
-        if(gp.currentMap == 1){
-
-        }
+    public SpriteManager(GamePanel gp) {
+        this.gp = gp;
+        sortearSprites();
     }
-    
-    public BufferedImage[] lerSpritesheet(String nomeArquivo, int larguraSprite, int alturaSprite) {
 
+    public BufferedImage[] lerSpritesheet(String nomeArquivo, int larguraSprite, int alturaSprite) {
         BufferedImage spritesheet = null;
         try {
             spritesheet = ImageIO.read(getClass().getResourceAsStream("/res/Animais/spriteSheet" + nomeArquivo));
@@ -47,11 +43,71 @@ public class SpriteManager {
         for (int linha = 0; linha < numLinhas; linha++) {
             for (int coluna = 0; coluna < numColunas; coluna++) {
                 int index = linha * numColunas + coluna;
-                sprites[index] = spritesheet.getSubimage(coluna * larguraSprite, linha * alturaSprite, larguraSprite, alturaSprite);
+                sprites[index] = spritesheet.getSubimage(coluna * larguraSprite, linha * alturaSprite, larguraSprite,
+                        alturaSprite);
             }
         }
 
         return sprites;
     }
 
+    public void sortearSprites() {
+        BufferedImage[] sprites;
+        BufferedImage[] spritesSorteadas;
+
+        if (gp.currentMap == 0) {
+            sprites = lerSpritesheet("TodosBesourinhos.png", 46, 48);
+            spritesSorteadas = new BufferedImage[] { sprites[0], sprites[3], sprites[6], sprites[9], sprites[12],
+                    sprites[15],
+                    sprites[18], sprites[21], sprites[24], sprites[27], sprites[30], sprites[33], sprites[36],
+                    sprites[37],
+                    sprites[40], sprites[43],sprites[46], sprites[49], sprites[52]};
+        } else if (gp.currentMap == 1) {
+            sprites = lerSpritesheet("TodosPassarinhos.png", 46, 48);
+            spritesSorteadas = new BufferedImage[] { sprites[1], sprites[4], sprites[7], sprites[10], sprites[13],
+                    sprites[16],
+                    sprites[19], sprites[22], sprites[25], sprites[28], sprites[31], sprites[34], sprites[37],
+                    sprites[40],
+                    sprites[43], sprites[46] };
+        } else {
+            return; // Nenhum sorteio se currentMap não for 0 ou 1
+        }
+
+        // Sorteia os sprites uma vez na inicialização
+        spriteSorteado1 = gachaSprite(spritesSorteadas);
+        do {
+            spriteSorteado2 = gachaSprite(spritesSorteadas);
+        } while (spriteSorteado2 == spriteSorteado1); // Garante que spriteSorteado2 seja diferente de spriteSorteado1
+    }
+
+    // Método para sortear uma sprite
+    public BufferedImage gachaSprite(BufferedImage[] spritesSorteadas) {
+        Random random = new Random();
+        int indice = random.nextInt(spritesSorteadas.length);
+        return spritesSorteadas[indice];
+    }
+
+    // Método para configurar escalonamento de uma sprite
+    public BufferedImage setup(BufferedImage sprite) {
+        UtilityTool uTool = new UtilityTool();
+        return uTool.scaleImage(sprite, gp.tileSize, gp.tileSize);
+    }
+
+    // Método para rotacionar uma sprite
+    public BufferedImage rotateSprite(BufferedImage sprite, double angle) {
+        int width = sprite.getWidth();
+        int height = sprite.getHeight();
+
+        BufferedImage rotatedImage = new BufferedImage(width, height, sprite.getType());
+
+        // Rotaciona a imagem
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(Math.toRadians(angle), width / 2, height / 2);
+        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+        rotatedImage = op.filter(sprite, rotatedImage);
+
+        return rotatedImage;
+    }
 }
+
+

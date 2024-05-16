@@ -1,12 +1,14 @@
 package gamecontrol.main;
 
+import gamecontrol.entidade.CurrentSprite;
 //Essa classe é responsavel por organizar a tela. Nela temos o ciclo em que as imagens são desenhadas
 import gamecontrol.entidade.Entity;
 import gamecontrol.entidade.Partner;
 import gamecontrol.entidade.Player;
+import gamecontrol.entidade.SpriteManager;
 import gamecontrol.objeto.SuperObject;
 import gamecontrol.tile.TileManager;
-import gamecontrol.main.Main;
+
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -14,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Window;
+
 
 
 
@@ -46,22 +49,30 @@ public class GamePanel extends JPanel implements Runnable{
     public UI ui = new UI(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public SpriteManager sManager = new SpriteManager(this);
+    public CurrentState currentState;
+    
     Thread gameThread;
     
     //Entidade e objeto
+    public AnimalManager aManager = new AnimalManager();
     public Player player = new Player(this, keyH);
     public Partner partner = new Partner(this);
     public SuperObject obj[][] = new SuperObject[maxMap][10]; 
     public Entity npc[][]= new Entity[maxMap][10];
     public Entity enemy[][] = new Entity[maxMap][10];
 
+    //só pra chamar player antes de currentSprite
+    public CurrentSprite currentSprite = new CurrentSprite(this);
+
     // Game State (estado do jogo)
-    public int gameState;
+    // private CurrentState currentState;
+    // public int gameState;
     //public int estagio; //não usado por enquanto
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int gameOverState = 3;
-    public final int chooseState = 4;
+    //public final int playState = 1;
+    //public final int pauseState = 2;
+    //public final int gameOverState = 3;
+    //public final int chooseState = 4;
 
     
     public GamePanel() {
@@ -73,13 +84,12 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void setupGame(){       //PREPARA O NIVEL, SPAWNA NPCS E OBJETOS, INICIA MUSICA 
-
+        currentState = new CurrentState();
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setEnemy();
         playMusic(0);
         Sound.isPlaying = true;
-        gameState = playState;
     }
 
     public void startGameThread(){
@@ -121,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        if (gameState == playState){
+        if (currentState.getGameState() == currentState.playState){
             //player
             player.update();
             //npc mapa 1
@@ -142,11 +152,19 @@ public class GamePanel extends JPanel implements Runnable{
                      npc[currentMap][i].update();
                  }
             }
+            //novo sorteio de sprite
+            sManager.sortearSprites();
         }
-        if (gameState == pauseState){
+        if (currentState.getGameState() == currentState.pauseState){
             //tá pausado e só isso mesmo por enquanto
         }
-        if (gameState == chooseState){
+        if (currentState.getGameState() == currentState.chooseState){
+            //Destroi os objetos do jogo ao sair do estado de escolha
+            clearEntity();
+            //cria novos objetos do jogo ao entrar no estado de escolha
+            aSetter.setNPC();
+            aSetter.setEnemy();
+
             stopMusic();
         }
     }
@@ -156,8 +174,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
-
-        if (gameState == chooseState){
+        if (currentState.getGameState() == currentState.chooseState){
             ui.draw(g2);
         }
         else{
@@ -224,6 +241,15 @@ public class GamePanel extends JPanel implements Runnable{
         Main.setGameStage(+1);
         try{stopMusic();} catch(Exception e){System.out.println(e);}
         Main.abrirJanelaDoJogo();
+    }
+
+    public void clearEntity() {
+        // Limpe os objetos do jogo ao sair do estado de escolha
+        // Por exemplo, redefina NPCs, limpe objetos, etc.
+        // Exemplo:
+        npc = new Entity[maxMap][10];
+        enemy = new Entity[maxMap][10];
+        // Preencher npc com novas instâncias de NPCs, se necessário
     }
 
 }

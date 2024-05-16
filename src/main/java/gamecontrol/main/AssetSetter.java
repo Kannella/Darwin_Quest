@@ -15,7 +15,9 @@ public class AssetSetter {
     }
 
     public void setObject(){
-        int mapNum = 0;
+        //int mapNum = 0;
+
+        //mapNum = 1;
     }
     public void setNPC(){
         int mapNum = 0;

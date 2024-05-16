@@ -2,18 +2,14 @@ package gamecontrol.entidade;
 
 import gamecontrol.main.GamePanel;
 import gamecontrol.main.KeyHandler;
-import gamecontrol.main.UtilityTool;
 import gamecontrol.main.UI;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-
 
 //Essa classe é responsavel pelo jogador, ela puxa e funciona com as variaveis criadas na Entidade
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.Rectangle;
-import javax.imageio.ImageIO;
+
 
 
 public class Player extends Entity{
@@ -24,9 +20,11 @@ public class Player extends Entity{
     public int trocaAnimal = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
-
+        
         super(gp);
+        gp.currentSprite = new CurrentSprite(gp);
         this.keyH = keyH;
+        BufferedImage[] sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
         
         screenX = gp.screenWidth/2 - (gp.tileSize/2); 
         screenY = gp.screenHeight/2 - (gp.tileSize/2) ;
@@ -58,86 +56,61 @@ public class Player extends Entity{
     
     public void getPlayerImage() {
 
-        if (gp.currentMap == 0) {
 
-            SpriteManager s = new SpriteManager();
-            BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-        
+        if(gp.aManager.cruzamentos == 0){
+            // Obtenha a sprite atual do jogador
+            BufferedImage[] sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
 
-            down1 = sprites[27];
-            down2 = sprites[28];
-            down3 = sprites[27];
-            down4 = sprites[29];
+            // Configure as sprites com base na sprite atual
+            down1 = gp.sManager.setup(sprites[0]);
+            down2 = gp.sManager.setup(sprites[1]); // Use a mesma sprite para down2
+            down3 = gp.sManager.setup(sprites[0]);
+            down4 = gp.sManager.setup(sprites[2]); // Use a mesma sprite para down4
 
-            up1 = rotateSprite(down1, 180);
-            up2 = rotateSprite(down2, 180);
-            up3 = rotateSprite(down1, 180);
-            up4 = rotateSprite(down4, 180);
-            
-            left1 = rotateSprite(up1, -90);
-            left2 = rotateSprite(up2, -90);
-            left3 = rotateSprite(up3, -90);
-            left4 = rotateSprite(up4, -90);
-                        
-            right1 = rotateSprite(up1, 90);
-            right2 = rotateSprite(up2, 90);
-            right3 = rotateSprite(up3, 90);
-            right4 = rotateSprite(up4, 90);
-            
-        } else if (gp.currentMap == 1) {
-            up1 = setup("besouro/besouroCimaBase");
-            up2 = setup("besouro/besouroCima1");
-            up3 = setup("besouro/besouroCimaBase");
-            up4 = setup("besouro/besouroCima2");
-            
-            left1 = rotateSprite(up1, -90);
-            left2 = rotateSprite(up2, -90);
-            left3 = rotateSprite(up3, -90);
-            left4 = rotateSprite(up4, -90);
-            
-            down1 = rotateSprite(up1, 180);
-            down2 = rotateSprite(up2, 180);
-            down3 = rotateSprite(up3, 180);
-            down4 = rotateSprite(up4, 180);
-            
-            right1 = rotateSprite(up1, 90);
-            right2 = rotateSprite(up2, 90);
-            right3 = rotateSprite(up3, 90);
-            right4 = rotateSprite(up4, 90);
+            // Faça as rotações apropriadas para as outras direções
+            up1 = gp.sManager.rotateSprite(down1, 180);
+            up2 = gp.sManager.rotateSprite(down2, 180);
+            up3 = gp.sManager.rotateSprite(down3, 180);
+            up4 = gp.sManager.rotateSprite(down4, 180);
+
+            left1 = gp.sManager.rotateSprite(up1, -90);
+            left2 = gp.sManager.rotateSprite(up2, -90);
+            left3 = gp.sManager.rotateSprite(up3, -90);
+            left4 = gp.sManager.rotateSprite(up4, -90);
+
+            right1 = gp.sManager.rotateSprite(up1, 90);
+            right2 = gp.sManager.rotateSprite(up2, 90);
+            right3 = gp.sManager.rotateSprite(up3, 90);
+            right4 = gp.sManager.rotateSprite(up4, 90);
+        }
+        else if(gp.aManager.cruzamentos > 0){
+            // Obtenha a sprite atual do jogador
+            BufferedImage currentSprite = gp.currentSprite.getCurrentSprite();
+
+            // Configure as sprites com base na sprite atual
+            down1 = gp.sManager.setup(currentSprite);
+            down2 = gp.sManager.setup(currentSprite); // Use a mesma sprite para down2
+            down3 = gp.sManager.setup(currentSprite);
+            down4 = gp.sManager.setup(currentSprite); // Use a mesma sprite para down4
+
+            // Faça as rotações apropriadas para as outras direções
+            up1 = gp.sManager.rotateSprite(down1, 180);
+            up2 = gp.sManager.rotateSprite(down2, 180);
+            up3 = gp.sManager.rotateSprite(down3, 180);
+            up4 = gp.sManager.rotateSprite(down4, 180);
+
+            left1 = gp.sManager.rotateSprite(up1, -90);
+            left2 = gp.sManager.rotateSprite(up2, -90);
+            left3 = gp.sManager.rotateSprite(up3, -90);
+            left4 = gp.sManager.rotateSprite(up4, -90);
+
+            right1 = gp.sManager.rotateSprite(up1, 90);
+            right2 = gp.sManager.rotateSprite(up2, 90);
+            right3 = gp.sManager.rotateSprite(up3, 90);
+            right4 = gp.sManager.rotateSprite(up4, 90);
         }
     }
-    
-    
-    public BufferedImage setup(String imageName) {
         
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-        
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/individuos/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return image;
-    }
-    
-    public BufferedImage rotateSprite(BufferedImage sprite, double angle) {
-        int width = sprite.getWidth();
-        int height = sprite.getHeight();
-        
-        BufferedImage rotatedImage = new BufferedImage(width, height, sprite.getType());
-        
-        // Rotaciona a imagem
-        AffineTransform transform = new AffineTransform();
-        transform.rotate(Math.toRadians(angle), width / 2, height / 2);
-        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
-        rotatedImage = op.filter(sprite, rotatedImage);
-        
-        return rotatedImage;
-    }
-    
     public void update(){
         //esse if true com varios "ou -> ||" é o que segura a sprite de não ficar sendo atualizada o tempo todo 
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.rightPressed == true || keyH.leftPressed == true){
@@ -203,7 +176,7 @@ public class Player extends Entity{
                 invencibleCounter=0;
             }
             if(life == 0){
-                gp.gameState = gp.gameOverState;
+                gp.currentState.setGameOverState();
             }
         }
     }
@@ -219,7 +192,8 @@ public class Player extends Entity{
                 //gp.npc[i] = null;
                 UI.canReproduce = false;
                 UI.pararTimer();
-                gp.gameState = gp.chooseState;
+                gp.currentState.setChooseState();
+                gp.aManager.cruzamentos++;
             }
         }
     }
@@ -293,6 +267,18 @@ public class Player extends Entity{
         //Mudando o x, y para screenX and screenY para manter o personagem no centro
         //g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
         g2.drawImage(image, screenX, screenY, null);
+    }
+
+    public void setDown4(BufferedImage bufferedImage) {
+    }
+
+    public void setDown3(BufferedImage bufferedImage) {
+    }
+
+    public void setDown2(BufferedImage bufferedImage) {
+    }
+
+    public void setDown1(BufferedImage bufferedImage) {
     }
     
 }

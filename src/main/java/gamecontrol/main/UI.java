@@ -8,12 +8,9 @@ import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import gamecontrol.entidade.SpriteManager;
 import gamecontrol.objeto.ObjHeart;
 import gamecontrol.objeto.SuperObject;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +23,6 @@ public class UI {
     Font arial_40;
     BufferedImage fullHeart, halfHeart, emptyHeart, imagemFundo;
     public int commandNum = 0;
-    public int cruzamento = 0;
     
     private static Timer timer; //esse objeto cria um "relogio" que fica de fundo
     private static TimerTask timerTask;  //esse objeto pode ser chamada pra executar uma comando ou varios comandos repitidos em função de um timer
@@ -35,9 +31,6 @@ public class UI {
     //private static boolean gameOverDisplayed = false; //variavel que verifica se a tela de game over foi exibida
 
     public static boolean canReproduce = false;  //Variavel que diz se vai ser possivel reproduzir
-
-    private BufferedImage spriteSorteado1; // variável para armazenar o primeiro sprite sorteado
-    private BufferedImage spriteSorteado2; // variável para armazenar o segundo sprite sorteado
 
     public UI (GamePanel gp){
         this.gp = gp;
@@ -57,20 +50,7 @@ public class UI {
 
         iniciarTimer(gp);
 
-
-        //Faça com que o SpriteManager sorteie as sprites
-    
-        SpriteManager s = new SpriteManager();
-        BufferedImage[] sprites = s.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-        BufferedImage[] spritesSorteadas = { sprites[0], sprites[3], sprites[6], sprites[9], sprites[12], sprites[15], sprites[18], sprites[21], sprites[24], sprites[27], sprites[30], sprites[33], sprites[36], sprites[39], sprites[42], sprites[45]};
-   
-        // Sorteia os sprites uma vez na inicialização
-        spriteSorteado1 = sortearSprite(spritesSorteadas);
-        do {
-            spriteSorteado2 = sortearSprite(spritesSorteadas);
-        } while (spriteSorteado2 == spriteSorteado1); // Garante que spriteSorteado2 seja diferente de spriteSorteado1
     }
-
     public void draw (Graphics2D g2){
 
         this.g2 = g2;
@@ -78,14 +58,14 @@ public class UI {
         g2.setFont(arial_40);
         g2.setColor(Color.white);
 
-        if(gp.gameState == gp.playState){
+        if(gp.currentState.getGameState() == gp.currentState.playState){
             drawPlayerLife();
         }
-        if(gp.gameState == gp.pauseState){
+        if(gp.currentState.getGameState() == gp.currentState.pauseState){
             drawPlayerLife();
             drawPauseScreen();
         }
-        if(gp.gameState == gp.gameOverState){
+        if(gp.currentState.getGameState() == gp.currentState.gameOverState){
             // Fechando a janela atual para abrir a tela de game over
             Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);  
             w.dispose();          
@@ -93,7 +73,7 @@ public class UI {
             
 
         }
-        if (gp.gameState == gp.chooseState) {
+        if (gp.currentState.getGameState() == gp.currentState.chooseState) {
             drawChooseScreen();
         }
     }
@@ -167,7 +147,7 @@ public class UI {
         if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-        g2.drawImage(spriteSorteado1, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
+        g2.drawImage(gp.sManager.spriteSorteado1, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
 
 
         text = "Opção2";
@@ -176,19 +156,7 @@ public class UI {
         if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-        g2.drawImage(spriteSorteado2, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
-    }
-
-    // Método para selecionar aleatoriamente uma imagem de um array de sprites
-    public BufferedImage selectRandomSprite(BufferedImage[] sprites) {
-        Random rand = new Random();
-        int index = rand.nextInt(sprites.length); // Gera um índice aleatório dentro do intervalo do array
-        return sprites[index]; // Retorna a sprite selecionada aleatoriamente
-    }
-    public BufferedImage sortearSprite(BufferedImage[] spritesSorteadas) {
-        Random random = new Random();
-        int indice = random.nextInt(spritesSorteadas.length);
-        return spritesSorteadas[indice];
+        g2.drawImage(gp.sManager.spriteSorteado2, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
     }
 
     public void drawPauseScreen(){
@@ -211,31 +179,35 @@ public class UI {
             timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    if (gp.gameState == gp.pauseState){
-                        System.out.println("pausado");
-                    }else if(gp.gameState == gp.gameOverState){
-                        pararTimer();
-                    }
-                    
-                    else{
-                        tempoDecorrido += 1000; //A CADA MIL É 1 SEGUNDO
-                        System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
-                    }
-                    if (tempoDecorrido >= 10 * 1000 && canReproduce == false){
-                        System.out.println("Possivel reproduzir");
-                        canReproduce = true;
-                    }
-                    if (tempoDecorrido >= 3 * 60 * 1000) {
-                        pararTimer();
-                        System.out.println("tempo esgotado");
-                        gp.gameState = gp.gameOverState;
+                    // Acessa o currentState a partir da instância de GamePanel fornecida como parâmetro
+                    CurrentState currentState = gp.currentState;
+                    if (currentState != null) { // Verifica se currentState não é nulo
+                        if (currentState.getGameState() == currentState.pauseState) {
+                            System.out.println("pausado");
+                        } else if (currentState.getGameState() == currentState.gameOverState) {
+                            pararTimer();
+                        } else {
+                            tempoDecorrido += 1000; // A CADA MIL É 1 SEGUNDO
+                            System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
+                        }
+                        if (tempoDecorrido >= 10 * 1000 && canReproduce == false) {
+                            System.out.println("Possivel reproduzir");
+                            canReproduce = true;
+                        }
+                        if (tempoDecorrido >= 3 * 60 * 1000) {
+                            pararTimer();
+                            System.out.println("tempo esgotado");
+                            currentState.setGameOverState();
+                        }
+                    } else {
+                        System.out.println("CurrentState é nulo.");
                     }
                 }
             };
 
             timer.scheduleAtFixedRate(timerTask, 0, 1000);
             running = true;
-        }else {
+        } else {
             System.out.println("O timer já está em execução.");
         }
     }
