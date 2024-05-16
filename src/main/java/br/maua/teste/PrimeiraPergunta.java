@@ -122,30 +122,22 @@ public class PrimeiraPergunta extends javax.swing.JFrame {
         balao_resposta1A.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "RESPOSTA CORRETA!!!", "ACERTOU", JOptionPane.INFORMATION_MESSAGE);
-                // definindo a cor do texto da resposta correta
-                jTextArea2.setForeground(Color.GREEN);
-                JOptionPane.showMessageDialog(null, "RESPOSTA CORRETA!!!", "ACERTOU", JOptionPane.INFORMATION_MESSAGE);
-
-                // ao clicar no ok ele vai pra TelaIncial.java
                 dispose();
-                TelaInicial telaInicial = new TelaInicial();
-                telaInicial.setVisible(true);
-                telaInicial.setLocationRelativeTo(null);
+
+                RespostaCorreta respostaCorreta = new RespostaCorreta();
+                respostaCorreta.setVisible(true);
+                respostaCorreta.setLocationRelativeTo(null);
+
             }
         });
         jTextArea2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // definindo a cor do texto da resposta correta
-                jTextArea2.setForeground(Color.GREEN);
-                JOptionPane.showMessageDialog(null, "RESPOSTA CORRETA!!!", "ACERTOU", JOptionPane.INFORMATION_MESSAGE);
-
-                // ao clicar no ok ele vai pra TelaIncial.java
                 dispose();
-                TelaInicial telaInicial = new TelaInicial();
-                telaInicial.setVisible(true);
-                telaInicial.setLocationRelativeTo(null);
+
+                RespostaCorreta respostaCorreta = new RespostaCorreta();
+                respostaCorreta.setVisible(true);
+                respostaCorreta.setLocationRelativeTo(null);
 
             }
         });
@@ -153,15 +145,22 @@ public class PrimeiraPergunta extends javax.swing.JFrame {
         balao_resposta1B.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "Resposta Incorreta :(", "Errou", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+
+                RespostaErrada respostaErrada = new RespostaErrada();
+                respostaErrada.setVisible(true);
+                respostaErrada.setLocationRelativeTo(null);
 
             }
         });
         jTextArea3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // definindo a cor do texto da resposta correta
-                JOptionPane.showMessageDialog(null, "Resposta Incorreta :(", "Errou", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+
+                RespostaErrada respostaErrada = new RespostaErrada();
+                respostaErrada.setVisible(true);
+                respostaErrada.setLocationRelativeTo(null);
                 
 
             }
@@ -171,17 +170,24 @@ public class PrimeiraPergunta extends javax.swing.JFrame {
         balao_resposta1C.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, "Resposta Incorreta :(", "Errou", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+
+                RespostaErrada respostaErrada = new RespostaErrada();
+                respostaErrada.setVisible(true);
+                respostaErrada.setLocationRelativeTo(null);
 
             }
         });
         jTextArea4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // definindo a cor do texto da resposta correta
-                JOptionPane.showMessageDialog(null, "Resposta Incorreta :(", "Errou", JOptionPane.INFORMATION_MESSAGE);
-                
+                dispose();
 
+                RespostaErrada respostaErrada = new RespostaErrada();
+                respostaErrada.setVisible(true);
+                respostaErrada.setLocationRelativeTo(null);
+                
+                
             }
         });
 
