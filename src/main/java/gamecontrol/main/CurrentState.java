@@ -1,6 +1,8 @@
 package gamecontrol.main;
 
 public class CurrentState {
+
+    GamePanel gp;
     private int gameState;
     public final int playState = 1;
     public final int pauseState = 2;

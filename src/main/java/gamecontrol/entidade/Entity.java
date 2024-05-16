@@ -77,11 +77,11 @@ public class Entity {
 
     public void draw(Graphics2D g2){
         BufferedImage image = null;
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
+        int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
+        if(worldX + gp.tileSize > gp.getPlayer().worldX - gp.getPlayer().screenX && worldX - gp.tileSize < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+            worldY + gp.tileSize > gp.getPlayer().worldY - gp.getPlayer().screenY && worldY - gp.tileSize < gp.getPlayer().worldY + gp.getPlayer().screenY){
                 
                 switch (direction) {
                     case "up":

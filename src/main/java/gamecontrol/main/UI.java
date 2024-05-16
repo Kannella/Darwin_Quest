@@ -83,7 +83,7 @@ public class UI {
         int y = gp.tileSize / 2;
         int i = 0;
 
-        while (i < gp.player.maxLife / 2) {
+        while (i < gp.getPlayer().maxLife / 2) {
             g2.drawImage(emptyHeart, x, y, null);
             i++;
             x += gp.tileSize;
@@ -94,10 +94,10 @@ public class UI {
         i = 0;
 
         // Draw Current Life
-        while (i < gp.player.life) {
+        while (i < gp.getPlayer().life) {
             g2.drawImage(halfHeart, x, y, null);
             i++;
-            if (i < gp.player.life) {
+            if (i < gp.getPlayer().life) {
                 g2.drawImage(fullHeart, x, y, null);
             }
             i++;
@@ -129,7 +129,7 @@ public class UI {
         x = gp.screenWidth / 2;
         y += gp.screenHeight / 2;
         // pega imagens dos animais e coloca na tela
-        g2.drawImage(gp.player.down1, 0, 0, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(gp.getPlayer().down1, 0, 0, gp.tileSize, gp.tileSize, null);
         g2.drawImage(fullHeart, gp.tileSize, 0, gp.tileSize, gp.tileSize, null);
         g2.drawImage(gp.partner.down1, gp.tileSize * 2, 0, gp.tileSize, gp.tileSize, null);
 

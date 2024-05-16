@@ -39,24 +39,45 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) { // selecionando opção 1
-
-                    gp.player.contador = 1;
+                    //sequencia de fatores de quando o player escolhe a opção 1:
+                    //atribui ao contador que vai chamar no novo player
+                    gp.sManager.contador = 1;
+                    //toca a música
                     gp.playMusic(0);
+                    //Reseta e inicia o timer
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    //Destrói player
+                    gp.disposePlayer();
+                    // Faz outro player
+                    gp.createPlayer();
+                    //Muda o estado do jogo para playState
                     gp.currentState.setPlayState();
+                    //Sorteia os sprites de novo para o player escolher
                     gp.sManager.spriteSorteado1 = null;
                     gp.sManager.spriteSorteado2 = null;
+                    gp.sManager.sortearSprites();
+
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
-
-                    gp.player.contador = 2;
+                    // sequencia de fatores de quando o player escolhe a opção 2:
+                    // atribui ao contador do player o valor 2
+                    gp.sManager.contador = 2;
+                    // toca a música
                     gp.playMusic(0);
+                    // Reseta e inicia o timer
                     UI.tempoDecorrido = 0;
                     UI.iniciarTimer(gp);
+                    // Destrói player
+                    gp.disposePlayer();
+                    //Faz outro player
+                    gp.createPlayer();
+                    // Muda o estado do jogo para playState
                     gp.currentState.setPlayState();
+                    // Sorteia os sprites de novo para o player escolher
                     gp.sManager.spriteSorteado1 = null;
                     gp.sManager.spriteSorteado2 = null;
+                    gp.sManager.sortearSprites();
                 }
             }
         }

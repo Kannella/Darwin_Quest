@@ -36,9 +36,9 @@ public class Enemy extends Entity{
         boolean contactPlayer= gp.cChecker.checkPlayer(this);
 
         if(this.type == 2 && contactPlayer==true){
-            if(gp.player.invencible == false){
-                gp.player.life -= 1;
-                gp.player.invencible = true;
+            if(gp.getPlayer().invencible == false){
+                gp.getPlayer().life -= 1;
+                gp.getPlayer().invencible = true;
             }
         }
         if(collisionOn == false){
@@ -69,14 +69,14 @@ public class Enemy extends Entity{
 
     // Método para verificar se o inimigo deve seguir o jogador
     private boolean shouldFollowPlayer() {
-        double distance = Math.sqrt(Math.pow(worldX - gp.player.worldX, 2) + Math.pow(worldY - gp.player.worldY, 2));
+        double distance = Math.sqrt(Math.pow(worldX - gp.getPlayer().worldX, 2) + Math.pow(worldY - gp.getPlayer().worldY, 2));
         return distance < FOLLOW_DISTANCE;
     }
 
     // Método para fazer o inimigo seguir o jogador
     private void followPlayer() {
-        int playerX = gp.player.worldX;
-        int playerY = gp.player.worldY;
+        int playerX = gp.getPlayer().worldX;
+        int playerY = gp.getPlayer().worldY;
     
         // Calcula a diferença horizontal e vertical entre o inimigo e o jogador
         int dx = playerX - worldX;

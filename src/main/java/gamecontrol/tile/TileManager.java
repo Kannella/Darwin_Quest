@@ -4,7 +4,6 @@ package gamecontrol.tile;
 //delimita quantos tiles são gerados por vez(conceito de chunk), pra não ter uma sobrecarga de gerar tudo sempre
 import gamecontrol.main.GamePanel;
 import gamecontrol.main.UtilityTool;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,12 +123,12 @@ public class TileManager {
             //e queremos que ele se mantenha no meio da tela e não que ele bata lá com a camera junto
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
+            int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
             //aqui vamos tentar melhorar o programa e previnir riscos de performance, pois o jogo está desenhando todos os tiles sempre sem esse if
-            if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-               worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY){
+            if(worldX + gp.tileSize > gp.getPlayer().worldX - gp.getPlayer().screenX && worldX - gp.tileSize < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+               worldY + gp.tileSize > gp.getPlayer().worldY - gp.getPlayer().screenY && worldY - gp.tileSize < gp.getPlayer().worldY + gp.getPlayer().screenY){
                 
                    g2.drawImage(tile[tileNum].image, screenX, screenY, null);     
             } 

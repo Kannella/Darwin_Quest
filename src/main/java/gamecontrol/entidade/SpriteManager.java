@@ -13,8 +13,9 @@ public class SpriteManager {
 
     public BufferedImage spriteSorteado1; // variável para armazenar o primeiro sprite sorteado
     public BufferedImage spriteSorteado2; // variável para armazenar o segundo sprite sorteado
-    public int spriteSorteado1Index; // índice do primeiro sprite sorteado
-    public int spriteSorteado2Index; // índice do segundo sprite sorteado
+    public static int spriteSorteado1Index; // índice do primeiro sprite sorteado
+    public static int spriteSorteado2Index; // índice do segundo sprite sorteado
+    public int contador = 0; // contador para controlar a troca de sprites
 
     BufferedImage[] sprites;
 

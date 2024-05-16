@@ -182,8 +182,8 @@ public class CollisionChecker {
         entidade.solidArea.x = entidade.worldX + entidade.solidArea.x;
         entidade.solidArea.y = entidade.worldY + entidade.solidArea.y;
         //Pegar dos objetos a solid area position
-        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        gp.getPlayer().solidArea.x = gp.getPlayer().worldX + gp.getPlayer().solidArea.x;
+        gp.getPlayer().solidArea.y = gp.getPlayer().worldY + gp.getPlayer().solidArea.y;
 
         switch(entidade.direction){
             case "up":
@@ -199,8 +199,8 @@ public class CollisionChecker {
                 entidade.solidArea.x += entidade.speed;
                 break;
             }
-            if(entidade.solidArea.intersects(gp.player.solidArea)){
-                if(gp.player != entidade){
+            if(entidade.solidArea.intersects(gp.getPlayer().solidArea)){
+                if(gp.getPlayer() != entidade){
                     entidade.collisionOn = true;
                     contactPlayer=true;
 
@@ -208,8 +208,8 @@ public class CollisionChecker {
             }                    
         entidade.solidArea.x = entidade.solidAreaDefaultX;
         entidade.solidArea.y = entidade.solidAreaDefaultY;
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+        gp.getPlayer().solidArea.x = gp.getPlayer().solidAreaDefaultX;
+        gp.getPlayer().solidArea.y = gp.getPlayer().solidAreaDefaultY;
         
         return contactPlayer;
     }

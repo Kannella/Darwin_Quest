@@ -16,7 +16,8 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int contador = 0;
+    //public int playerSpriteIndex = 0; //tentativa de armazenar o index do jogador
+    //public BufferedImage[] playerSprites; //tentativa de armazenar as sprites do jogador
 
     public Player(GamePanel gp, KeyHandler keyH){
         
@@ -53,6 +54,7 @@ public class Player extends Entity{
     }
     
     public void getPlayerImage() {
+
         BufferedImage[] sprites;
         int spriteIndex;
 
@@ -70,14 +72,14 @@ public class Player extends Entity{
             // Se cruzamentos não for zero, verifique o contador
             sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48); // ou qualquer lógica para obter
                                                                                   // sprites
-            if (contador == 1) {
-                spriteIndex = gp.sManager.spriteSorteado1Index;
-            } else if (contador == 2) {
-                spriteIndex = gp.sManager.spriteSorteado2Index;
+            if (gp.sManager.contador == 1) {
+                spriteIndex = SpriteManager.spriteSorteado1Index;
+            } else if (gp.sManager.contador == 2) {
+                spriteIndex = SpriteManager.spriteSorteado2Index;
             }
             // Configure as sprites com base na sprite atual
             setPlayerSprites(sprites, spriteIndex);
-        }
+            }
         }
 
     private void setPlayerSprites(BufferedImage[] sprites, int spriteIndex) {
