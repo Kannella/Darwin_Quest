@@ -107,9 +107,11 @@ public class KeyHandler implements KeyListener {
                 if(Sound.isPlaying == true){
                     Sound.isPlaying = false;
                     gp.stopMusic();
+                    UtilityTool.settocaMusica(false);
                 }
                 else if(Sound.isPlaying == false){
                     Sound.isPlaying = true;
+                    UtilityTool.settocaMusica(true);
                     gp.playMusic(0);
                 }
            

@@ -129,6 +129,9 @@ public class GamePanel extends JPanel implements Runnable {
             aSetter.setEnemy();
             stopMusic();
         }
+        if(!UtilityTool.gettocaMusica()){
+            Sound.isPlaying=false; 
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -193,13 +196,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playMusic(int i) {
-        try {
-            music.setFile(i);
-            music.play();
-            music.loop();
-        } catch (Exception e) {
-            System.out.println("Sistema de som não detectado");
-            System.out.println(e);
+
+        if(UtilityTool.gettocaMusica()){
+            try {
+                music.setFile(i);
+                music.play();
+                music.loop();
+            } catch (Exception e) {
+                System.out.println("Sistema de som não detectado");
+                System.out.println(e);
+            }
+        }else{
+            System.out.println("Musica não permitida");
         }
     }
 

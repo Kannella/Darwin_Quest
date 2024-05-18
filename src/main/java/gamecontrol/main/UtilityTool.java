@@ -5,6 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class UtilityTool {
+
+    
+
+    private static boolean tocaMusica=true;
+    
+    public static boolean gettocaMusica() {
+        return tocaMusica;
+    }
+    public static void settocaMusica(boolean estadoMusica) {
+        tocaMusica=estadoMusica;
+    }
     
     public BufferedImage scaleImage(BufferedImage original, int width, int height){
 
