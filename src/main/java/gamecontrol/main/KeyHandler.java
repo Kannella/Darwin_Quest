@@ -121,6 +121,8 @@ public class KeyHandler implements KeyListener {
                 if(gp.currentState.getGameState() == gp.currentState.playState){
                     gp.currentState.setGameOverState();
                 }
+            }if(code == KeyEvent.VK_SHIFT){
+                gp.player.dash();
             }
         }
     }

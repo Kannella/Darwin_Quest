@@ -4,30 +4,30 @@ import gamecontrol.main.GamePanel;
 import gamecontrol.main.KeyHandler;
 import gamecontrol.main.UI;
 
-//Essa classe é responsavel pelo jogador, ela puxa e funciona com as variaveis criadas na Entidade
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 
-
-
-public class Player extends Entity{
+public class Player extends Entity {
 
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int playerSpriteIndex = 0; //tentativa de armazenar o index do jogador
-    //public BufferedImage[] playerSprites; //tentativa de armazenar as sprites do jogador
+    public int playerSpriteIndex = 0;
+    private boolean isDashing = false;
+    private float dashSpeed = 20f;
+    private float dashDuration = 0.2f; // Em segundos
+    private float dashTime = 0;
+    private long lastDashTime = 0; // Para controlar o tempo de dash
 
-    public Player(GamePanel gp, KeyHandler keyH){
-        
+    public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
         BufferedImage[] sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-        
-        screenX = gp.screenWidth/2 - (gp.tileSize/2); 
-        screenY = gp.screenHeight/2 - (gp.tileSize/2) ;
-        
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 12;
@@ -35,54 +35,44 @@ public class Player extends Entity{
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 26;
         solidArea.height = 26;
-        
-        
+
         setDefaultValues();
         getPlayerImage();
     }
-    
-    public void setDefaultValues(){
-        
+
+    public void setDefaultValues() {
         worldX = gp.tileSize * 25;
         worldY = gp.tileSize * 15;
         speed = 5;
         direction = "down";
-        
-        //Status do jogador
+
         maxLife = 6;
         life = maxLife;
     }
-    
-    public void getPlayerImage() {
 
+    public void getPlayerImage() {
         BufferedImage[] sprites;
         int spriteIndex;
 
         while (gp.dControler.cruzamentos == 0) {
-            spriteIndex = 0; // Defina o índice da sprite conforme necessário
-            playerSpriteIndex = spriteIndex; // Retorna um valor para playerSpriteIndex para ser usado em outras partes do código
-            // Obtenha a sprite atual do jogador com base na escolha
+            spriteIndex = 0;
+            playerSpriteIndex = spriteIndex;
             sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
-            // Defina o índice da sprite conforme necessário
             setPlayerSprites(sprites, spriteIndex);
-            // Sai do loop
             break;
         }
         if (gp.dControler.cruzamentos != 0) {
             spriteIndex = playerSpriteIndex;
-            // Se cruzamentos não for zero, verifique o contador
-            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48); 
+            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
             if (gp.sManager.contador == 1) {
                 spriteIndex = SpriteManager.spriteSorteado1Index;
             } else if (gp.sManager.contador == 2) {
                 spriteIndex = SpriteManager.spriteSorteado2Index;
             }
-            // Retorna um valor para playerSpriteIndex para ser usado em outras partes do código
-            playerSpriteIndex = spriteIndex; 
-            // Atribui sprite ao jogador
+            playerSpriteIndex = spriteIndex;
             setPlayerSprites(sprites, spriteIndex);
-            }
         }
+    }
 
     private void setPlayerSprites(BufferedImage[] sprites, int spriteIndex) {
         down1 = gp.sManager.setup(sprites[spriteIndex]);
@@ -90,7 +80,6 @@ public class Player extends Entity{
         down3 = gp.sManager.setup(sprites[spriteIndex]);
         down4 = gp.sManager.setup(sprites[spriteIndex + 2]);
 
-        // Faça as rotações apropriadas para as outras direções
         up1 = gp.sManager.rotateSprite(down1, 180);
         up2 = gp.sManager.rotateSprite(down2, 180);
         up3 = gp.sManager.rotateSprite(down3, 180);
@@ -106,184 +95,191 @@ public class Player extends Entity{
         right3 = gp.sManager.rotateSprite(up3, 90);
         right4 = gp.sManager.rotateSprite(up4, 90);
     }
-        
-    public void update(){
-        //esse if true com varios "ou -> ||" é o que segura a sprite de não ficar sendo atualizada o tempo todo 
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.rightPressed == true || keyH.leftPressed == true){
-            if (keyH.upPressed == true) {
-                direction = "up";                
-            } else if (keyH.downPressed == true) {
-                direction = "down";                
-            } else if (keyH.leftPressed == true) {
-                direction = "left";                
-            } else if (keyH.rightPressed == true) {
-                direction = "right";
-            }
-            
-            //checa colisão do player com os tiles
-            collisionOn = false;
-            gp.cChecker.checkTile(this);
-            
-            //checa colisão com objeto
-            int objIndex = gp.cChecker.checkObject (this, true);
-            pickUpObject(objIndex);
-            
-            //checa colisão com npc
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);             //Isso aqui checa qual foi a entidade que colidiu com o player
-            // int speednpc = 999;
-            interactNPC(npcIndex);              //e isso tudo é incrivel pois podemos rodar codigo ao interagir com o jogador, caso queira mecher com velocidade ou outra coisa só mudar a variavel
-            
-            //colisão de inimigo
-            int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);             //Isso aqui checa qual foi a entidade que colidiu com o player
-            // // int speednpc = 999;                                                       //LEO: NÃO COMENTA ISSO, A COLISÃO COM O INIMIGO SÓ NÃO FUNCIONA SE ISSO NÃO EXISTIR E EU NÃO SEI PQ
 
-            
-            //Se colisor for false, o player pode se mover
-            if(collisionOn == false){
-                
-                switch(direction){
-                    case "up":
-                    worldY = worldY - speed;
-                    break;
-                    case "down":
-                    worldY = worldY + speed;
-                    break;
-                    case "left":
-                    worldX = worldX - speed;
-                    break;
-                    case "right":
-                    worldX = worldX + speed;
-                    break;            
+    public void dash() {
+        if (!isDashing) {
+            isDashing = true;
+            dashTime = dashDuration;
+            lastDashTime = System.nanoTime();
+        }
+    }
+
+    public void update() {
+        if (keyH.upPressed || keyH.downPressed || keyH.rightPressed || keyH.leftPressed) {
+            if (!isDashing) {
+                if (keyH.upPressed) {
+                    direction = "up";
+                } else if (keyH.downPressed) {
+                    direction = "down";
+                } else if (keyH.leftPressed) {
+                    direction = "left";
+                } else if (keyH.rightPressed) {
+                    direction = "right";
                 }
-            }
-            
-            
-            
-            spriteCounter++;
-            if (spriteCounter > 10) {
-                spriteNumber = (spriteNumber % 4) + 1; // Ciclar entre 1 e 4
-                spriteCounter = 0;
+
+                collisionOn = false;
+                gp.cChecker.checkTile(this);
+
+                int objIndex = gp.cChecker.checkObject(this, true);
+                pickUpObject(objIndex);
+
+                int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+                interactNPC(npcIndex);
+
+                int enemyIndex = gp.cChecker.checkEntity(this, gp.enemy);
+
+                if (!collisionOn) {
+                    switch (direction) {
+                        case "up":
+                            worldY -= speed;
+                            break;
+                        case "down":
+                            worldY += speed;
+                            break;
+                        case "left":
+                            worldX -= speed;
+                            break;
+                        case "right":
+                            worldX += speed;
+                            break;
+                    }
+                }
+
+                spriteCounter++;
+                if (spriteCounter > 10) {
+                    spriteNumber = (spriteNumber % 4) + 1;
+                    spriteCounter = 0;
+                }
+            } else {
+                dashUpdate();
             }
         }
-        if (invencible==true){
+
+        if (invencible) {
             invencibleCounter++;
-            if(invencibleCounter>60){
-                invencible=false;
-                invencibleCounter=0;
+            if (invencibleCounter > 60) {
+                invencible = false;
+                invencibleCounter = 0;
             }
-            if(life == 0){
+            if (life == 0) {
                 gp.currentState.setGameOverState();
             }
         }
     }
-    public void pickUpObject(int i){
-        
-        if(i != 999){
-            
+
+    private void dashUpdate() {
+        if (isDashing) {
+            dashTime -= (System.nanoTime() - lastDashTime) / 500_000_000.0;
+            lastDashTime = System.nanoTime();
+
+            if (dashTime <= 0) {
+                stopDash();
+            } else {
+                collisionOn = false;
+                float dashSpeedX = 0;
+                float dashSpeedY = 0;
+
+                switch (direction) {
+                    case "up":
+                        dashSpeedY = -dashSpeed;
+                        break;
+                    case "down":
+                        dashSpeedY = dashSpeed;
+                        break;
+                    case "left":
+                        dashSpeedX = -dashSpeed;
+                        break;
+                    case "right":
+                        dashSpeedX = dashSpeed;
+                        break;
+                }
+
+                for (int i = 0; i < dashSpeed; i++) {
+                    worldX += dashSpeedX / dashSpeed;
+                    worldY += dashSpeedY / dashSpeed;
+
+                    gp.cChecker.checkTile(this);
+
+                    if (collisionOn) {
+                        stopDash();
+                        break;
+                    }
+                }
+            }
         }
     }
-    public void interactNPC(int i){
-        if(i !=999 && i!=4){
-            if(UI.canReproduce==true){
-                //gp.npc[i] = null;
+
+    private void stopDash() {
+        isDashing = false;
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            // Implementação da lógica para pegar objetos
+        }
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999 && i != 4) {
+            if (UI.canReproduce) {
                 gp.stopMusic();
                 UI.canReproduce = false;
                 UI.pararTimer();
                 gp.currentState.setChooseState();
                 gp.dControler.cruzamentos++;
-                System.err.println("Cruzamentos: " + gp.dControler.cruzamentos);
                 gp.dControler.darwinInteference();
-                // troca a música
                 gp.stopMusic();
                 gp.playMusic(1);
             }
         }
     }
 
-
-    public void draw(Graphics2D g2){
-        //g2.setColor(Color.white);
-        //g2.fillRect(x, y, gp.tileSize, gp.tileSize);   
-
+    public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
         switch (direction) {
             case "up":
-                if (spriteNumber == 1){
-                    image = up1;
-                }
-                if (spriteNumber == 2){
-                    image = up2;
-                }
-                if (spriteNumber == 3){
-                    image = up3;
-                }    
-                if (spriteNumber == 4){
-                    image = up4;
-                }        
+                image = switch (spriteNumber) {
+                    case 1 -> up1;
+                    case 2 -> up2;
+                    case 3 -> up3;
+                    case 4 -> up4;
+                    default -> up1;
+                };
                 break;
             case "down":
-                if (spriteNumber == 1){
-                    image = down1;
-                }
-                if (spriteNumber == 2){
-                    image = down2;
-                }
-                if (spriteNumber == 3) {
-                    image = down3;
-                }
-                if (spriteNumber == 4) {
-                    image = down4;
-                }
+                image = switch (spriteNumber) {
+                    case 1 -> down1;
+                    case 2 -> down2;
+                    case 3 -> down3;
+                    case 4 -> down4;
+                    default -> down1;
+                };
                 break;
             case "left":
-                if (spriteNumber == 1) {
-                    image = left1;
-                }
-                if (spriteNumber == 2) {
-                    image = left2;
-                }
-                if (spriteNumber == 3) {
-                    image = left3;
-                }
-                if (spriteNumber == 4) {
-                    image = left4;
-                }
+                image = switch (spriteNumber) {
+                    case 1 -> left1;
+                    case 2 -> left2;
+                    case 3 -> left3;
+                    case 4 -> left4;
+                    default -> left1;
+                };
                 break;
             case "right":
-                if (spriteNumber == 1) {
-                    image = right1;
-                }
-                if (spriteNumber == 2) {
-                    image = right2;
-                }
-                if (spriteNumber == 3) {
-                    image = right3;
-                }
-                if (spriteNumber == 4) {
-                    image = right4;
-                }
-                break;    
+                image = switch (spriteNumber) {
+                    case 1 -> right1;
+                    case 2 -> right2;
+                    case 3 -> right3;
+                    case 4 -> right4;
+                    default -> right1;
+                };
+                break;
         }
-        //Houve uma mudança para adaptar a camera do jogo e poder ver o mundo todo, então esses parametros ficaram velhos
-        //Mudando o x, y para screenX and screenY para manter o personagem no centro
-        //g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+
         g2.drawImage(image, screenX, screenY, null);
     }
-    // Métodos para definir as sprites de movimento do jogador
-    public void setDown1(BufferedImage sprite) {
-        this.down1 = sprite;
-    }
 
-    public void setDown2(BufferedImage sprite) {
-        this.down2 = sprite;
-    }
-
-    public void setDown3(BufferedImage sprite) {
-        this.down3 = sprite;
-    }
-
-    public void setDown4(BufferedImage sprite) {
-        this.down4 = sprite;
+    public void setSpeed(int i) {
+        // Implementação para definir a velocidade, se necessário
     }
 }
