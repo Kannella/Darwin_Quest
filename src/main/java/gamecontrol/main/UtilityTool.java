@@ -2,6 +2,7 @@
 package gamecontrol.main;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class UtilityTool {
@@ -17,13 +18,16 @@ public class UtilityTool {
         tocaMusica=estadoMusica;
     }
     
-    public BufferedImage scaleImage(BufferedImage original, int width, int height){
+    public static BufferedImage scaleImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        // Redimensiona a imagem usando o método getScaledInstance
+        Image scaledImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+        BufferedImage scaledBufferedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
 
-        BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
-        Graphics2D g2 = scaledImage.createGraphics();
-        g2.drawImage(original, 0, 0, width, height, null);
-        g2.dispose();
+        // Desenha a imagem redimensionada no BufferedImage
+        Graphics2D g2d = scaledBufferedImage.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
 
-        return scaledImage;
+        return scaledBufferedImage;
     }
 }

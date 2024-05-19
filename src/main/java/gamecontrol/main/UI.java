@@ -147,7 +147,9 @@ public class UI {
         if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-        g2.drawImage(gp.sManager.spriteSorteado1, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
+        BufferedImage scaledSprite1 = UtilityTool.scaleImage(gp.sManager.spriteSorteado1, gp.tileSize * 3,
+                gp.tileSize * 3);
+        g2.drawImage(scaledSprite1, x + gp.tileSize / 2, y - gp.tileSize * 4, null);
 
 
         text = "Opção2";
@@ -156,7 +158,9 @@ public class UI {
         if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-        g2.drawImage(gp.sManager.spriteSorteado2, x + gp.tileSize/2, y - gp.tileSize*4, gp.tileSize*3, gp.tileSize*3, null);
+        BufferedImage scaledSprite2 = UtilityTool.scaleImage(gp.sManager.spriteSorteado2, gp.tileSize * 3,
+                gp.tileSize * 3);
+        g2.drawImage(scaledSprite2, x + gp.tileSize / 2, y - gp.tileSize * 4, null);
     }
 
     public void drawPauseScreen(){

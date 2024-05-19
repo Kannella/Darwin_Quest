@@ -12,16 +12,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Window;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     // Configurações de tela
     final int originalTileSize = 16; // Tamanho dos tiles do jogo no caso 16x16
-    final int scale = 3; // Isso aqui faz um escalonamento dos tiles para que pareçam maiores no caso 3 x
-                         // 16 = 48
+    final int scale = 3; // Isso aqui faz um escalonamento dos tiles para que pareçam maiores no caso 3 x 16 = 48
 
     public final int tileSize = originalTileSize * scale;
     public final int maxScreenCol = 16; // aqui é a definição de quantos tiles aparecem por vez na horizontal
@@ -31,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Configuração de mundo
     public final int maxWorldCol = 50;
-    public final int maxWorldRow = 31;
+    public final int maxWorldRow = 50;
     public final int maxMap = 4; // quantidade de mapas presentes
     public final int currentMap = Main.getGameStage(); // variável que recebe qual o mapa atual
 
@@ -139,6 +137,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // Configurações de renderização para alta qualidade
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         if (currentState.getGameState() == currentState.chooseState) {
             ui.draw(g2);
         } else {
@@ -147,57 +150,45 @@ public class GamePanel extends JPanel implements Runnable {
             // Player
             if (player != null) {
                 player.draw(g2);
-            }
-            else {
+            } else {
                 createPlayer();
             }
-            // entityList.add(player);
-            // Collections.sort(entityList, new Comparator<Entity>() {
 
-            //     @Override
-            //     public int compare(Entity e1, Entity e2) {
-            //         int result = Integer.compare(e1.worldY, e2.worldY);
-            //         return result;
-            //     }
-            // });
-
-            //Desenha as entidades (no caso só o player por enquanto)
-            for(int i = 0; i < entityList.size(); i++){
+            // Desenha as entidades (no caso só o player por enquanto)
+            for (int i = 0; i < entityList.size(); i++) {
                 entityList.get(i).draw(g2);
             }
 
-            //Esvaziar a lista de entidades
+            // Esvaziar a lista de entidades
             entityList.clear();
 
-            // Objetc
+            // Objetos
             for (int i = 0; i < obj[0].length; i++) {
                 if (obj[currentMap][i] != null) {
                     obj[currentMap][i].draw(g2, this);
-                    }
                 }
-            // NPC
+            }
+            // NPCs
             for (int i = 0; i < npc[0].length; i++) {
                 if (npc[currentMap][i] != null) {
                     npc[currentMap][i].draw(g2);
-                    }
                 }
-            //Inimigo
+            }
+            // Inimigos
             for (int i = 0; i < enemy[0].length; i++) {
                 if (enemy[currentMap][i] != null) {
                     enemy[currentMap][i].draw(g2);
-                    }
+                }
             }
             // UI
             ui.draw(g2);
         }
 
-
-            g2.dispose();
+        g2.dispose();
     }
 
     public void playMusic(int i) {
-
-        if(UtilityTool.gettocaMusica()){
+        if (UtilityTool.gettocaMusica()) {
             try {
                 music.setFile(i);
                 music.play();
@@ -206,7 +197,7 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("Sistema de som não detectado");
                 System.out.println(e);
             }
-        }else{
+        } else {
             System.out.println("Musica não permitida");
         }
     }
@@ -251,189 +242,5 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void disposePlayer() {
         player = null;
-    }
-
-    public int getOriginalTileSize() {
-        return originalTileSize;
-    }
-
-    public int getScale() {
-        return scale;
-    }
-
-    public int getTileSize() {
-        return tileSize;
-    }
-
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
-    public int getMaxWorldCol() {
-        return maxWorldCol;
-    }
-
-    public int getMaxWorldRow() {
-        return maxWorldRow;
-    }
-
-    public int getMaxMap() {
-        return maxMap;
-    }
-
-    public int getCurrentMap() {
-        return currentMap;
-    }
-
-    public int getFPS() {
-        return FPS;
-    }
-
-    public void setFPS(int fPS) {
-        FPS = fPS;
-    }
-
-    public TileManager getTileM() {
-        return tileM;
-    }
-
-    public void setTileM(TileManager tileM) {
-        this.tileM = tileM;
-    }
-
-    public KeyHandler getKeyH() {
-        return keyH;
-    }
-
-    public void setKeyH(KeyHandler keyH) {
-        this.keyH = keyH;
-    }
-
-    public Sound getMusic() {
-        return music;
-    }
-
-    public void setMusic(Sound music) {
-        this.music = music;
-    }
-
-    public Sound getSe() {
-        return se;
-    }
-
-    public void setSe(Sound se) {
-        this.se = se;
-    }
-
-    public UI getUi() {
-        return ui;
-    }
-
-    public void setUi(UI ui) {
-        this.ui = ui;
-    }
-
-    public CollisionChecker getcChecker() {
-        return cChecker;
-    }
-
-    public void setcChecker(CollisionChecker cChecker) {
-        this.cChecker = cChecker;
-    }
-
-    public AssetSetter getaSetter() {
-        return aSetter;
-    }
-
-    public void setaSetter(AssetSetter aSetter) {
-        this.aSetter = aSetter;
-    }
-
-    public SpriteManager getsManager() {
-        return sManager;
-    }
-
-    public void setsManager(SpriteManager sManager) {
-        this.sManager = sManager;
-    }
-
-    public CurrentState getCurrentState() {
-        return currentState;
-    }
-
-    public void setCurrentState(CurrentState currentState) {
-        this.currentState = currentState;
-    }
-
-    public Thread getGameThread() {
-        return gameThread;
-    }
-
-    public void setGameThread(Thread gameThread) {
-        this.gameThread = gameThread;
-    }
-
-    public AnimalManager getaManager() {
-        return aManager;
-    }
-
-    public void setaManager(AnimalManager aManager) {
-        this.aManager = aManager;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Partner getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Partner partner) {
-        this.partner = partner;
-    }
-
-    public SuperObject[][] getObj() {
-        return obj;
-    }
-
-    public void setObj(SuperObject[][] obj) {
-        this.obj = obj;
-    }
-
-    public Entity[][] getNpc() {
-        return npc;
-    }
-
-    public void setNpc(Entity[][] npc) {
-        this.npc = npc;
-    }
-
-    public Entity[][] getEnemy() {
-        return enemy;
-    }
-
-    public void setEnemy(Entity[][] enemy) {
-        this.enemy = enemy;
-    }
-
-    public ArrayList<Entity> getEntityList() {
-        return entityList;
-    }
-
-    public void setEntityList(ArrayList<Entity> entityList) {
-        this.entityList = entityList;
     }
 }
