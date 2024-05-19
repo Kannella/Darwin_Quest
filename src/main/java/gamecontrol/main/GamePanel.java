@@ -125,7 +125,6 @@ public class GamePanel extends JPanel implements Runnable {
             clearEntities();
             aSetter.setNPC();
             aSetter.setEnemy();
-            stopMusic();
         }
         if(!UtilityTool.gettocaMusica()){
             Sound.isPlaying=false; 

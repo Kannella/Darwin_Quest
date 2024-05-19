@@ -186,12 +186,16 @@ public class Player extends Entity{
         if(i !=999 && i!=4){
             if(UI.canReproduce==true){
                 //gp.npc[i] = null;
+                gp.stopMusic();
                 UI.canReproduce = false;
                 UI.pararTimer();
                 gp.currentState.setChooseState();
                 gp.dControler.cruzamentos++;
                 System.err.println("Cruzamentos: " + gp.dControler.cruzamentos);
                 gp.dControler.darwinInteference();
+                // troca a música
+                gp.stopMusic();
+                gp.playMusic(1);
             }
         }
     }

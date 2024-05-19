@@ -42,7 +42,8 @@ public class KeyHandler implements KeyListener {
                     //sequencia de fatores de quando o player escolhe a opção 1:
                     //atribui ao contador que vai chamar no novo player
                     gp.sManager.contador = 1;
-                    //toca a música
+                    // toca a música
+                    gp.stopMusic();
                     gp.playMusic(0);
                     //Reseta e inicia o timer
                     UI.tempoDecorrido = 0;
@@ -64,6 +65,7 @@ public class KeyHandler implements KeyListener {
                     // atribui ao contador do player o valor 2
                     gp.sManager.contador = 2;
                     // toca a música
+                    gp.stopMusic();
                     gp.playMusic(0);
                     // Reseta e inicia o timer
                     UI.tempoDecorrido = 0;
