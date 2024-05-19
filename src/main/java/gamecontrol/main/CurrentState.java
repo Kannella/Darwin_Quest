@@ -8,6 +8,8 @@ public class CurrentState {
     public final int pauseState = 2;
     public final int gameOverState = 3;
     public final int chooseState = 4;
+    public final int finalState = 5;
+    public final int explanationState = 6;
 
     public CurrentState() {
         // Define o estado inicial do jogo aqui
@@ -34,8 +36,18 @@ public class CurrentState {
         gameState = chooseState;
     }
 
+    public void setFinalState() {
+        // Define o estado do jogo como "Final"
+        gameState = finalState;
+    }
+
     public int getGameState() {
         // Obtém o estado atual do jogo
         return gameState;
+    }
+
+    public void setExplanationState() {
+        // Define o estado do jogo como "Explicação"
+        gameState = explanationState;
     }
 }    

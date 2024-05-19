@@ -16,7 +16,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    //public int playerSpriteIndex = 0; //tentativa de armazenar o index do jogador
+    public int playerSpriteIndex = 0; //tentativa de armazenar o index do jogador
     //public BufferedImage[] playerSprites; //tentativa de armazenar as sprites do jogador
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -58,8 +58,9 @@ public class Player extends Entity{
         BufferedImage[] sprites;
         int spriteIndex;
 
-        while (gp.aManager.cruzamentos == 0) {
+        while (gp.dControler.cruzamentos == 0) {
             spriteIndex = 0; // Defina o índice da sprite conforme necessário
+            playerSpriteIndex = spriteIndex; // Retorna um valor para playerSpriteIndex para ser usado em outras partes do código
             // Obtenha a sprite atual do jogador com base na escolha
             sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
             // Defina o índice da sprite conforme necessário
@@ -67,17 +68,18 @@ public class Player extends Entity{
             // Sai do loop
             break;
         }
-        if (gp.aManager.cruzamentos != 0) {
-            spriteIndex = 0;
+        if (gp.dControler.cruzamentos != 0) {
+            spriteIndex = playerSpriteIndex;
             // Se cruzamentos não for zero, verifique o contador
-            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48); // ou qualquer lógica para obter
-                                                                                  // sprites
+            sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48); 
             if (gp.sManager.contador == 1) {
                 spriteIndex = SpriteManager.spriteSorteado1Index;
             } else if (gp.sManager.contador == 2) {
                 spriteIndex = SpriteManager.spriteSorteado2Index;
             }
-            // Configure as sprites com base na sprite atual
+            // Retorna um valor para playerSpriteIndex para ser usado em outras partes do código
+            playerSpriteIndex = spriteIndex; 
+            // Atribui sprite ao jogador
             setPlayerSprites(sprites, spriteIndex);
             }
         }
@@ -104,7 +106,6 @@ public class Player extends Entity{
         right3 = gp.sManager.rotateSprite(up3, 90);
         right4 = gp.sManager.rotateSprite(up4, 90);
     }
-
         
     public void update(){
         //esse if true com varios "ou -> ||" é o que segura a sprite de não ficar sendo atualizada o tempo todo 
@@ -188,8 +189,9 @@ public class Player extends Entity{
                 UI.canReproduce = false;
                 UI.pararTimer();
                 gp.currentState.setChooseState();
-                gp.aManager.cruzamentos++;
-                System.err.println("Cruzamentos: " + gp.aManager.cruzamentos);
+                gp.dControler.cruzamentos++;
+                System.err.println("Cruzamentos: " + gp.dControler.cruzamentos);
+                gp.dControler.darwinInteference();
             }
         }
     }

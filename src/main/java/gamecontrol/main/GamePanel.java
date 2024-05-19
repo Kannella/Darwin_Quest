@@ -44,19 +44,19 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
-    public SpriteManager sManager = new SpriteManager(this);
     public CurrentState currentState;
 
     Thread gameThread;
 
     // Entidade e objeto
-    public AnimalManager aManager = new AnimalManager();
-    private Player player;
+    public Player player;
     public Partner partner = new Partner(this);
     public SuperObject[][] obj = new SuperObject[maxMap][10];
     public Entity[][] npc = new Entity[maxMap][10];
     public Entity[][] enemy = new Entity[maxMap][10];
     ArrayList<Entity> entityList = new ArrayList<>();
+    public DarwinControler dControler = new DarwinControler(this);
+    public SpriteManager sManager = new SpriteManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Dimensiona o tamanho da tela

@@ -70,12 +70,11 @@ public class Partner extends Entity {
 
     public BufferedImage setup(String imageName) {
 
-        UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/individuos/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = UtilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
