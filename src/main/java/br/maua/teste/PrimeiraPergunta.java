@@ -63,6 +63,10 @@ public class PrimeiraPergunta extends javax.swing.JFrame {
         darwin = new javax.swing.JLabel();
         imagem_fundo = new javax.swing.JLabel();
 
+        jTextArea2.setLineWrap(true);
+        jTextArea3.setLineWrap(true);
+        jTextArea4.setLineWrap(true);
+
                 
 
         //REMOVE O SCROLL DO JTEXTAREA DA PERGUNTA
