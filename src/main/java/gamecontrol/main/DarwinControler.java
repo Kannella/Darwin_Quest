@@ -17,8 +17,9 @@ public class DarwinControler {
         //     gp.currentState.setExplanationState();
         // }
         //Se o jogador cruzar 4 vezes, ele ganha o jogo
-        if (cruzamentos == 4) {
+        if (cruzamentos == 4 ) {
             gp.currentState.setFinalState();
+            cruzamentos=0;
         }
     }
 

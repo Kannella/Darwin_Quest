@@ -8,6 +8,9 @@ import gamecontrol.objeto.SuperObject;
 import gamecontrol.tile.TileManager;
 
 import javax.swing.JPanel;
+
+import br.maua.teste.PrimeiraPergunta;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -125,6 +128,14 @@ public class GamePanel extends JPanel implements Runnable {
             clearEntities();
             aSetter.setNPC();
             aSetter.setEnemy();
+        }
+        else if(currentState.getGameState()==currentState.finalState&&!UtilityTool.getchegouofim()){
+            Window w = javax.swing.SwingUtilities.getWindowAncestor(this);
+            w.dispose();
+            PrimeiraPergunta priPergunta = new PrimeiraPergunta();
+            priPergunta.setVisible(true);
+            priPergunta.setLocationRelativeTo(null);
+            UtilityTool.setchegouofim(true);
         }
         if(!UtilityTool.gettocaMusica()){
             Sound.isPlaying=false; 

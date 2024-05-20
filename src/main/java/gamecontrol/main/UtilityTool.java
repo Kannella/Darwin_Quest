@@ -7,7 +7,15 @@ import java.awt.image.BufferedImage;
 
 public class UtilityTool {
 
+    private static boolean chegouofim=false;
     
+    public static boolean getchegouofim() {
+        return chegouofim;
+    }
+
+    public static void setchegouofim(boolean fim) {
+        chegouofim=fim;
+    }
 
     private static boolean tocaMusica=true;
     
@@ -17,6 +25,8 @@ public class UtilityTool {
     public static void settocaMusica(boolean estadoMusica) {
         tocaMusica=estadoMusica;
     }
+
+    
     
     public static BufferedImage scaleImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
         // Redimensiona a imagem usando o método getScaledInstance
