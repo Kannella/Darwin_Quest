@@ -69,28 +69,28 @@ public class SpriteManager {
 
             // Sorteia as sprites baseado no animal escolhido
             if (gp.player == null) { //tratamento de iniciação do player
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[3], sprites[21], sprites[37] };
+                spritesSorteadas = new BufferedImage[] { sprites[3], sprites[21], sprites[37] };
             }
             else if(gp.player.playerSpriteIndex == 0){ //caso player for animal base sorteia essas sprites
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[3], sprites[21], sprites[37] };
+                spritesSorteadas = new BufferedImage[] { sprites[3], sprites[21], sprites[37] };
             }
             else if (gp.player.playerSpriteIndex == 3) { 
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[3], sprites[9], sprites[12] };
+                spritesSorteadas = new BufferedImage[] { sprites[3], sprites[9], sprites[12] };
             }
             else if (gp.player.playerSpriteIndex == 12) { // 18 é sprite de objetivo
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[3], sprites[9], sprites[12], sprites[15], sprites[18] };
+                spritesSorteadas = new BufferedImage[] { sprites[9], sprites[12], sprites[15], sprites[18] };
             }
             else if(gp.player.playerSpriteIndex == 21){
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[21], sprites[24], sprites[27] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[21], sprites[24], sprites[27] }; 
             }
             else if(gp.player.playerSpriteIndex == 27){ // 36 é sprite de objetivo
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[21], sprites[27], sprites[30], sprites[33], sprites[36] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[27], sprites[30], sprites[33], sprites[36] }; 
             }
             else if(gp.player.playerSpriteIndex == 38){
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[38], sprites[41], sprites[44] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[38], sprites[41], sprites[44] }; 
             }
             else if(gp.player.playerSpriteIndex == 44){ //53 é sprite de objetivo
-                spritesSorteadas = new BufferedImage[] { sprites[0], sprites[44], sprites[47], sprites[50], sprites[53] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[44], sprites[47], sprites[50], sprites[53] }; 
             }
 
         } else if (gp.currentMap == 1) {
@@ -101,7 +101,7 @@ public class SpriteManager {
                     sprites[40],
                     sprites[43], sprites[46] };
         } else {
-            return; // Nenhum sorteio se currentMap não for 0 ou 1
+            return;
         }
 
         // Sorteia os sprites uma vez na inicialização do método

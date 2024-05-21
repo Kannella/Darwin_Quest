@@ -1,24 +1,28 @@
 package gamecontrol.entidade;
+
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import gamecontrol.main.GamePanel;
+import gamecontrol.main.UtilityTool;
 
-public class Enemy extends Entity{
-    private static final int FOLLOW_DISTANCE =200;
+public class Enemy extends Entity {
+    private static final int FOLLOW_DISTANCE = 300;
     Random random = new Random();
-    public Enemy (GamePanel gp){
+
+    public Enemy(GamePanel gp) {
         super(gp);
 
-        type=2;
+        type = 2;
         direction = "down";
-        speed =random.nextInt(3,5);
+        speed = random.nextInt(3, 5);
         getEnemyImage();
 
     }
-    
+
     public void update() {
 
         // Verifica se o inimigo deve seguir o jogador
@@ -33,17 +37,17 @@ public class Enemy extends Entity{
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.enemy);
-        boolean contactPlayer= gp.cChecker.checkPlayer(this);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if(this.type == 2 && contactPlayer==true){
-            if(gp.getPlayer().invencible == false){
+        if (this.type == 2 && contactPlayer == true) {
+            if (gp.getPlayer().invencible == false) {
                 gp.getPlayer().life -= 1;
                 gp.getPlayer().invencible = true;
             }
         }
-        if(collisionOn == false){
-                
-            switch(direction){
+        if (collisionOn == false) {
+
+            switch (direction) {
                 case "up":
                     worldY = worldY - speed;
                     break;
@@ -55,21 +59,22 @@ public class Enemy extends Entity{
                     break;
                 case "right":
                     worldX = worldX + speed;
-                    break;            
+                    break;
             }
         }
 
         spriteCounter++;
         if (spriteCounter > 10) {
-        spriteNumber = (spriteNumber % 4) + 1; // Ciclar entre 1 e 4
-        spriteCounter = 0;
+            spriteNumber = (spriteNumber % 4) + 1; // Ciclar entre 1 e 4
+            spriteCounter = 0;
         }
 
     }
 
     // Método para verificar se o inimigo deve seguir o jogador
     private boolean shouldFollowPlayer() {
-        double distance = Math.sqrt(Math.pow(worldX - gp.getPlayer().worldX, 2) + Math.pow(worldY - gp.getPlayer().worldY, 2));
+        double distance = Math
+                .sqrt(Math.pow(worldX - gp.getPlayer().worldX, 2) + Math.pow(worldY - gp.getPlayer().worldY, 2));
         return distance < FOLLOW_DISTANCE;
     }
 
@@ -77,11 +82,11 @@ public class Enemy extends Entity{
     private void followPlayer() {
         int playerX = gp.getPlayer().worldX;
         int playerY = gp.getPlayer().worldY;
-    
+
         // Calcula a diferença horizontal e vertical entre o inimigo e o jogador
         int dx = playerX - worldX;
         int dy = playerY - worldY;
-    
+
         // Define a direção com base nas diferenças calculadas
         if (Math.abs(dx) > Math.abs(dy)) {
             // Movimento horizontal é maior do que o movimento vertical
@@ -99,53 +104,64 @@ public class Enemy extends Entity{
             }
         }
     }
-    public void getEnemyImage(){
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaParadaCima.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaPasso1Cima.png"));
-            up3 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaParadaCima.png"));
-            up4 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaPasso2Cima.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaParadaBaixo.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaPasso1Baixo.png"));
-            down3 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaParadaBaixo.png"));
-            down4 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaPasso2Baixo.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoEsquerdaDefault.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoEsquerdaPasso1.png"));
-            left3 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoEsquerdaDefault.png"));
-            left4 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoEsquerdaPasso2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoDireitaDefault.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoDireitaPasso1.png"));
-            right3 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoDireitaDefault.png"));
-            right4 = ImageIO.read(getClass().getResourceAsStream("/res/ameba/AmebinhaAndandoDireitaPasso2.png"));
-        }catch(IOException e){
+
+    public void getEnemyImage() {
+
+        down1 = setup("lagartixa/lagartixaBase");
+        down2 = setup("lagartixa/lagartixa1");
+        down3 = down1;
+        down4 = setup("lagartixa/lagartixa2");
+
+        up1 = gp.sManager.rotateSprite(down1, 180);
+        up2 = gp.sManager.rotateSprite(down2, 180);
+        up3 = gp.sManager.rotateSprite(down3, 180);
+        up4 = gp.sManager.rotateSprite(down4, 180);
+
+        left1 = gp.sManager.rotateSprite(up1, -90);
+        left2 = gp.sManager.rotateSprite(up2, -90);
+        left3 = gp.sManager.rotateSprite(up3, -90);
+        left4 = gp.sManager.rotateSprite(up4, -90);
+
+        right1 = gp.sManager.rotateSprite(up1, 90);
+        right2 = gp.sManager.rotateSprite(up2, 90);
+        right3 = gp.sManager.rotateSprite(up3, 90);
+        right4 = gp.sManager.rotateSprite(up4, 90);
+
+    }
+
+    public void setAction() {
+        int i = random.nextInt(125) + 1;
+        actionLockCounter++;
+        if (actionLockCounter == 50) {
+            if (i <= 25) {
+                direction = "up";
+            }
+            if (i > 25 && i <= 50) {
+                direction = "down";
+            }
+            if (i > 50 && i <= 75) {
+                direction = "left";
+            }
+            if (i > 75 && i <= 100) {
+                direction = "right";
+            }
+            if (i > 100 && i <= 125) {
+            }
+            actionLockCounter = 0;
+        }
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/res/individuos/" + imageName + ".png"));
+            image = UtilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
+        return image;
     }
-        public void setAction() {
-            int i = random.nextInt(125)+1;
-            actionLockCounter ++;
-            if (actionLockCounter==50){
-                if(i <= 25){
-                    direction = "up";
-                }
-                if(i > 25 && i <= 50){
-                    direction = "down";
-                }
-                if(i > 50 && i <= 75){
-                    direction = "left";
-                }
-                if(i > 75 && i <= 100){
-                    direction = "right";
-                }
-                if(i > 100 && i <= 125){
-                }
-                actionLockCounter = 0;
-            }
-
-            
-        }
-    }
-
-
-
+}

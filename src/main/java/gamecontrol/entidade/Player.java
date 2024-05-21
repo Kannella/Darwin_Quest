@@ -162,6 +162,7 @@ public class Player extends Entity {
                 invencibleCounter = 0;
             }
             if (life == 0) {
+                //gp.se.playSE(3);
                 gp.currentState.setGameOverState();
             }
         }

@@ -20,8 +20,10 @@ public class Sound {
 
     public Sound (){
 
-        soundURL[0] = getClass().getResource("/res/sound/Surpresa.wav");
-        soundURL[1] = getClass().getResource("/res/sound/Brinqs.wav");
+        soundURL[0] = getClass().getResource("/res/musicas/MUSICA_TEMA_DARWIN_QUEST.wav");
+        soundURL[1] = getClass().getResource("/res/musicas/MUSIQUINHA_TRANQUILINHA.wav");
+        soundURL[2] = getClass().getResource("/res/musicas/MUSIQUINHA_MORTE.wav");
+        soundURL[3] = getClass().getResource("/res/musicas/MUSIQUINHA_AÇÃO.wav");
     }
     
     public void setFile(int i) {
@@ -50,6 +52,5 @@ public class Sound {
 
         clip.stop();
     }
-
     
 }

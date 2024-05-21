@@ -73,11 +73,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() { // PREPARA O NIVEL, SPAWNA NPCS E OBJETOS, INICIA MUSICA
         currentState = new CurrentState();
+        stopMusic();
+        playMusic(0);
+        Sound.isPlaying = true;
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setEnemy();
-        playMusic(0);
-        Sound.isPlaying = true;
     }
 
     public void startGameThread() {
