@@ -189,7 +189,9 @@ public class UI {
                             pararTimer();
                         } else {
                             tempoDecorrido += 1000;
-                            System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
+                            // System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
+                            // System.out.println("X: w"+gp.enemy[0][0].worldX);
+                            // System.out.println("Y: "+gp.enemy[0][0].worldY);   //leo: isso aqui fica pingando a posição desse inimigo, ajuda a marcar as posições de spawn
                         }
                         if (tempoDecorrido >= 40 * 1000 && !canReproduce) {
                             System.out.println("Possivel reproduzir");
@@ -201,7 +203,7 @@ public class UI {
                             currentState.setGameOverState();
                         }
                     } else {
-                        System.out.println("CurrentState é nulo.");
+                        // System.out.println("CurrentState é nulo.");
                     }
                 }
             };
