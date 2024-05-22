@@ -28,11 +28,14 @@ public class Entity {
     //Status do Personagem
     public int maxLife;
     public int life;
+    public int tamanho;
+
     
 
 
     public Entity(GamePanel gp) {
         this.gp = gp;
+        tamanho=gp.tileSize;
     }
 
     public void setAction(){    
@@ -142,7 +145,7 @@ public class Entity {
                         break;    
                 }
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, tamanho, tamanho, null);
         }         
     }
 }

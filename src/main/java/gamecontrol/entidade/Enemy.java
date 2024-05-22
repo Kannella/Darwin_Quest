@@ -16,6 +16,7 @@ public class Enemy extends Entity {
     public Enemy(GamePanel gp) {
         super(gp);
 
+        tamanho=100;
         type = 2;
         direction = "down";
         speed = random.nextInt(3, 5);
