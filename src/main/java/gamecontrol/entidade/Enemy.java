@@ -1,5 +1,6 @@
 package gamecontrol.entidade;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
@@ -15,6 +16,14 @@ public class Enemy extends Entity {
 
     public Enemy(GamePanel gp) {
         super(gp);
+
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 12;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         tamanho=100;
         type = 2;

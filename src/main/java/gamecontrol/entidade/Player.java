@@ -19,6 +19,10 @@ public class Player extends Entity {
     private float dashDuration = 0.2f; // Em segundos
     private float dashTime = 0;
     private long lastDashTime = 0; // Para controlar o tempo de dash
+    public float cooldown = 2f; // Tempo de espera para o próximo dash
+    private final double dashCooldown = 2.0; // cooldown do dash em segundos
+    private long lastDashEndTime = 0; // armazena o tempo em que o dash terminou
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -97,10 +101,12 @@ public class Player extends Entity {
     }
 
     public void dash() {
-        if (!isDashing) {
+        long currentTime = System.nanoTime();
+        // Verifica se o cooldown terminou
+        if (!isDashing && (currentTime - lastDashEndTime) / 1_000_000_000.0 >= dashCooldown) {
             isDashing = true;
             dashTime = dashDuration;
-            lastDashTime = System.nanoTime();
+            lastDashTime = currentTime;
         }
     }
 
@@ -170,16 +176,17 @@ public class Player extends Entity {
 
     private void dashUpdate() {
         if (isDashing) {
-            dashTime -= (System.nanoTime() - lastDashTime) / 500_000_000.0;
-            lastDashTime = System.nanoTime();
-
+            long currentTime = System.nanoTime();
+            dashTime -= (currentTime - lastDashTime) / 1_000_000_000.0; // Convertendo para segundos
+            lastDashTime = currentTime;
+    
             if (dashTime <= 0) {
                 stopDash();
             } else {
                 collisionOn = false;
                 float dashSpeedX = 0;
                 float dashSpeedY = 0;
-
+    
                 switch (direction) {
                     case "up":
                         dashSpeedY = -dashSpeed;
@@ -194,13 +201,13 @@ public class Player extends Entity {
                         dashSpeedX = dashSpeed;
                         break;
                 }
-
+    
                 for (int i = 0; i < dashSpeed; i++) {
                     worldX += dashSpeedX / dashSpeed;
                     worldY += dashSpeedY / dashSpeed;
-
+    
                     gp.cChecker.checkTile(this);
-
+    
                     if (collisionOn) {
                         stopDash();
                         break;
@@ -209,19 +216,20 @@ public class Player extends Entity {
             }
         }
     }
-
+    
     private void stopDash() {
         isDashing = false;
+        lastDashEndTime = System.nanoTime(); // Registra o tempo em que o dash terminou
     }
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            // Implementação da lógica para pegar objetos
+          
         }
     }
 
     public void interactNPC(int i) {
-        if (i != 999 && i != 4) {
+        if (i != 999 ) {
             if (UI.canReproduce) {
                 gp.stopMusic();
                 UI.canReproduce = false;

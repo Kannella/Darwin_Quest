@@ -81,10 +81,10 @@ public class SpriteManager {
                 spritesSorteadas = new BufferedImage[] { sprites[9], sprites[12], sprites[15], sprites[18] };
             }
             else if(gp.player.playerSpriteIndex == 21){
-                spritesSorteadas = new BufferedImage[] { sprites[21], sprites[24], sprites[27] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[21], sprites[24], sprites[27]}; 
             }
             else if(gp.player.playerSpriteIndex == 27){ // 36 é sprite de objetivo
-                spritesSorteadas = new BufferedImage[] { sprites[27], sprites[30], sprites[33], sprites[36] }; 
+                spritesSorteadas = new BufferedImage[] { sprites[27], sprites[30], sprites[33], sprites[36]}; 
             }
             else if(gp.player.playerSpriteIndex == 38){
                 spritesSorteadas = new BufferedImage[] { sprites[38], sprites[41], sprites[44] }; 

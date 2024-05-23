@@ -5,13 +5,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class ObjAlga extends SuperObject {
+public class Gotinha extends SuperObject {
     
-    public ObjAlga (){
+    public Gotinha (){
 
-        name = "Alga";
+        name = "Aguinha";
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objetos/Alga.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objetos/GotaDAgua.png"));
         }catch(IOException e){
             e.printStackTrace();
         }
