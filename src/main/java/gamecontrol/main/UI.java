@@ -163,7 +163,7 @@ public class UI {
         int elapsedTimeSeconds = (int) (tempoDecorrido / 1000); // Converte o tempo decorrido de milissegundos para segundos para realizar calculos
         int barWidth = (int) ((gp.screenWidth - 20) * (120 - elapsedTimeSeconds) / 120.0); // 120 segundos = 2 minutos
 
-        if (elapsedTimeSeconds >= 40 && elapsedTimeSeconds < 120) { // Se o tempo decorrido for maior que 50 segundos e menor que 2 minutos
+        if (elapsedTimeSeconds >= 30 && elapsedTimeSeconds < 120) { // Se o tempo decorrido for maior que 50 segundos e menor que 2 minutos
             g2.setColor(Color.GREEN);
         } else {
             g2.setColor(Color.RED);
@@ -192,7 +192,7 @@ public class UI {
                             // System.out.println("X: w"+gp.enemy[0][0].worldX);
                             // System.out.println("Y: "+gp.enemy[0][0].worldY);   //leo: isso aqui fica pingando a posição desse inimigo, ajuda a marcar as posições de spawn
                         }
-                        if (tempoDecorrido >= 5 * 1000 && !canReproduce) {
+                        if (tempoDecorrido >= 30 * 1000 && !canReproduce) {
                             System.out.println("Possivel reproduzir");
                             canReproduce = true;
                         }

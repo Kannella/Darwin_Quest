@@ -10,7 +10,6 @@ import gamecontrol.tile.TileManager;
 import javax.swing.JPanel;
 
 import br.maua.teste.PerpetuouBesouro;
-import br.maua.teste.PrimeiraPergunta;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -117,6 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if(UtilityTool.getacabouler()){
             currentState.setPlayState();
+            UI.pararTimer();
+            UI.iniciarTimer(this);
             UtilityTool.setAcabouLer(false);
         }
         if (currentState.getGameState() == currentState.playState) {
@@ -142,9 +143,6 @@ public class GamePanel extends JPanel implements Runnable {
             Window w = javax.swing.SwingUtilities.getWindowAncestor(this);
             w.dispose();
             UtilityTool.setchegouofim(true);
-            // PrimeiraPergunta priPergunta = new PrimeiraPergunta();
-            // priPergunta.setVisible(true);
-            // priPergunta.setLocationRelativeTo(null);
             PerpetuouBesouro pb = new PerpetuouBesouro();
             pb.setVisible(true);
             pb.setLocation(null);
