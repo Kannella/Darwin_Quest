@@ -9,6 +9,7 @@ import gamecontrol.tile.TileManager;
 
 import javax.swing.JPanel;
 
+import br.maua.teste.PerpetuouBesouro;
 import br.maua.teste.PrimeiraPergunta;
 
 import java.awt.Color;
@@ -109,8 +110,15 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    public CurrentState getCurrentState() {
+        return currentState;
+    }
 
     public void update() {
+        if(UtilityTool.getacabouler()){
+            currentState.setPlayState();
+            UtilityTool.setAcabouLer(false);
+        }
         if (currentState.getGameState() == currentState.playState) {
             player.update();
             for (int i = 0; i < npc[currentMap].length; i++) {
@@ -133,14 +141,22 @@ public class GamePanel extends JPanel implements Runnable {
         else if(currentState.getGameState()==currentState.finalState&&!UtilityTool.getchegouofim()){
             Window w = javax.swing.SwingUtilities.getWindowAncestor(this);
             w.dispose();
-            PrimeiraPergunta priPergunta = new PrimeiraPergunta();
-            priPergunta.setVisible(true);
-            priPergunta.setLocationRelativeTo(null);
             UtilityTool.setchegouofim(true);
+            // PrimeiraPergunta priPergunta = new PrimeiraPergunta();
+            // priPergunta.setVisible(true);
+            // priPergunta.setLocationRelativeTo(null);
+            PerpetuouBesouro pb = new PerpetuouBesouro();
+            pb.setVisible(true);
+            pb.setLocation(null);
         }
         if(!UtilityTool.gettocaMusica()){
             Sound.isPlaying=false; 
         }
+    }
+    
+    public static Window getWindow(){
+        Window w = Main.window;
+        return w;
     }
 
     public void paintComponent(Graphics g) {

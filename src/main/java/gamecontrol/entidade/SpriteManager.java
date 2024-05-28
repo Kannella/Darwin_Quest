@@ -71,25 +71,25 @@ public class SpriteManager {
             if (gp.player == null) { //tratamento de iniciação do player
                 spritesSorteadas = new BufferedImage[] { sprites[3], sprites[21], sprites[37] };
             }
-            else if(gp.player.playerSpriteIndex == 0){ //caso player for animal base sorteia essas sprites
+            else if(gp.player.getPlayerSpriteIndex() == 0){ //caso player for animal base sorteia essas sprites
                 spritesSorteadas = new BufferedImage[] { sprites[3], sprites[21], sprites[37] };
             }
-            else if (gp.player.playerSpriteIndex == 3) { 
+            else if (gp.player.getPlayerSpriteIndex()== 3) { 
                 spritesSorteadas = new BufferedImage[] { sprites[3], sprites[9], sprites[12] };
             }
-            else if (gp.player.playerSpriteIndex == 12) { // 18 é sprite de objetivo
+            else if (gp.player.getPlayerSpriteIndex() == 12) { // 18 é sprite de objetivo
                 spritesSorteadas = new BufferedImage[] { sprites[9], sprites[12], sprites[15], sprites[18] };
             }
-            else if(gp.player.playerSpriteIndex == 21){
+            else if(gp.player.getPlayerSpriteIndex() == 21){
                 spritesSorteadas = new BufferedImage[] { sprites[21], sprites[24], sprites[27]}; 
             }
-            else if(gp.player.playerSpriteIndex == 27){ // 36 é sprite de objetivo
+            else if(gp.player.getPlayerSpriteIndex() == 27){ // 36 é sprite de objetivo
                 spritesSorteadas = new BufferedImage[] { sprites[27], sprites[30], sprites[33], sprites[36]}; 
             }
-            else if(gp.player.playerSpriteIndex == 38){
+            else if(gp.player.getPlayerSpriteIndex() == 38){
                 spritesSorteadas = new BufferedImage[] { sprites[38], sprites[41], sprites[44] }; 
             }
-            else if(gp.player.playerSpriteIndex == 44){ //53 é sprite de objetivo
+            else if(gp.player.getPlayerSpriteIndex() == 44){ //53 é sprite de objetivo
                 spritesSorteadas = new BufferedImage[] { sprites[44], sprites[47], sprites[50], sprites[53] }; 
             }
 

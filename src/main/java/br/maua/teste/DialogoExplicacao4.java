@@ -3,6 +3,10 @@ package br.maua.teste;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+
+import gamecontrol.main.GamePanel;
+import gamecontrol.main.UtilityTool;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -171,7 +175,9 @@ public class DialogoExplicacao4 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here
+        GamePanel.getWindow().setVisible(true);
+        UtilityTool.setAcabouLer(true);
+        dispose(); 
     }
 
     public static void main(String args[]) {

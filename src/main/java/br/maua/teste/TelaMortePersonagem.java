@@ -57,7 +57,7 @@ public class TelaMortePersonagem extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jogar_novamenteMouseClicked(java.awt.event.MouseEvent evt) {                                             
-       Main.abrirJanelaDoJogo();
+        Main.abrirJanelaDoJogo();
         dispose();
     }                                            
 

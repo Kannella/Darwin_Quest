@@ -13,7 +13,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int playerSpriteIndex = 0;
+    private int playerSpriteIndex = 0;
     private boolean isDashing = false;
     private float dashSpeed = 20f;
     private float dashDuration = 0.2f; // Em segundos
@@ -22,6 +22,7 @@ public class Player extends Entity {
     public float cooldown = 2f; // Tempo de espera para o próximo dash
     private final double dashCooldown = 2.0; // cooldown do dash em segundos
     private long lastDashEndTime = 0; // armazena o tempo em que o dash terminou
+    
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -53,19 +54,26 @@ public class Player extends Entity {
         maxLife = 6;
         life = maxLife;
     }
+    public void setPlayerSpriteIndex(int playerSpriteIndex) {
+        this.playerSpriteIndex = playerSpriteIndex;
+    }
+    public int getPlayerSpriteIndex() {
+        return playerSpriteIndex;
+    }
 
     public void getPlayerImage() {
         BufferedImage[] sprites;
         int spriteIndex;
+        System.out.println(gp.dControler.getCruzamentos());
 
-        while (gp.dControler.cruzamentos == 0) {
+        while (gp.dControler.getCruzamentos() == 0) {
             spriteIndex = 0;
             playerSpriteIndex = spriteIndex;
             sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
             setPlayerSprites(sprites, spriteIndex);
             break;
         }
-        if (gp.dControler.cruzamentos != 0) {
+        if (gp.dControler.getCruzamentos() != 0) {
             spriteIndex = playerSpriteIndex;
             sprites = gp.sManager.lerSpritesheet("TodosBesourinhos.png", 46, 48);
             if (gp.sManager.contador == 1) {
@@ -234,8 +242,9 @@ public class Player extends Entity {
                 gp.stopMusic();
                 UI.canReproduce = false;
                 UI.pararTimer();
+                System.out.println(gp.dControler.getCruzamentos());
+                gp.dControler.setCruzamentos(gp.dControler.getCruzamentos()+1);
                 gp.currentState.setChooseState();
-                gp.dControler.cruzamentos++;
                 gp.dControler.darwinInteference();
                 gp.stopMusic();
                 gp.playMusic(1);

@@ -10,6 +10,7 @@ import javax.swing.*;
 
 
 public class Main {
+    static JFrame window = new JFrame();
     public static void main(String[] args) {
 
         ConexaoBD conexaoBD = new ConexaoBD();
@@ -66,6 +67,7 @@ public class Main {
             GameStage = gameStage;
         }
         
+        
         public static void abrirTelaInical(){
         // Método para abrir a janela do jogo
         TelaInicial telaInicial = new TelaInicial();
@@ -77,10 +79,10 @@ public class Main {
 
     // Método para abrir a janela do jogo
     public static void abrirJanelaDoJogo() {
-        JFrame window = new JFrame();
+        // JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Darwin Quest V0.4");
+        window.setTitle("Darwin Quest V0.8");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

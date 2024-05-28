@@ -3,11 +3,18 @@ package br.maua.teste;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+
+
+import gamecontrol.main.GamePanel;
+import gamecontrol.main.UtilityTool;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoExplicacao2 extends javax.swing.JFrame {
+    
+    // CurrentState CS = new CurrentState();
 
     private String[] textos = {
             "Quando criei minha teoria, o nome “seleção natural” me pareceu bem apropriado",
@@ -172,7 +179,9 @@ public class DialogoExplicacao2 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here
+        GamePanel.getWindow().setVisible(true);
+        UtilityTool.setAcabouLer(true);
+        dispose(); 
     }
 
     public static void main(String args[]) {

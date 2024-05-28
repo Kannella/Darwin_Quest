@@ -160,6 +160,11 @@ public class PerpetuouBesouro extends javax.swing.JFrame {
                         textIndex++;
                         index = 0;
                         timer.start();
+                    }else{
+                        dispose();
+                        PrimeiraPergunta priPergunta = new PrimeiraPergunta();
+                        priPergunta.setVisible(true);
+                        priPergunta.setLocationRelativeTo(null);
                     }
                 }
             }

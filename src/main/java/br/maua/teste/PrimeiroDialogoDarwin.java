@@ -4,7 +4,7 @@
  */
 package br.maua.teste;
 
-import gamecontrol.main.Main;
+
 
 /**
  *
@@ -136,8 +136,11 @@ public class PrimeiroDialogoDarwin extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) { 
-        Main.abrirJanelaDoJogo();
-        Main.setGameStage(0);
+        PrimeiroDialogoExplicacaoJogo primeiro=new PrimeiroDialogoExplicacaoJogo();
+        primeiro.setVisible(true);
+        primeiro.setLocationRelativeTo(null);
+        // Main.abrirJanelaDoJogo();
+        // Main.setGameStage(0);
         dispose();                                             
     }                                             
 

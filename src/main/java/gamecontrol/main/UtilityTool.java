@@ -25,9 +25,14 @@ public class UtilityTool {
     public static void settocaMusica(boolean estadoMusica) {
         tocaMusica=estadoMusica;
     }
+    private static boolean acabouLer=false;
+    public static boolean getacabouler(){
+        return acabouLer;
+    }
+    public static void setAcabouLer(boolean acabouLer) {
+        UtilityTool.acabouLer = acabouLer;
+    }
 
-    
-    
     public static BufferedImage scaleImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
         // Redimensiona a imagem usando o método getScaledInstance
         Image scaledImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);

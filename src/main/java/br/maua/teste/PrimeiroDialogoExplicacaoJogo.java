@@ -1,7 +1,8 @@
-    package br.maua.teste;
+package br.maua.teste;
 
-    import javax.swing.*;
-    import javax.swing.border.LineBorder;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import gamecontrol.main.Main;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import java.awt.*;
@@ -189,7 +190,9 @@ import java.awt.*;
         }
 
         private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-            // TODO add your handling code here
+            Main.abrirJanelaDoJogo();
+            Main.setGameStage(0);
+            dispose(); 
         }
 
         public static void main(String args[]) {

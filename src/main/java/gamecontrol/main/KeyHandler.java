@@ -1,17 +1,25 @@
 package gamecontrol.main;
 
+import java.awt.Window;
 //Classe feita para detectar a input do jogador, no caso, somente o teclado
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import br.maua.teste.DialogoExplicacao2;
+import br.maua.teste.DialogoExplicacao3;
+import br.maua.teste.DialogoExplicacao4;
+import gamecontrol.main.DarwinControler;
 
 public class KeyHandler implements KeyListener {
     
     GamePanel gp;
     //Declaração de variáveis
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
+        
     }
 
     //Processamento
@@ -47,22 +55,7 @@ public class KeyHandler implements KeyListener {
                         //sequencia de fatores de quando o player escolhe a opção 1:
                         //atribui ao contador que vai chamar no novo player
                         gp.sManager.contador = 1;
-                        // toca a música
-                        gp.stopMusic();
-                        gp.playMusic(0);
-                        //Reseta e inicia o timer
-                        UI.tempoDecorrido = 0;
-                        UI.iniciarTimer(gp);
-                        //Destrói player
-                        gp.disposePlayer();
-                        // Faz outro player
-                        gp.createPlayer();
-                        //Muda o estado do jogo para playState
-                        gp.currentState.setPlayState();
-                        //Sorteia os sprites de novo para o player escolher
-                        gp.sManager.spriteSorteado1 = null;
-                        gp.sManager.spriteSorteado2 = null;
-                        gp.sManager.sortearSprites();
+                        sequenciaDoChoose();
                     }
                 }
                 if (gp.ui.commandNum == 1) { // selecionando opção 2
@@ -73,26 +66,12 @@ public class KeyHandler implements KeyListener {
                         // sequencia de fatores de quando o player escolhe a opção 2:
                         // atribui ao contador do player o valor 2
                         gp.sManager.contador = 2;
-                        // toca a música
-                        gp.stopMusic();
-                        gp.playMusic(0);
-                        // Reseta e inicia o timer
-                        UI.tempoDecorrido = 0;
-                        UI.iniciarTimer(gp);
-                        // Destrói player
-                        gp.disposePlayer();
-                        //Faz outro player
-                        gp.createPlayer();
-                        // Muda o estado do jogo para playState
-                        gp.currentState.setPlayState();
-                        // Sorteia os sprites de novo para o player escolher
-                        gp.sManager.spriteSorteado1 = null;
-                        gp.sManager.spriteSorteado2 = null;
-                        gp.sManager.sortearSprites();
+                        sequenciaDoChoose();
                     }
                 }
             }
         }
+        
          //playState
          if (gp.currentState.getGameState() == gp.currentState.playState || gp.currentState
                  .getGameState() == gp.currentState.pauseState) {
@@ -136,6 +115,52 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+    private void sequenciaDoChoose(){
+        // toca a música                                                
+        gp.stopMusic();
+        gp.playMusic(0);
+        // Reseta e inicia o timer
+        UI.tempoDecorrido = 0;
+        UI.iniciarTimer(gp);
+        // Destrói player
+        gp.disposePlayer();
+        //Faz outro player
+        gp.createPlayer();
+        //Chama a explicacao e ela chama o play state
+        if(gp.dControler.getCruzamentos()==1){
+            // PrimeiroDialogoExplicacaoJogo primeiro=new PrimeiroDialogoExplicacaoJogo();
+            // primeiro.setVisible(true);
+            // primeiro.setLocationRelativeTo(null);
+            DialogoExplicacao2 d2= new DialogoExplicacao2();
+            d2.setVisible(true);
+            d2.setLocationRelativeTo(null);
+        }
+        if(gp.dControler.getCruzamentos()==2){
+            DialogoExplicacao3 d3= new DialogoExplicacao3();
+            d3.setVisible(true);
+            d3.setLocationRelativeTo(null);
+        }
+        if(gp.dControler.getCruzamentos()==3){
+            DialogoExplicacao4 d4 = new DialogoExplicacao4();
+            d4.setVisible(true);
+            d4.setLocationRelativeTo(null);
+        }
+        else{
+            System.out.println("Valor acima ou abaixo de esperado");
+        }
+        // Sorteia os sprites de novo para o player escolher
+
+        // Muda o estado do jogo para playState
+        // gp.currentState.setPlayState();
+        gp.getWindow().setVisible(false);
+        gp.sManager.spriteSorteado1 = null;
+        gp.sManager.spriteSorteado2 = null;
+        gp.sManager.sortearSprites();
+        UtilityTool.setAcabouLer(false);
+        // UtilityTool.setAcabouDeLer(false);
+
+    }
+    
     public void keyReleased(KeyEvent e){ //Essa sessão checa se a tecla do evento anterior (de movimento) foi soltada
        
         int code = e.getKeyCode();

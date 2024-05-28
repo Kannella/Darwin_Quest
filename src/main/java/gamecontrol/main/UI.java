@@ -60,8 +60,7 @@ public class UI {
             drawPauseScreen();
         }
         if (gp.currentState.getGameState() == gp.currentState.gameOverState) {
-            Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);
-            w.dispose();
+            gp.getWindow().dispose();
             drawGameOverScreen();
         }
         if (gp.currentState.getGameState() == gp.currentState.chooseState) {
@@ -193,7 +192,7 @@ public class UI {
                             // System.out.println("X: w"+gp.enemy[0][0].worldX);
                             // System.out.println("Y: "+gp.enemy[0][0].worldY);   //leo: isso aqui fica pingando a posição desse inimigo, ajuda a marcar as posições de spawn
                         }
-                        if (tempoDecorrido >= 40 * 1000 && !canReproduce) {
+                        if (tempoDecorrido >= 5 * 1000 && !canReproduce) {
                             System.out.println("Possivel reproduzir");
                             canReproduce = true;
                         }

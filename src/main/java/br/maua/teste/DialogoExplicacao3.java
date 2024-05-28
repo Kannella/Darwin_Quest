@@ -3,12 +3,16 @@ package br.maua.teste;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+
+import gamecontrol.main.GamePanel;
+import gamecontrol.main.UtilityTool;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoExplicacao3 extends javax.swing.JFrame {
-
+    // CurrentState CS = new CurrentState();
     private String[] textos = {
             "Dentro da minha teoria, é Importante frisar que o que determina a boa adaptação de uma espécie",
             "É o ambiente. Pois como suas mutações são completamente aleatórias, a espécie só prosperará se as mutações forem boas para o ambiente que ela está."
@@ -171,7 +175,9 @@ public class DialogoExplicacao3 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here
+        GamePanel.getWindow().setVisible(true);
+        UtilityTool.setAcabouLer(true);
+        dispose(); 
     }
 
     public static void main(String args[]) {
