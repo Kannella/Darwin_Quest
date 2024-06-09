@@ -131,17 +131,17 @@ public class KeyHandler implements KeyListener {
             // PrimeiroDialogoExplicacaoJogo primeiro=new PrimeiroDialogoExplicacaoJogo();
             // primeiro.setVisible(true);
             // primeiro.setLocationRelativeTo(null);
-            DialogoExplicacao2 d2= new DialogoExplicacao2();
+            DialogoExplicacao2 d2= new DialogoExplicacao2(gp);
             d2.setVisible(true);
             d2.setLocationRelativeTo(null);
         }
         if(gp.dControler.getCruzamentos()==2){
-            DialogoExplicacao3 d3= new DialogoExplicacao3();
+            DialogoExplicacao3 d3= new DialogoExplicacao3(gp);
             d3.setVisible(true);
             d3.setLocationRelativeTo(null);
         }
         if(gp.dControler.getCruzamentos()==3){
-            DialogoExplicacao4 d4 = new DialogoExplicacao4();
+            DialogoExplicacao4 d4 = new DialogoExplicacao4(gp);
             d4.setVisible(true);
             d4.setLocationRelativeTo(null);
         }
@@ -152,7 +152,8 @@ public class KeyHandler implements KeyListener {
 
         // Muda o estado do jogo para playState
         // gp.currentState.setPlayState();
-        gp.getWindow().setVisible(false);
+        Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);
+        w.setVisible(false);
         gp.sManager.spriteSorteado1 = null;
         gp.sManager.spriteSorteado2 = null;
         gp.sManager.sortearSprites();

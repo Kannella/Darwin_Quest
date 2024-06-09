@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoExplicacao4 extends javax.swing.JFrame {
-
+    GamePanel gp;
     private String[] textos = {
             "Vale salientar que não há uma tendência de melhora de acordo com a necessidade do indivíduo.",
             "A seleção natural atua apenas nas características existentes em uma população, não provocando o surgimento de características melhores."
@@ -26,6 +26,17 @@ public class DialogoExplicacao4 extends javax.swing.JFrame {
     public DialogoExplicacao4() {
         initComponents();
         iniciarAnimacaoTexto();
+    }
+    public DialogoExplicacao4(GamePanel gp) {
+        initComponents();
+        iniciarAnimacaoTexto();
+        setGp(gp);
+    }
+    private void setGp(GamePanel gp){
+        this.gp=gp;
+    }
+    private GamePanel getGp(){
+        return gp;
     }
 
     private void initComponents() {
@@ -175,7 +186,7 @@ public class DialogoExplicacao4 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        GamePanel.getWindow().setVisible(true);
+        getGp().getWindow().setVisible(true);
         UtilityTool.setAcabouLer(true);
         dispose(); 
     }

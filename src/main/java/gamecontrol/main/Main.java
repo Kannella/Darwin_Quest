@@ -10,7 +10,7 @@ import javax.swing.*;
 
 
 public class Main {
-    static JFrame window = new JFrame();
+    JFrame window = new JFrame();
     public static void main(String[] args) {
 
         ConexaoBD conexaoBD = new ConexaoBD();
@@ -79,7 +79,7 @@ public class Main {
 
     // Método para abrir a janela do jogo
     public static void abrirJanelaDoJogo() {
-        // JFrame window = new JFrame();
+        JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Darwin Quest V0.8");

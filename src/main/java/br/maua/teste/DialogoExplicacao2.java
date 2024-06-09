@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoExplicacao2 extends javax.swing.JFrame {
-    
+    GamePanel gp;    
     // CurrentState CS = new CurrentState();
 
     private String[] textos = {
@@ -25,10 +25,20 @@ public class DialogoExplicacao2 extends javax.swing.JFrame {
     private Timer timer;
 
     private JTextArea[] textAreas;
-
-    public DialogoExplicacao2() {
+    public DialogoExplicacao2(){
         initComponents();
         iniciarAnimacaoTexto();
+    }
+    public DialogoExplicacao2(GamePanel gp) {
+        initComponents();
+        iniciarAnimacaoTexto();
+        setGp(gp);
+    }
+    private void setGp(GamePanel gp){
+        this.gp=gp;
+    }
+    private GamePanel getGp(){
+        return gp;
     }
 
     @SuppressWarnings("unchecked")
@@ -179,7 +189,7 @@ public class DialogoExplicacao2 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        GamePanel.getWindow().setVisible(true);
+        getGp().getWindow().setVisible(true);
         UtilityTool.setAcabouLer(true);
         dispose(); 
     }

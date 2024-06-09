@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 
 public class DialogoExplicacao3 extends javax.swing.JFrame {
     // CurrentState CS = new CurrentState();
+    GamePanel gp;
     private String[] textos = {
             "Dentro da minha teoria, é Importante frisar que o que determina a boa adaptação de uma espécie",
             "É o ambiente. Pois como suas mutações são completamente aleatórias, a espécie só prosperará se as mutações forem boas para o ambiente que ela está."
@@ -26,6 +27,17 @@ public class DialogoExplicacao3 extends javax.swing.JFrame {
     public DialogoExplicacao3() {
         initComponents();
         iniciarAnimacaoTexto();
+    }
+    public DialogoExplicacao3(GamePanel gp) {
+        initComponents();
+        iniciarAnimacaoTexto();
+        setGp(gp);
+    }
+    private void setGp(GamePanel gp){
+        this.gp=gp;
+    }
+    private GamePanel getGp(){
+        return gp;
     }
 
     private void initComponents() {
@@ -175,7 +187,7 @@ public class DialogoExplicacao3 extends javax.swing.JFrame {
     }
 
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
-        GamePanel.getWindow().setVisible(true);
+        getGp().getWindow().setVisible(true);
         UtilityTool.setAcabouLer(true);
         dispose(); 
     }

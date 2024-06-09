@@ -60,7 +60,8 @@ public class UI {
             drawPauseScreen();
         }
         if (gp.currentState.getGameState() == gp.currentState.gameOverState) {
-            gp.getWindow().dispose();
+            Window w = javax.swing.SwingUtilities.getWindowAncestor(gp);
+            w.dispose();
             drawGameOverScreen();
         }
         if (gp.currentState.getGameState() == gp.currentState.chooseState) {

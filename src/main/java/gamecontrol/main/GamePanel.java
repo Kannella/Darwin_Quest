@@ -145,15 +145,14 @@ public class GamePanel extends JPanel implements Runnable {
             UtilityTool.setchegouofim(true);
             PerpetuouBesouro pb = new PerpetuouBesouro();
             pb.setVisible(true);
-            pb.setLocation(null);
+            pb.setLocationRelativeTo(null);
         }
         if(!UtilityTool.gettocaMusica()){
             Sound.isPlaying=false; 
         }
     }
-    
-    public static Window getWindow(){
-        Window w = Main.window;
+    public Window getWindow(){
+        Window w = javax.swing.SwingUtilities.getWindowAncestor(this);
         return w;
     }
 
