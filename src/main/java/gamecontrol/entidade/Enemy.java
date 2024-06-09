@@ -18,12 +18,12 @@ public class Enemy extends Entity {
         super(gp);
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 12;
+        solidArea.x = 15;
+        solidArea.y = 15;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.width = 30;
+        solidArea.height = 30;
 
         tamanho=100;
         type = 2;

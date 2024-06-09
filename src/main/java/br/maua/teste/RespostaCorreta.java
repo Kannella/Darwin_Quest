@@ -80,13 +80,47 @@ public class RespostaCorreta extends javax.swing.JFrame {
         fundo.setBounds(0, 0, 768, 576);
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
+    
+    int contador = 0;
 
     private void botao_avancarMouseClicked(java.awt.event.MouseEvent evt) {                                           
         dispose();
-        TelaInicial telaInicial = new TelaInicial();
-        telaInicial.setVisible(true);
-        telaInicial.setLocationRelativeTo(null);
+
+        // Logica abaixo para verificar a quantidade de vezes clicacdo no avançar
+
+        contador++;
+
+        if (contador == 1) {
+            SegundaPergunta segundaPergunta = new SegundaPergunta();
+            segundaPergunta.setVisible(true);
+            segundaPergunta.setLocationRelativeTo(null);
+            
+            
+        } else if (contador == 2) {
+            SegundaPergunta segundaPergunta = new SegundaPergunta();
+            segundaPergunta.setVisible(true);
+            segundaPergunta.setLocationRelativeTo(null);
+
+        } else if (contador == 3) {
+            TerceiraPergunta terceirapergunta = new TerceiraPergunta();
+            terceirapergunta.setVisible(true);
+            terceirapergunta.setLocationRelativeTo(null);
+        } else if (contador == 4) {
+            // Codigo para chamar a tela final que sera implementada
+        }
+             
+
+
+
+
+        
+
+
+
+
+        
+
     }                                          
 
     /**
