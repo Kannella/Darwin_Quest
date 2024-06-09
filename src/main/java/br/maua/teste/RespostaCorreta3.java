@@ -4,12 +4,12 @@
  */
 package br.maua.teste;
 
-public class RespostaCorreta extends javax.swing.JFrame {
+public class RespostaCorreta3 extends javax.swing.JFrame {
 
     /**
      * Creates new form PerguntaCorreta
      */
-    public RespostaCorreta() {
+    public RespostaCorreta3() {
         initComponents();
 
         new Thread() {
@@ -86,10 +86,6 @@ public class RespostaCorreta extends javax.swing.JFrame {
 
     private void botao_avancarMouseClicked(java.awt.event.MouseEvent evt) {                                           
         dispose();
-
-        SegundaPergunta segundaPergunta = new SegundaPergunta();
-        segundaPergunta.setVisible(true);
-        segundaPergunta.setLocationRelativeTo(null);
 
     }                                          
 

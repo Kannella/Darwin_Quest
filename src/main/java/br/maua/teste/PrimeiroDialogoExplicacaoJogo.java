@@ -30,7 +30,7 @@ import java.awt.*;
             iniciarAnimacaoTexto();
         }
 
-        @SuppressWarnings("unchecked")
+
         private void initComponents() {
 
             primeira_fala = new javax.swing.JScrollPane();

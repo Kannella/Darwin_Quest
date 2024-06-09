@@ -1,10 +1,9 @@
 package br.maua.teste;
 
-import java.awt.Color;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JOptionPane;
 
 
 import gamecontrol.assets.ConexaoBD;
@@ -153,7 +152,7 @@ public class TerceiraPergunta extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 dispose();
 
-                RespostaCorreta respostaCorreta = new RespostaCorreta();
+                RespostaCorreta3 respostaCorreta = new RespostaCorreta3();
                 respostaCorreta.setVisible(true);
                 respostaCorreta.setLocationRelativeTo(null);
 
@@ -164,7 +163,7 @@ public class TerceiraPergunta extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 dispose();
 
-                RespostaCorreta respostaCorreta = new RespostaCorreta();
+                RespostaCorreta3 respostaCorreta = new RespostaCorreta3();
                 respostaCorreta.setVisible(true);
                 respostaCorreta.setLocationRelativeTo(null);
 

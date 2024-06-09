@@ -24,7 +24,7 @@ public class PerpetuouBesouro extends javax.swing.JFrame {
         iniciarAnimacaoTexto();
     }
 
-    @SuppressWarnings("unchecked")
+
     private void initComponents() {
 
         fala_balao_2 = new javax.swing.JScrollPane();
@@ -162,9 +162,10 @@ public class PerpetuouBesouro extends javax.swing.JFrame {
                         timer.start();
                     }else{
                         dispose();
-                        PrimeiraPergunta priPergunta = new PrimeiraPergunta();
-                        priPergunta.setVisible(true);
-                        priPergunta.setLocationRelativeTo(null);
+
+                        PrimeiraPergunta primeiraPergunta = new PrimeiraPergunta();
+                        primeiraPergunta.setVisible(true);
+                        primeiraPergunta.setLocationRelativeTo(null);
                     }
                 }
             }

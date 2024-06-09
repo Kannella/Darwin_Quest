@@ -41,7 +41,7 @@ public class DialogoExplicacao2 extends javax.swing.JFrame {
         return gp;
     }
 
-    @SuppressWarnings("unchecked")
+ 
     private void initComponents() {
 
         fala_balao = new javax.swing.JScrollPane();
