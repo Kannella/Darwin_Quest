@@ -84,7 +84,13 @@ public class RespostaCorreta3 extends javax.swing.JFrame {
     
 
 
-    private void botao_avancarMouseClicked(java.awt.event.MouseEvent evt) {                                           
+    private void botao_avancarMouseClicked(java.awt.event.MouseEvent evt) {   
+        // Método para abrir a janela do jogo
+        TelaInicial telaInicial = new TelaInicial();
+        // Método para abrir a janela de login
+        telaInicial.setVisible(true);
+        telaInicial.setLocationRelativeTo(null);
+                                         
         dispose();
 
         // Aqui vai a logica de avançar para a tela final
