@@ -87,6 +87,9 @@ public class RespostaCorreta3 extends javax.swing.JFrame {
     private void botao_avancarMouseClicked(java.awt.event.MouseEvent evt) {                                           
         dispose();
 
+        // Aqui vai a logica de avançar para a tela final
+
+
     }                                          
 
     /**
