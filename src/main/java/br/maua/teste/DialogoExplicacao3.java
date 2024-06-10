@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import gamecontrol.main.GamePanel;
+import gamecontrol.main.UI;
 import gamecontrol.main.UtilityTool;
 
 import java.awt.*;
@@ -189,6 +190,7 @@ public class DialogoExplicacao3 extends javax.swing.JFrame {
     private void primeiro_dialogoMouseClicked(java.awt.event.MouseEvent evt) {
         getGp().getWindow().setVisible(true);
         UtilityTool.setAcabouLer(true);
+        UI.iniciarTimer(gp);
         dispose(); 
     }
 

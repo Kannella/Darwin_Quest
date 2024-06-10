@@ -121,7 +121,7 @@ public class KeyHandler implements KeyListener {
         gp.playMusic(0);
         // Reseta e inicia o timer
         UI.tempoDecorrido = 0;
-        UI.iniciarTimer(gp);
+        //UI.iniciarTimer(gp);
         // Destrói player
         gp.disposePlayer();
         //Faz outro player
