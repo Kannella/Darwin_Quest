@@ -76,8 +76,8 @@ Darwin Quest é dividido em várias telas e diálogos interativos com Charles Da
 7. **Sétima Tela - Perguntas sobre a Matéria:**
    - Responda perguntas sobre a matéria. Se errar, tente novamente.
 
-8. **Oitava Tela - Agradecimento Final:**
-   - Darwin agradece o jogador pelas descobertas e companhia.
+8. **Oitava Tela - Final Jogo:**
+   - O Jogador será redirecionado para a tela inicial.
 
 ## 🤝 Contribuição
 
