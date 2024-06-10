@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Entidade e objeto
     public Player player;
     public Partner partner = new Partner(this);
-    public SuperObject[][] obj = new SuperObject[maxMap][10];
+    public SuperObject[][] obj = new SuperObject[maxMap][30];
     public Entity[][] npc = new Entity[maxMap][10];
     public Entity[][] enemy = new Entity[maxMap][10];
     ArrayList<Entity> entityList = new ArrayList<>();

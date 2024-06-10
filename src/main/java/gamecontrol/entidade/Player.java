@@ -232,7 +232,10 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-          
+           
+            gp.obj[0][i] = null;
+            //aumenta vida do player
+            life += 2;
         }
     }
 

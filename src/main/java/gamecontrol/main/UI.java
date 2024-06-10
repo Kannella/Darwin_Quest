@@ -161,16 +161,19 @@ public class UI {
     }
 
     public void drawTimeBar() {
-        int elapsedTimeSeconds = (int) (tempoDecorrido / 1000); // Converte o tempo decorrido de milissegundos para segundos para realizar calculos
+        int elapsedTimeSeconds = (int) (tempoDecorrido / 1000); // Converte o tempo decorrido de milissegundos para
+                                                                // segundos para realizar calculos
         int barWidth = (int) ((gp.screenWidth - 20) * (120 - elapsedTimeSeconds) / 120.0); // 120 segundos = 2 minutos
 
-        if (elapsedTimeSeconds >= 30 && elapsedTimeSeconds < 120) { // Se o tempo decorrido for maior que 50 segundos e menor que 2 minutos
+        if (elapsedTimeSeconds >= 30 && elapsedTimeSeconds < 120) { // Se o tempo decorrido for maior que 50 segundos e
+                                                                    // menor que 2 minutos
             g2.setColor(Color.GREEN);
         } else {
             g2.setColor(Color.RED);
         }
 
-        // Garante que a largura da barra não seja negativa ou maior que a largura da tela
+        // Garante que a largura da barra não seja negativa ou maior que a largura da
+        // tela
         barWidth = Math.max(0, barWidth);
 
         g2.fillRect(10, gp.screenHeight - 40, barWidth, 25); // Desenha a barra de tempo com Rectangle
@@ -189,18 +192,27 @@ public class UI {
                             pararTimer();
                         } else {
                             tempoDecorrido += 1000;
-                            // System.out.println("Tempo decorrido: " + tempoDecorrido / 1000 + " segundos");
-                            // System.out.println("X: w"+gp.enemy[0][0].worldX);
-                            // System.out.println("Y: "+gp.enemy[0][0].worldY);   //leo: isso aqui fica pingando a posição desse inimigo, ajuda a marcar as posições de spawn
-                        }
-                        if (tempoDecorrido >= 30 * 1000 && !canReproduce) {
-                            System.out.println("Possivel reproduzir");
-                            canReproduce = true;
-                        }
-                        if (tempoDecorrido >= 2 * 60 * 1000) { // 2 minutos = 120 segundos = 120.000 milissegundos 
-                            pararTimer();
-                            System.out.println("tempo esgotado");
-                            currentState.setGameOverState();
+
+                            // Reduzir a vida em meio coração a cada 10 segundos
+                            if (tempoDecorrido % (10 * 1000) == 0) {
+                                int playerLife = gp.getPlayer().life;
+                                if (playerLife > 0) {
+                                    gp.getPlayer().life = playerLife - 1;
+                                    if (gp.getPlayer().life <= 0) {
+                                        currentState.setGameOverState();
+                                    }
+                                }
+                            }
+
+                            if (tempoDecorrido >= 30 * 1000 && !canReproduce) {
+                                System.out.println("Possivel reproduzir");
+                                canReproduce = true;
+                            }
+                            if (tempoDecorrido >= 2 * 60 * 1000) { // 2 minutos = 120 segundos = 120.000 milissegundos
+                                pararTimer();
+                                System.out.println("tempo esgotado");
+                                currentState.setGameOverState();
+                            }
                         }
                     } else {
                         // System.out.println("CurrentState é nulo.");

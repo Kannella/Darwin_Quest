@@ -2,6 +2,7 @@ package gamecontrol.main;
 
 import gamecontrol.entidade.Enemy;
 import gamecontrol.entidade.Partner;
+import gamecontrol.objeto.Gotinha;
 
 //Classe feita para instanciar onde aparecem objetos no jogo, no caso comida
 
@@ -17,9 +18,27 @@ public class AssetSetter {
     }
 
     public void setObject(){
-        //int mapNum = 0;
 
-        //mapNum = 1;
+        gp.obj[0][0] = new Gotinha(gp);
+        gp.obj[0][0].worldX = 1010; // Define a posição X do objeto no mundo
+        gp.obj[0][0].worldY = 1800; // Define a posição Y do objeto no mundo
+
+        gp.obj[0][1] = new Gotinha(gp);
+        gp.obj[0][1].worldX = 1866; // Define a posição X do objeto no mundo
+        gp.obj[0][1].worldY = 1460; // Define a posição Y do objeto no mundo
+
+        gp.obj[0][2] = new Gotinha(gp);
+        gp.obj[0][2].worldX = 531; // Define a posição X do objeto no mundo
+        gp.obj[0][2].worldY = 867; // Define a posição Y do objeto no mundo
+
+        gp.obj[0][3] = new Gotinha(gp);
+        gp.obj[0][3].worldX = 1240; // Define a posição X do objeto no mundo
+        gp.obj[0][3].worldY = 312; // Define a posição Y do objeto no mundo
+
+        gp.obj[0][4] = new Gotinha(gp);
+        gp.obj[0][4].worldX = 1324; // Define a posição X do objeto no mundo
+        gp.obj[0][4].worldY = 2052; // Define a posição Y do objeto no mundo
+    
     }
     public void setNPC(){
         int num_npcs=5; //Controla o numero de npcs, não muda isso

@@ -4,14 +4,19 @@ package gamecontrol.objeto;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import gamecontrol.main.GamePanel;
+
 
 public class Gotinha extends SuperObject {
     
-    public Gotinha (){
+    GamePanel gp;
 
+    public Gotinha (GamePanel gp){
+        this.gp = gp;
         name = "Aguinha";
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objetos/GotaDAgua.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objetos/FolinhaHMM.png"));
+            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }
