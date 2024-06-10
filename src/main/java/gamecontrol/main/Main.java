@@ -82,7 +82,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Darwin Quest V0.8");
+        window.setTitle("Darwin Quest V1");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

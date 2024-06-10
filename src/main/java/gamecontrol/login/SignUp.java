@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import gamecontrol.jogador.Jogador;
+import gamecontrol.main.Main;
 
 public class SignUp extends javax.swing.JFrame {
 
@@ -215,7 +216,19 @@ public class SignUp extends javax.swing.JFrame {
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null); 
-        this.dispose();
+        dispose();
+        LoginFrame.setLoginSuccessListener(
+            new Login.LoginSuccessListener() {
+                @Override // Sobrescreve o método onLoginSuccess() da interface LoginSuccessListener
+                public void onLoginSuccess() {
+                    // Quando o login for bem-sucedido, esta parte do código será executada
+                    System.out.println("Login bem-sucedido! Abrindo a janela do jogo...");
+
+                    Main.abrirTelaInical();
+                    
+                }
+            }
+        );
     }
 
     /**
